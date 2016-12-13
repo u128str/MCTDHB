@@ -1,0 +1,35 @@
+!$OMP END DO
+!$OMP END PARALLEL
+           ZRIJ=RIJ
+      CALL ZGEMV('N',Nconf,TID,Zoner,VOUT,Nconf,sumvout1,1,ZERO,VIN,1)
+
+
+
+c          call cpu_time(finish)
+c          exec_time=finish-start
+c          write(6,*)"IN 1Body Execution DNS time:",exec_time,L
+c          write(6,*)"IN: Execution CNK time:",cnk_time
+c            write(6,*)" Number of elements",L, " out of ",Nconf,Nconf-L
+c        write(6,*)" From :",(Sh_m(i),i=1,7)
+c        write(6,*)" -->  :",(Sh_p(i),i=1,7)
+c       write(6,'(a20,F26.16,F26.16)')"Dir DNS element",zrho
+c       write(6,'(a20,F26.16,F26.16)')"Cng DNS element",zrhocnjg
+c================================================================
+c              Do k=1,Nconf
+c           IF(VOUT(k).ne.ZERO)
+c     .      write(6,*)k,"IN",VIN(k),"OUT",VOUT(k)
+c              Enddo
+c               stop
+
+
+c        VIN=VOUT
+       DEALLOCATE(VOUT)
+c       CI_Production_1b=.TRUE.
+       CI_Production_1b=CI_Prd
+
+c          call cpu_time(finish)
+c          exec_time=finish-start
+c          write(6,*)IPRC,TillN-FromN,"CPU Get 1b",exec_time
+
+c           write(6,*)MYID, " 1B done "
+

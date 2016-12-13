@@ -1,0 +1,18 @@
+ # This computation has been done in
+ # /univ_1/ws1/ws/xhcmbtb1-MCTDHB_V3.2-0/NEW_HIM/Fig5/step2
+ # Date 25/08/2014; time 16:18:44
+ #      Current version 3.2.11  w7h Heidelberg Aug (2014)        # 
+ # Morb=  6  Npar=      10   Job= Job->Prop.  Forward
+ # V(x_y_z&t)= 0.5d0*x^2*(1+sin(t)*cos(2*t)*sin(0.5*t)*sin(0.4*t))                                                 
+ # W(R=|r1-r2|&t)= r^2*(1-0.1*sin(t)*cos(2*t)*sin(0.5*t)*sin(0.4*t))                                                   
+ # Kind of W: 0 - delta, other in Get_InterParticle.F= 4  lambda_0=       0.50000000
+ # NDX=  128 NDY=    1 NDZ=    1 DIM-MCTDH=    1 DVR_X=    4 DVR_Y=    4 DVR_Z=    5
+ # MCTDHB-EOM have been solved from T_bgn=   0.000000000000 till T_fnl= 25.000000000000 with Time_print_step=     0.100000
+ # T_cpu= 405.202744960785 Num_OMP_threads=    1 Num_MPI_proc =    7
+ Energy =       16.2009202852791070
+  n( 1) =        8.3518353217554839
+  n( 2) =        1.3725887886559065
+  n( 3) =        0.2264270630765518
+  n( 4) =        0.0403263239919803
+  n( 5) =        0.0077870910665948
+  n( 6) =        0.0010354114535943

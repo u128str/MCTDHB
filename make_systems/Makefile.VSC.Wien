@@ -1,0 +1,118 @@
+cmp=sun
+cmp=intel
+#cmp=gcc
+#cmp=Pathscale
+
+ifeq ($(cmp),gcc)
+FF=mpif90
+FC =$(FF) -O1 -g -fopenmp  -lgfortran
+#BLAS =  -L/opt/acml/current/gfortran64/lib -lacml -lacml_mv
+#BLAS =  -L/opt/acml/current/gfortran64_mp/lib  -lacml_mp -lacml_mv
+BLAS = -L/home/thor2/astrelts/lib/gfortran64_int64/lib/ -lacml -lacml_mv
+LIBRARIES =
+MY_LIB= -L./user_guesslib -lguess
+F90_LD= gfortran -fPIC -shared 
+endif
+
+ifeq ($(cmp),Pathscale)
+FF=mpif90
+#FC =$(FF) -O1  -fopenmp
+FC =mpif90 -O1  -fopenmp -fixedform
+FC =mpif90 -O1  -fopenmp 
+BLAS =  -L/opt/acml/current/pathscale64/lib -lacml -lacml_mv
+LIBRARIES =
+MY_LIB= -L./user_guesslib -lguess
+F90_LD= mpif90 -fPIC -shared 
+endif
+
+#================== Victor-assisted 
+ifeq ($(cmp),intel)
+FF=/usr/mpi/qlogic/bin/mpif90
+FC =$(FF)  -O3 -parallel -openmp -par-schedule-runtime
+MY_LIB= -L./user_guesslib -lguess
+F90_LD= ifort -fPIC -shared 
+LIB_MKL = /opt/intel/Compiler/11.1/046/mkl/lib/em64t
+LIBRARIES= -L$(LIB_MKL) $(LIB_MKL)/libmkl_solver_lp64_sequential.a -Wl,--start-group -lmkl_intel_lp64 -lmkl_sequential -lmkl_core -Wl,--end-group -lpthread
+endif
+#=================SUN ===========================================================================================#
+ifeq ($(cmp),sun)
+`export LD_LIBRARY_PATH=/opt/SUNWhpc/HPC8.0/lib:$LD_LIBRARY_PATH`
+MPI= 
+FF=/opt/SUNWhpc/HPC8.0/bin/mpif90
+FC=$(FF)  -O3 -xopenmp=parallel -I$(MPI)/include -xlic_lib=sunperf -L/opt/SUNWhpc/HPC8.0/lib 
+#FC=$(FF)  -g -xopenmp=parallel -I$(MPI)/include -xlic_lib=sunperf -L/opt/SUNWhpc/HPC8.0/lib 
+LIBRARIES= 
+#MY_LIB= -L/home/alexej/SunStudioProjects/MCTDHBV2.0.0_OMP_SUN/source/user_guesslib -lguess
+MY_LIB= -L ./user_guesslib -lguess
+F90_LD= f90 -pic -G
+endif
+#================================================================================================================#
+
+PATH_OBJ=
+MORB="files are taken from"
+PRT="`pwd`"
+
+#VPATH = ./source: ./user_guesslib
+
+DIRS := ./source
+FILES_f := $(foreach dir, $(DIRS), $(wildcard $(dir)/*.f))
+FILES_F := $(foreach dir, $(DIRS), $(wildcard $(dir)/*.F))
+FILES_f90 := $(foreach dir, $(DIRS), $(wildcard $(dir)/*.f90))
+
+OBJ_f   := $(patsubst %.f, %.o, $(FILES_f))
+OBJ_F   := $(patsubst %.F, %.o, $(FILES_F))
+OBJ_f90 := $(patsubst %.f90, %.o, $(FILES_f90))
+
+MODS= ./source/MODULES_ALL_allocate.o ./source/MODULES_SUBR.o ./source/MODULES_CI_SUBR.o 
+
+TIME = "`date +"%j_%s"`" 
+
+.SUFFIXES:
+.SUFFIXES:.F .f .f90 .o
+
+%.o : %.f90
+	$(FC) -c $< -o $@
+#	$(FC) -c $< -o ./objects/$(notdir $@)
+
+%.o : %.F
+	$(FC) -c $< -o $@
+#	$(FF) -c $< -o ./objects/$(notdir $@)
+
+%.o : %.f
+	$(FC) -c $< -o $@
+#	$(FF) -c $< -o ./objects/$(notdir $@)
+
+#%.o : %.F
+#	$(FF) -c $< -o $@
+#.f90.o: ;
+#	$(FC) -c  $*.f90
+#.F.o: ;
+#	$(FF) -c  $*.F
+
+boson_MCTDHB_$(cmp): $(MODS) $(OBJ_f90) $(OBJ_F) $(OBJ_f) libguess.so
+	$(FC) -o $@ $(OBJ_f) $(OBJ_F)  $(OBJ_f90)  $(LIBRARIES) $(BLAS)  $(MY_LIB)
+	mv boson_MCTDHB_$(cmp)  ./bin/.
+	echo "`ls -ltr ./bin/*`"
+
+###	mv boson_MCTDHB_$(cmp)  ./bin/boson_MCTDHB_$(cmp)_$(TIME)
+clean:
+	rm -r ./source/*.o ./*.mod ./user_guesslib/libguess.so ./user_guesslib/*.o
+
+cl:
+	rm -r ./source/*.o ./*.mod ./user_guesslib/libguess.so ./user_guesslib/*.o
+#================= Dynamic Library =================
+DYN_DIRS := ./user_guesslib #All files from this directory are compiled and linced to the dynamical library
+DYN_FILES_F := $(foreach dir, $(DYN_DIRS), $(wildcard $(dir)/*.F))
+DYN_OBJ_F   := $(patsubst %.F, %.o, $(DYN_FILES_F))
+
+libguess.so : $(DYN_OBJ_F)
+	$(F90_LD) $(DYN_FILES_F) -o ./user_guesslib/libguess.so
+#	mv $(notdir $(DYN_OBJ_F)) $(DYN_DIRS)/.
+
+
+#libguess.so : ./user_guesslib/Guess_PSI.F ./user_guesslib/Guess_CI.F ./user_guesslib/Get_InterParticle.F
+#	f90 -pic -G Guess_PSI.F Guess_CI.F  Get_InterParticle.F VTRAP_EXT_TD.F PotfitAll.F   -o ./user_guesslib/libguess.so
+
+
+
+

@@ -1,0 +1,46 @@
+c====================== Bosonic prefactors
+          nvecout=nvecin
+c          IF(nvecin(4).eq.24.and.nvecin(6).eq.1)
+c     .    write(6,*) nvecin,": 0 0 0 24 0 1 0 ",K
+c          stop
+c===================== cI,cJ,cK,cL two-body
+             xbprefac=1.0d0
+             xbprefac=xbprefac*nvecout(cL)
+             nvecout(cL)=nvecout(cL)-1
+             xbprefac=xbprefac*nvecout(cK)
+             nvecout(cK)=nvecout(cK)-1
+             nvecout(cJ)=nvecout(cJ)+1
+             xbprefac=xbprefac*nvecout(cJ)
+             nvecout(cI)=nvecout(cI)+1
+             xbprefac=xbprefac*nvecout(cI)
+             IF(CI_Prd.eqv..True.) THEN
+             Ind_CI_2b(K,I-FromN+1)=J
+             Prefactors_2b(K,I-FromN+1)=xbprefac
+             ENDIF
+c=========================== Normal    C^_I C^_J C_K C_L  rho_IJ_KL
+           zdir=VIN(K)* SQRT(xbprefac)
+c           VOUT(J)=zdir
+           zrho=zrho+Conjg(VIN(J))*zdir
+        RIJKL(I_current_term)=RIJKL(I_current_term)+Conjg(VIN(J))*zdir
+c=========================== Conjugate C^_K C^_L C_I C_J   rho_IJ_KL=rho^*_KL_IJ
+           zinv=VIN(J)* SQRT(xbprefac)
+c           VOUT(K)=zinv
+           zrhocnjg=zrhocnjg+Conjg(VIN(K))*zinv
+c============================= Explicit construction of
+c================== |VOUT>=(Re(Escale)*Wijkl *C^_I C^_J C_K C_L + Im(Escale)*Wklij*C^_K C^_L C_I C_J) |PSI>
+c=============================  Re(Escale), Im(Escale) can be IIII (0.5:0.5), IJIJ (2:2), IJKL (4:4), IIKL(2:2), IILL (1:1)
+        VOUT(J,this_thread)=VOUT(J,this_thread)
+     .+zdir*       WIJKL(I_current_term)
+     .                      *DREAL(RESCALE_2B(I_current_term))
+        VOUT(K,this_thread)=VOUT(K,this_thread)
+     .+zinv* Conjg(WIJKL(I_current_term))
+     .                      *DIMAG(RESCALE_2B(I_current_term))
+c=============================================================
+c            L=L+1
+c==============================
+
+c       write(6,'(i7,i7,a10,7(i6,a),a10,i7,a7,7(i6,a))') K,L,
+c     $" Bosonic:|",(nvecin(i)," ", i=1,7),
+c     $" |-----> ",J," | ", (nvecout(i)," ", i=1,7)
+
+

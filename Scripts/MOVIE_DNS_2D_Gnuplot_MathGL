@@ -1,0 +1,156 @@
+#!/bin/bash
+rm -f *gnu*
+rm -f *ppm*
+rm -f *gif*
+rm -f *sort*
+
+# process args
+case "$1" in
+    clean|-cl*)
+rm -f *gnu*
+rm -f *ppm*
+rm -f *gif*
+rm -f *sort*
+  exit 0 ;;
+    help|-h*)
+echo "Usage: ../Scripts/sng_movie_MCHB_PSI_NO_scaled 0 15 1 10 Graph"
+echo "where: from T=0 till T=15 dT=1 Morb=10 Graph=PLT"
+echo "where: from T=0 till T=15 dT=1 Morb=10 Graph=MGL"
+  exit 0 ;;
+    "")
+echo "!!!Usage: ../Scripts/sng_movie_MCHB_PSI_NO_scaled 0 15 1 10 Graph"
+echo "where: from T=0 till T=15 dT=1 Morb=10 Graph=PLT"
+echo "where: from T=0 till T=15 dT=1 Morb=10 Graph=MGL"
+exit 0 ;
+esac
+
+
+FILE_LIST="`ls -t *time.dat`"
+
+#echo "Usage: ../Scripts/sng_movie_MCHB_PSI_NO_scaled 0 15 1 10 "
+#echo "where from T=0 till T=15 dT=1 Morb=10"
+
+
+case "$1" in
+    [0-9]*)
+echo "Plot from:" $1
+echo "Plot till:" $2
+#LIST="`seq -f %1.1f $1 0.1 $2`"
+
+if [ ! "$3" ]
+        then
+                echo "Step is not defined - I use default: dt= 0.1"
+LIST="`seq -f %1.1f $1 0.1 $2`"
+LIST="`seq -f%.6f  $1 $3 $2`"
+#                exit
+        else
+                echo "Step is defined - : dt="$3
+LIST="`seq -f %1.1f $1 $3 $2`"
+LIST="`seq -f%.6f  $1 $3 $2`"
+if [ "$3" == 0.01 ]
+then
+LIST="`seq -f %1.2f $1 $3 $2`"
+LIST="`seq -f%.6f  $1 $3 $2`"
+fi
+#          exit
+fi
+
+
+((j=0))
+for i in ${LIST} ;
+do
+((j=j+1))
+case "$i" in
+    [0-9][0-9][0-9].*)
+lvar[j]=${i}time.dat
+if [ "$3" == 0.01 ]
+then
+lvar[j]=${i}time.dat
+fi
+esac
+case "$i" in
+    [0-9][0-9].*)
+lvar[j]=${i}0time.dat
+if [ "$3" == 0.01 ]
+then
+lvar[j]=${i}0time.dat
+fi
+esac
+case "$i" in
+    [0-9].*)
+lvar[j]=${i}00time.dat
+if [ "$3" == 0.01 ]
+then
+lvar[j]=${i}00time.dat
+fi
+esac
+#printf "     %s\n" "${lvar[j]}" "$jj"
+done
+FILE_LIST1=${lvar[@]}
+#echo "Full: " ${lvar[@]}
+FILE_LIST="`ls -t ${FILE_LIST1}`"
+#fi
+esac
+
+
+echo FILE_LIST: ${FILE_LIST}
+#flname=${FILE_LIST[@]:0:18}
+
+
+#echo "`cat TMP | sort -g `" > TMP1
+#echo "`cat TMP1`"
+#FILE_LIST1="`cat TMP1`"
+#rm TMP
+#rm TMP1
+#
+minX=-4
+maxX=4
+minY=-4
+maxY=4
+
+echo "minX: "$minX" maxX: "$maxX
+for i in ${FILE_LIST1} ; 
+do
+
+
+if [ -f $i ];
+then
+ii=${i:0:5}
+
+if [ "$5" == PLT ]
+then
+gnuplot -e "fn='$i'" -e "fn1='$ii'" plot2D.plt #gnuplot
+fi
+
+if [ "$5" == MGL ]
+then
+   echo "produce from File $i single-coloumn File.DAT for mathGL"
+awk 'NF{if ($1 != "#") print $6}' < $i  > $i.DAT
+mgl2png  ./plot2D_mgl_1.mgl  -0$i -1$ii #mathGL
+fi
+
+
+#else
+# echo "File $i does not exist."
+fi
+done
+#
+
+
+
+ls -t *.dat.jpg > qq.sort
+sort -g qq.sort > qq1.sort
+FILE_LIST1="`cat qq1.sort`"
+echo FILE_LIST1: ${FILE_LIST1}
+
+mencoder mf://@qq1.sort -mf w=800:h=600:fps=5:type=jpg -ovc lavc -lavcopts vcodec=msmpeg4v2 -oac copy -o MCTDHB_DNS_2D_$1_$2_$5.mpg
+echo "Created Movie File is named: MCTDHB_DNS_2D_$1_$2.mpg"
+#
+rm -f *gnu*
+rm -f *ppm*
+rm -f *jpg*
+rm -f *DAT
+#rm -f *jpeg*
+#rm -f *gif*
+rm -f *sort*
+  exit 0 

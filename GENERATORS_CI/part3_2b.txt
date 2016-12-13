@@ -1,0 +1,20 @@
+!$OMP END DO
+!$OMP END PARALLEL
+           ZRIJKL=RIJKL
+      CALL ZGEMV('N',Nconf,TID,Zoner,VOUT,Nconf,sumvout1,1,ZERO,VIN,1)
+
+c        VIN=VOUT
+       DEALLOCATE(VOUT)
+c       CI_Production_2b=.TRUE.
+       CI_Production_2b=CI_Prd
+c       write(6,*)MYID," CIJKL_2B  DONE",FromN,TillN
+c       call cpu_time(finish)
+c       exec_time=finish-start
+c       write(6,*)MYID,"IN 2-Bbody: Execution DNS time:",exec_time,L
+c================================================================
+c          call cpu_time(finish)
+c          exec_time=finish-start
+c          write(6,*)IPRC,TillN-FromN,"CPU Get 2b",exec_time
+
+
+

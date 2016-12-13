@@ -1,0 +1,128 @@
+cmp=intel
+#cmp=gcc
+#cmp=Pathscale
+
+FFT=FFTW
+FFT=MKLFFT
+
+ifeq ($(cmp),gcc)
+FF=ftn
+MKL_INC_DIR=$(MKLROOT)/include
+LIBRARY= -m64 -I$(MKL_INC_DIR) -L$(MKLROOT)/lib/intel64 -lmkl_gf_lp64 -lmkl_gnu_thread -lmkl_core -fopenmp -lpthread 
+FC =$(FF) -fopenmp -m64 -ffixed-line-length-none -ffree-line-length-none  
+ifeq ($(FFT),FFTW)
+LIBRARIES=-L./FFTW/lib -lfftw3_threads -lfftw3 -lm
+FFTFLAG= -DFFTW=1 -DMKLFFT=0
+DIRS1 :=
+endif
+# link to MKL_FFT libraries
+ifeq ($(FFT),MKLFFT)
+FFTFLAG= -DFFTW=0 -DMKLFFT=1
+DIRS1 := ./MKL_FFT
+LIBRARIES =
+endif
+MY_LIB= -Bdynamic libguess.so
+F90_LD= gfortran -fPIC -shared  
+endif
+
+#================= INTEL ===================================================================#
+ifeq ($(cmp),intel)
+FF=ftn
+# link to FFTW libraries
+ifeq ($(FFT),FFTW)
+#LIBRARIES=-L./FFTW/lib -lfftw3_threads -lfftw3 -lm 
+LIBRARIES=-L./FFTW/lib -lfftw3 -lm 
+FFTFLAG= -DFFTW=.TRUE. -DMKLFFT=.FALSE.
+DIRS1 := 
+endif
+# link to MKL_FFT libraries
+ifeq ($(FFT),MKLFFT) 
+FFTFLAG= -DFFTW=.FALSE. -DMKLFFT=.TRUE. 
+DIRS1 := 
+LIBRARIES = 
+endif
+MKLROOT=/opt/intel/Compiler/12.1.1.233/mkl/lib/intel64/
+MKL_INC_DIR=/opt/intel/Compiler/12.1.1.233/mkl/include/
+MPI=$(MPICH_DIR)
+BLAS= $(CRAY_GNI_HEADERS_INCLUDE_OPTS) -I$(MPI)/include -L$(MPI)/lib  -L$(MKLROOT)
+BLAS= -I$(MPI)/include -L$(MPI)/lib  -L$(MKLROOT)
+LIBRARY=-I$(MKL_INC_DIR) -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -openmp -lpthread -lm
+FC =ftn -mkl=parallel -parallel -O2 -ip -align all -warn none -complex_limited_range -ftz -openmp -par-schedule-runtime -fpp3  
+#FC =ftn -mkl=sequential -march=pentium3 -O0 -traceback -parallel -openmp -par-schedule-static -fpp3 
+#FC =mpif90 -O1 -parallel -openmp 
+MY_LIB= -Bdynamic libguess.so
+#MY_LIB= -L./user_guesslib -lguess
+F90_LD= ftn -fPIC -shared -march=pentium3
+endif
+#=================SUN ======================================================================#
+ifeq ($(cmp),sun)
+`export LD_LIBRARY_PATH=/opt/SUNWhpc/HPC8.0/lib:$LD_LIBRARY_PATH`
+MPI= 
+FF=/opt/SUNWhpc/HPC8.0/bin/mpif90
+FC=$(FF)  -O3 -xopenmp=parallel -I$(MPI)/include -xlic_lib=sunperf -L/opt/SUNWhpc/HPC8.0/lib 
+LIBRARIES= 
+MY_LIB= -Bdynamic ./user_guesslib/libguess.so
+F90_LD= f90 -pic -G
+endif
+#============================================================================================#
+
+PATH_OBJ=
+MORB="files are taken from"
+PRT="`pwd`"
+
+#VPATH = ./source: ./user_guesslib
+
+
+DIRS := ./source
+FILES_f := $(foreach dir, $(DIRS), $(wildcard $(dir)/*.f))
+FILES_F := $(foreach dir, $(DIRS), $(wildcard $(dir)/*.F))
+FILES_f90 := $(foreach dir, $(DIRS), $(wildcard $(dir)/*.f90))
+
+
+OBJ_f   := $(patsubst %.f, %.o, $(FILES_f))
+OBJ_F   := $(patsubst %.F, %.o, $(FILES_F))
+OBJ_f90 := $(patsubst %.f90, %.o, $(FILES_f90))
+
+MKL_DFTI_MOD=
+#ifeq ($(FFT),MKLFFT)
+#MKL_DFTI_MOD=./mkl_dfti.mod
+#endif
+
+MODS=  ./source/MODULES_ALL_allocate.o ./source/MODULES_SUBR.o ./source/MODULES_CI_SUBR.o
+
+TIME = "`date +"%j_%s"`" 
+
+.SUFFIXES:
+.SUFFIXES:.F .f .f90 .o
+
+
+%.o : %.f90
+	$(FC) $(FFTFLAG) -c $< -o $@
+%.o : %.F
+	$(FC) $(FFTFLAG) -c $< -o $@
+%.o : %.f
+	$(FC) $(FFTFLAG) -c $< -o $@
+
+boson_MCTDHB_$(cmp): MKL_DFTI_MOD $(MODS) $(OBJ_f90) $(OBJ_F) $(OBJ_f) libguess.so 
+	$(FC) $(MY_LIB) -o $@ $(OBJ_f) $(OBJ_F)  $(OBJ_f90) $(BLAS) $(LIBRARY) $(MY_LIB) $(LIBRARIES) $(FFTFLAG) $(HUGETLB64M_POST_LINK_OPTS)
+	mv boson_MCTDHB_$(cmp) ./libguess.so  ./bin/.
+	echo "`ls -ltr ./bin/*`"
+
+MKL_DFTI_MOD:
+	$(FC) -c $(MKL_INC_DIR)/mkl_dfti.f90 
+ 
+clean:
+	rm -r ./source/*.o ./*.mod ./user_guesslib/libguess.so ./user_guesslib/*.o ./*.o ./*.so
+
+cl:
+	rm -r ./source/*.o ./*.mod ./user_guesslib/libguess.so ./user_guesslib/*.o ./*.o ./*.so 
+#================= Dynamic Library =================
+DYN_DIRS := ./user_guesslib #All files from this directory are compiled and linced to the dynamical library
+DYN_FILES_F := $(foreach dir, $(DYN_DIRS), $(wildcard $(dir)/*.F))
+DYN_FILES_f90 := $(foreach dir, $(DYN_DIRS), $(wildcard $(dir)/*.f90))
+DYN_OBJ_F   := $(patsubst %.F, %.o, $(DYN_FILES_F))
+DYN_OBJ_f90   := $(patsubst %.f90, %.o, $(DYN_FILES_f90))
+
+libguess.so : $(DYN_OBJ_F) $(DYN_OBJ_f90) $(MODS)
+	$(F90_LD) $(DYN_FILES_F) $(DYN_OBJ_f90) -o libguess.so
+

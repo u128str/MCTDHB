@@ -1,0 +1,89 @@
+
+PATH_OBJ=
+MORB="files are taken from"
+PRT="`pwd`"
+
+DIRS := ./source $(DIRSFFT)
+FILES_f := $(foreach dir, $(DIRS), $(wildcard $(dir)/*.f))
+FILES_F := $(foreach dir, $(DIRS), $(wildcard $(dir)/*.F))
+FILES_f90 := $(foreach dir, $(DIRS), $(wildcard $(dir)/*.f90))
+FILES_cu := $(foreach dir, $(DIRS), $(wildcard $(dir)/*.cu))
+FILES_CUF := $(foreach dir, $(DIRS), $(wildcard $(dir)/*.CUF))
+
+
+OBJ_f   := $(patsubst %.f, %.o, $(FILES_f))
+OBJ_F   := $(patsubst %.F, %.o, $(FILES_F))
+OBJ_f90 := $(patsubst %.f90, %.o, $(FILES_f90))
+OBJ_cu := $(patsubst %.cu, %.o, $(FILES_cu))
+OBJ_CUF := $(patsubst %.CUF, %.o, $(FILES_CUF))
+
+#MODS=  ./source/MODULES_ALL_allocate.o ./source/MODULES_SUBR.o ./source/MODULES_CI_SUBR.o
+MODS= $(MKL_DFTI_MOD) ./source/MODULES_ALL_allocate.o ./source/MODULES_SUBR.o ./source/MODULES_CI_SUBR.o
+
+TIME = "`date +"%j_%s"`" 
+
+.SUFFIXES:
+.SUFFIXES: .CUF .cu .F .f .f90 .o 
+
+
+%.o : %.f90 
+	$(FC) $(FFTFLAG) $(INC_ALL)  -c $< -o $@
+#	$(FC) -c $< -o ./objects/$(notdir $@)
+
+%.o : %.F  
+	$(FC) $(FFTFLAG) $(INC_ALL) -c $< -o $@
+#	$(FF) -c $< -o ./objects/$(notdir $@)
+
+%.o : %.f
+	$(FC) $(FFTFLAG) $(INC_ALL) -c $< -o $@
+#	$(FF) -c $< -o ./objects/$(notdir $@)
+
+%.o : %.cu
+	$(CUDALIB)/bin/nvcc -O1 -arch=compute_20 -c $(FFTFLAG) $(INC_ALL) $< -o $@
+
+%.o : %.CUF 
+	mpif90 -O2  -fast  -Mcuda=3.2 -c $(INC_ALL)  $< -o $@ 
+
+all:  $(MODS) libguess.so ./bin/boson_MCTDHB_$(cmp)_$(FFT) ./bin/properties_MB_$(cmp)_$(FFT) info 
+
+
+./bin/boson_MCTDHB_$(cmp)_$(FFT): $(MODS) $(OBJ_F) $(OBJ_f90) $(OBJ_f) $(OBJ_cu)  $(OBJ_CUF) 
+	$(FC)  -o $@ $(OBJ_f90) $(OBJ_F) $(OBJ_f) $(OBJ_cu) $(OBJ_CUF) $(LIBRARIES) $(BLAS) $(MY_LIB) $(FFTFLAG) $(CUDA_ALL) $(INC_ALL) $(LIBS)
+	cp ./libguess.so  ./bin/.
+#	mv boson_MCTDHB_$(cmp)_$(FFT)  ./bin/.
+#	cp ./libguess.so  ./bin/.
+#	echo "`ls -ltr ./bin/*`"
+
+mkl_dfti.mod:
+	$(FC) -c $(MKL_INC_DIR)/mkl_dfti.f90 
+ 
+clean:
+	rm -r ./source/*.o ./*.mod ./user_guesslib/libguess.so ./user_guesslib/*.o ./*.o ./bin/* ./source/FFTMKL/*.o ./source/FFTFFTW/*.o ./source/FFTCUDACPP/*.o  ./source/FFTCUDAPGI/*.o ./source/FFTCUDAPGI/*.mod  PROPERTIES_MB/*.o PROPERTIES_MB/*.mod ./libguess.so  
+
+cl:
+	rm -r ./source/*.o ./*.mod ./user_guesslib/libguess.so ./user_guesslib/*.o ./*.o ./bin/* ./source/FFTMKL/*.o ./source/FFTFFTW/*.o ./source/FFTCUDACPP/*.o  ./source/FFTCUDAPGI/*.o ./source/FFTCUDAPGI/*.mod  PROPERTIES_MB/*.o PROPERTIES_MB/*.mod ./libguess.so 
+clP:
+	rm -r ./PROPERTIES_MB/*.o ./PROPERTIES_MB/*.mod
+
+#================= Dynamic Library =================
+DYN_DIRS := ./user_guesslib #All files from this directory are compiled and linced to the dynamical library
+DYN_FILES_F := $(foreach dir, $(DYN_DIRS), $(wildcard $(dir)/*.F))
+DYN_OBJ_F   := $(patsubst %.F, %.o, $(DYN_FILES_F))
+
+libguess.so : $(DYN_OBJ_F)
+	$(F90_LD) $(DYN_FILES_F) -o  ./user_guesslib/libguess.so
+	cp ./user_guesslib/libguess.so  .
+ 
+
+#================= Properties  =================
+include ./make_systems/properties.mk
+
+.PHONY: info
+info:
+	$(info MCTDHB package has been compiled with cmp=$(cmp))
+	$(info BLAS and LAPACK=$(BLAS_LAPACK))
+	$(info FFT=$(FFT))
+	$(info with FFTFLAG=$(FFTFLAG))
+	$(info all executables are in )
+	echo "`ls -ltr ./bin/*`"
+

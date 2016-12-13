@@ -1,0 +1,68 @@
+#  Here are the input.in and V_W_Psi_string.in files needed to reproduce M=4 N=4 results  done with mctdh package for 
+#  distinguished particles with enforced symmterization of he A coefficients
+#  We consider time-dependent rump-up problem: V(x,t)= x^2/(2*2.6*2.6)+0.2 * t * exp(-x^2/(2*2.6*2.6))
+#  As interparticle interaction we take W(r)=exp(-10(x-x')^2)
+# ATN!!!  Here to compare MCTDHB-mctdh results one has to scale the energies
+#                        Emctdhb*27.2114=Emctdh (ev - hartree)
+#                        time_mctdhb/41.3414=time_mctdh (fs)
+#  Initial state is the ground state at t=0 
+#  step1 - to get initial state for MCTDHB(4) many-body -- a ground state N=4 with lambda_0=3.5  in a parabolic x**2/(2*2.6*2.6) trap
+#         make a working directory step1
+#         copy the input.in and V_W_Psi_string.in and exe -files
+#         execute  the job:       mpirun -n 2  ./boson_MCTDHB_gnu_FFTW
+#         compare with reference: vimdiff basic_info.out basic_info.out_Reference
+#mctdh       mctdh Results:                       
+#mctdh Time  =       3.00 fs,       CPU =    1166.16 s,    Norm    = 1.00000000
+#mctdh E-tot =  64.492680 eV,    E-corr =  26.773812eV,    Delta-E =-34932.4046 meV  ( From relax_info 64.4926798301)
+#mctdh Natural weights *1000 :
+#mctdh x1          : 855.4660  96.1951  36.1600  12.1789
+#mctdh x2          : 855.4660  96.1951  36.1600  12.1789
+#mctdh x3          : 855.4660  96.1951  36.1600  12.1789
+#mctdh x4          : 855.4660  96.1951  36.1600  12.1789
+#MCTDHB 
+#MCTDHB 
+#MCTDHB            0.1217892574683082E-01
+#MCTDHB            0.3615997126429009E-01
+#MCTDHB            0.9619509468896636E-01       
+#MCTDHB            0.8554660082999131            
+#MCTDHB            2.370061071097717   * 27.2114 = 64.492679830
+#  step2 - to propagate the MCTDHB equation with initial wave-function obtained at step1
+#          make a working directory step2
+# BEFORE running second job one has to copy the wave-function stored in  CIc_bin and PSI_bin files
+#         if you are already in step2 type:
+#         copy the respective files: input.in V_W_Psi_string.in exe basic_info.out_Reference 
+#         and mctdh results: mctdh_nat.pl  mctdh_enrg.dat
+#
+#         cp ../step1/*bin .
+#         run the propagation:  mpirun -n 2  ./boson_MCTDHB_gnu_FFTW  
+#         compare with reference: vimdiff basic_info.out basic_info.out_Reference
+#  plot the figure, if you are still in the step2 directory --
+#            E N E R G Y
+#      plot "./mctdh_enrg.dat" u 1:5 w p, "./NO_PR.out" u ($1/41.3414):($6*27.2114) w p pt 5 ps 0.1
+#       smallest N A T U R A L  O C C U P A T I O N :
+#      plot "./mctdh_nat.pl" u 1:5 w p pt 5 ps 0.3 , "./NO_PR.out" u ($1/41.3414):2 w l
+#mctdh Results at T=3.19[fs] =131.879066 (mctdhB-time)
+#mctdh 
+#mctdh  Time  =       3.19 fs,       CPU =  339781.24 s,    Norm    = 1.00000000
+#mctdh  E-tot = 551.847706 eV,    E-corr =  23.331047eV,    Delta-E =487355.0260 meV
+#mctdh  Natural weights *1000 :
+#mctdh x1          : 565.2854 394.0771  21.0136  19.6240
+#mctdh x2          : 565.2854 394.0771  21.0136  19.6240
+#mctdh x3          : 565.2854 394.0771  21.0136  19.6240
+#mctdh x4          : 565.2854 394.0771  21.0136  19.6240
+#
+#MCTDHB  Err=10^-8 scale_step=0.25
+#MCTDHB results  at T= 131.8790659999893     
+#MCTDHB       0.1962193920419263E-01
+#MCTDHB       0.2101329478058738E-01
+#MCTDHB       0.3940850546062359
+#MCTDHB       0.5652797114089838
+#MCTDHB       20.28001975854713 * 27.2114 = 551.847729658
+
+#MCTDHB  Err=10^-12 scale_step=0.5
+#MCTDHB        0.1962388263835215E-01
+#MCTDHB        0.2101355622988883E-01
+#MCTDHB        0.3940774391759475 
+#MCTDHB        0.5652851219558104 
+#MCTDHB        20.28001891821698 * 27.2114 =  551.847706791
+

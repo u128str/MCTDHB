@@ -1,0 +1,47 @@
+           call cpu_time(start)
+       IPRC=MYID+1
+       FromN=CI_Proc_From(IPRC)
+       TillN=CI_Proc_Till(IPRC)
+c=====================================================================
+         Nterms=MaxTrm1b
+c=====================================================================
+c=====================================================================
+                IPRC=MYID+1
+c       write(6,*)" 1B ID",IPRC," is doing ",Nterms
+c======= MEMORY Allocation =====================================
+c       write(6,*)" MEM for  VIN 1B is ok!",SIZE(VIN)
+        TID = OMP_GET_MAX_THREADS()
+        ALLOCATE( VOUT(SIZE(VIN),TID) )
+        IF(ALLOCATED(VOUT).eqv..FALSE.)
+     . write(6,*)" MEM for VOUT is NOT ok!",SIZE(VOUT)
+            VOUT=ZERO
+            RIJ=ZERO
+c=============== DO LOOP over the desired TRM_REQ
+c============== Nterms is the number of the required terms
+           L=0
+!$OMP PARALLEL  DEFAULT(PRIVATE)
+!$OMP& shared(VIN,VOUT,RIJ,Nterms,TERM_INDEX_1B,
+!$OMP& TERM_REQ_1B,MCNK,RESCALE_1B,HIJ,TID,FromN,TillN,
+!$OMP& Ind_CI_1b,Prefactors_1b,CI_Prd,Npar,Morb)
+        this_thread= OMP_GET_THREAD_NUM()+1
+!$OMP DO  REDUCTION(+:RIJ)
+           DO I=FromN,TillN
+           I_current_term= TERM_REQ_1B(I)
+           P=TERM_INDEX_1B(I_current_term)
+c================ Unpack cI cJ cK cL from P
+        zrho=ZERO
+        zrhocnjg=ZERO
+        RIJ(I_current_term)=ZERO
+        cK= INT(P/100)
+        cJ= P-cK*100
+c         write(6,*)"cJ-cK:",cJ,cK
+c         write(6,*)"cJ-cK:",cJ,cK,ZHJK(I_current_term),RESCALE(I)
+c==================== Annihilation and Creation
+c============== From
+            Sh_m=0
+            Sh_m(cK)=Sh_m(cK)+1
+c============== To
+            Sh_p=0
+            Sh_p(cJ)=Sh_p(cJ)+1
+
+

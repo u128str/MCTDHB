@@ -1,0 +1,187 @@
+cmp=sun
+cmp=intel
+#cmp=pgi
+#cmp=gcc
+#cmp=Pathscale
+
+FFT=FFTW
+#FFTW is working with MKL !!!!
+#FFT=MKLFFT
+FFT=CUDACPP
+# CUDACPP win implemented with ifort only 
+#FFT=CUDAPGI
+
+ifeq ($(cmp),gcc)
+FF=mpif90
+FC =$(FF) -O4 -fopenmp 
+BLAS=-lmkl_gf_lp64 -lmkl_lapack -lmkl_core -lmkl_gnu_thread 
+ifeq ($(FFT),FFTW)
+LIBRARIES=-L./FFTW/lib -lfftw3_threads -lfftw3 -lm
+FFTFLAG= -DFFTW=1 -DMKLFFT=0
+DIRS1 :=
+endif
+# link to MKL_FFT libraries
+ifeq ($(FFT),MKLFFT)
+FFTFLAG= -DFFTW=0 -DMKLFFT=1
+DIRS1 := ./MKL_FFT
+LIBRARIES =
+endif
+MY_LIB= -L./user_guesslib -lguess
+F90_LD= gfortran -fPIC -shared  
+endif
+
+ifeq ($(cmp),Pathscale)
+FF=mpif90
+FC =mpif90 -O1  -fopenmp -fixedform
+FC =mpif90 -O1  -fopenmp 
+BLAS =  -L/opt/acml/current/pathscale64/lib -lacml -lacml_mv
+LIBRARIES =
+MY_LIB= -L./user_guesslib -lguess
+F90_LD= mpif90 -fPIC -shared 
+endif
+#========================= PGI + CUDA + MKL for BLAS LAPACK ===============================
+ifeq ($(cmp),pgi)
+FC =mpif90 -O2  -mp  -fast  -Mcuda=3.2
+# link to MKL ans PGIFFT libraries
+ifeq ($(FFT),CUDAPGI) 
+FFTFLAG= -DSFX1D=FFT_CUDAPGI_1D -DSFX2D=FFT_CUDAPGI_2D  -DSFX3D=FFT_CUDAPGI_3D  -DCUDAPGI
+DIRSFFT := ./source/FFTCUDAPGI
+DIRS1 := 
+LIBRARIES = 
+endif
+
+MKL_INC_DIR=$(MKLROOT)/include/
+BLAS= -R$(MKLROOT)/lib/intel64 -L$(MKLROOT)/lib/intel64  -lmkl_intel_lp64 -lmkl_sequential -lmkl_core -lcufft
+MY_LIB= -L./user_guesslib -lguess
+F90_LD= pgf90 -fpic -shared
+endif
+#================= INTEL ===================================================================#
+ifeq ($(cmp),intel)
+FF=ifort
+MKL_INC_DIR=$(MKLROOT)/include/
+BLAS=  -Wl,--start-group  $(MKLROOT)/lib/intel64/libmkl_intel_lp64.a $(MKLROOT)/lib/intel64/libmkl_sequential.a $(MKLROOT)/lib/intel64/libmkl_core.a -Wl,--end-group -lpthread -lm
+
+# link to FFTW libraries
+ifeq ($(FFT),FFTW)
+#LIBRARIES=-L./FFTW/lib -lfftw3_threads -lfftw3 -lm 
+LIBRARIES=-L./FFTW/lib -lfftw3 -lm 
+LIBRARIES=  -I$(MKL_INC_DIR)/fftw -mkl 
+FFTFLAG= -DFFTW=.TRUE. -DSFX1D=FFT_FFTW_1D -DSFX2D=FFT_FFTW_2D  -DSFX3D=FFT_FFTW_3D -DMKLFFT=.FALSE.  -I$(MKL_INC_DIR)/fftw -mkl
+DIRSFFT := ./source/FFTFFTW
+endif
+# link to MKL_FFT libraries
+ifeq ($(FFT),MKLFFT) 
+FFTFLAG= -DFFTW=.FALSE. -DMKLFFT=.TRUE.  
+FFTFLAG= -DFFTW=.FALSE. -DSFX1D=FFT_MKL_1D -DSFX2D=FFT_MKL_2D  -DSFX3D=FFT_MKL_3D -DMKLFFT=.TRUE.
+DIRSFFT := ./source/FFTMKL
+DIRS1 := 
+LIBRARIES = 
+endif
+
+# link to CUDA_FFT libraries with CPP
+ifeq ($(FFT),CUDACPP) 
+CUDALIB := /common/cuda
+FFTFLAG= -DSFX1D=FFT_CUDACPP_1D -DSFX2D=FFT_CUDACPP_2D  -DSFX3D=FFT_CUDACPP_2D -DMKLFFT=.FALSE. -DFFTW=.FALSE.  -DCUDACPP=.TRUE.  -I$(CUDALIB)/include/
+DIRSFFT := ./source/FFTCUDACPP
+DIRS1 := 
+LIBRARIES = 
+CUDA_ALL = -L$(CUDALIB)/lib64 -lcufft -lcudart  -lcublas
+endif
+
+#FC =mpif90 -xSSE4.1  -O3 -parallel -openmp -par-schedule-runtime -fpp3
+#FC =mpif90 -W4 -warn all  -O1 -g -parallel -openmp 
+#FC =tau_f90.sh -O1 -g -parallel -openmp 
+#FC =mpif90  -O3 -parallel -openmp -par-schedule-runtime -fpp3
+#FC =mpif90 -fc=ifort -O1 -g -parallel -openmp 
+FC =mpif90  -O1 -parallel -openmp 
+MY_LIB= -L./user_guesslib -lguess
+F90_LD= ifort -fPIC -shared  
+endif
+#=================SUN ======================================================================#
+ifeq ($(cmp),sun)
+`export LD_LIBRARY_PATH=/opt/SUNWhpc/HPC8.0/lib:$LD_LIBRARY_PATH`
+MPI= 
+FF=/opt/SUNWhpc/HPC8.0/bin/mpif90
+FC=$(FF)  -O3 -xopenmp=parallel -I$(MPI)/include -xlic_lib=sunperf -L/opt/SUNWhpc/HPC8.0/lib 
+LIBRARIES= 
+MY_LIB= -L ./user_guesslib -lguess
+F90_LD= f90 -pic -G
+endif
+#============================================================================================#
+
+PATH_OBJ=
+MORB="files are taken from"
+PRT="`pwd`"
+
+#VPATH = ./source: ./user_guesslib
+
+
+DIRS := ./source $(DIRSFFT)
+FILES_f := $(foreach dir, $(DIRS), $(wildcard $(dir)/*.f))
+FILES_F := $(foreach dir, $(DIRS), $(wildcard $(dir)/*.F))
+FILES_f90 := $(foreach dir, $(DIRS), $(wildcard $(dir)/*.f90))
+FILES_cu := $(foreach dir, $(DIRS), $(wildcard $(dir)/*.cu))
+FILES_CUF := $(foreach dir, $(DIRS), $(wildcard $(dir)/*.CUF))
+
+
+OBJ_f   := $(patsubst %.f, %.o, $(FILES_f))
+OBJ_F   := $(patsubst %.F, %.o, $(FILES_F))
+OBJ_f90 := $(patsubst %.f90, %.o, $(FILES_f90))
+OBJ_cu := $(patsubst %.cu, %.o, $(FILES_cu))
+OBJ_CUF := $(patsubst %.CUF, %.o, $(FILES_CUF))
+
+MKL_DFTI_MOD=
+ifeq ($(FFT),MKLFFT)
+MKL_DFTI_MOD=./mkl_dfti.mod
+endif
+
+MODS= $(MKL_DFTI_MOD) ./source/MODULES_ALL_allocate.o ./source/MODULES_SUBR.o ./source/MODULES_CI_SUBR.o
+
+TIME = "`date +"%j_%s"`" 
+
+.SUFFIXES:
+.SUFFIXES: .CUF .cu .F .f .f90 .o 
+
+
+%.o : %.f90
+	$(FC) $(FFTFLAG)  -c $< -o $@
+#	$(FC) -c $< -o ./objects/$(notdir $@)
+
+%.o : %.F
+	$(FC) $(FFTFLAG) -c $< -o $@
+#	$(FF) -c $< -o ./objects/$(notdir $@)
+
+%.o : %.f
+	$(FC) $(FFTFLAG) -c $< -o $@
+#	$(FF) -c $< -o ./objects/$(notdir $@)
+
+%.o : %.cu
+	nvcc -O1 -arch=compute_20 -c $(FFTFLAG) $< -o $@
+
+%.o : %.CUF 
+	mpif90 -O2  -fast  -Mcuda=3.2 -c   $< -o $@ 
+
+boson_MCTDHB_$(FFT): MKL_DFTI_MOD $(MODS) $(OBJ_f90) $(OBJ_F) $(OBJ_f) $(OBJ_cu)  $(OBJ_CUF) libguess.so 
+	$(FC) $(MKL_INC_DIR)/mkl_dfti.f90  -o $@ $(OBJ_f) $(OBJ_F)  $(OBJ_f90) $(OBJ_cu)  $(OBJ_CUF) $(BLAS) $(MY_LIB) $(LIBRARIES) $(FFTFLAG) $(CUDA_ALL)
+	mv boson_MCTDHB_$(FFT) ./user_guesslib/libguess.so  ./bin/.
+	echo "`ls -ltr ./bin/*`"
+
+MKL_DFTI_MOD:
+	$(FC) -c $(MKL_INC_DIR)/mkl_dfti.f90 
+ 
+clean:
+	rm -r ./source/*.o ./*.mod ./user_guesslib/libguess.so ./user_guesslib/*.o ./*.o ./bin/* ./source/FFTMKL/*.o ./source/FFTFFTW/*.o ./source/FFTCUDACPP/*.o  ./source/FFTCUDAPGI/*.o ./source/FFTCUDAPGI/*.mod
+
+cl:
+	rm -r ./source/*.o ./*.mod ./user_guesslib/libguess.so ./user_guesslib/*.o ./*.o ./bin/* ./source/FFTMKL/*.o ./source/FFTFFTW/*.o ./source/FFTCUDACPP/*.o  ./source/FFTCUDAPGI/*.o ./source/FFTCUDAPGI/*.mod
+
+#================= Dynamic Library =================
+DYN_DIRS := ./user_guesslib #All files from this directory are compiled and linced to the dynamical library
+DYN_FILES_F := $(foreach dir, $(DYN_DIRS), $(wildcard $(dir)/*.F))
+DYN_OBJ_F   := $(patsubst %.F, %.o, $(DYN_FILES_F))
+
+libguess.so : $(DYN_OBJ_F)
+	$(F90_LD) $(DYN_FILES_F) -o ./user_guesslib/libguess.so
+
+
+

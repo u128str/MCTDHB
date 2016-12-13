@@ -1,0 +1,20 @@
+# .bash_profile
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+. ~/.bashrc
+fi
+# User specific environment and startup programs
+
+export MPIR_HOME=/usr/mpi/intel/openmpi-1.4.2-qlc
+export MPIRUN_CMD=/common/runmvs/bin/run-openmpi
+export PATH=/common/cuda/bin:/common/runmvs/bin:$MPIR_HOME/bin:$HOME/bin:$PATH
+. /common/intel/Compiler/11.1/072/bin/iccvars.sh intel64
+. /common/intel/Compiler/11.1/072/bin/ifortvars.sh intel64
+. /common/intel/composerxe/mkl/bin/mklvars.sh intel64
+export SHMEM_VERSION=QLOGIC
+export COARR="-L/usr/local/lib/coarray/qlogic -lcoarr"
+
+export LC_ALL=ru_RU.utf8
+export LANG=$LC_ALL
+

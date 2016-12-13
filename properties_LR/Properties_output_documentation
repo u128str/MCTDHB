@@ -1,0 +1,74 @@
+########################################################################################
+#########    MANY BODY ANALYSIS PACKAGE FOR MCTDHB WAVEFUNCTIONS:  #####################
+#########                      OUTPUT DESCRIPTION                  #####################
+########################################################################################
+
+Diagonal of reduced one-body density (NO_x):
+
+column 1 |  2 | 3 |  4          |    5   |
+       x    y   z   rho(x,y,z)     time
+
+#################################################################
+Diagonal of reduced one-body density in momentum space (NO_k):
+
+
+column 1   |  2  | 3   |  4                |    5   |
+       k_x   k_y   k_z    rho(k_x,k_y,k_z)     time
+
+#################################################################
+Density-related nonescape probability, i.e., the integral of rho(x) from xstart to xend (Pnot):
+
+
+column 1   |  2   |
+      time   P_not
+##################################################################
+Reduced one-body density, diagonal of two-body density and normalized correlation functions (DNS_XX)
+column   1   |  2  | 3   |  4   |   5   |   6   |   7           |  8                      |  9                      |   10          |  11  
+         x      y     z     x'      y'      z'     rho(x,y,z)     Re(rho^1(x,y,z,x',y',z')) Im(rho^1(x,y,z,x',y',z')) rho(x',y',z')  rho^2(x,y,z,x',y',z')
+
+##################################################################
+Reduced one-body density, diagonal of two-body density and normalized correlation functions in momentum space (DNS_KK)
+Output is analogous to x space.
+
+##################################################################
+Sampled 1D reduced one-body density and normalized correlation function (corr1restr):
+column   1   |  2  | 3              |  4            |   5   |   6   
+         x      x'   Re(rho^1(x,x')) Im(rho^1(x,x')) rho(x)  rho(x')
+##################################################################
+Sampled output in momentum space is given analogously (corr1restrmom)
+
+##################################################################
+Sampled diagonal of 1D reduced two-body density and normalized correlation function (corr2restr):
+column   1   |  2  | 3              |  4            |   5   |   6   
+         x      y   Re(rho^2(x,y))   Im(rho^2(x,y))   rho(x)  rho(y)
+        column 4 should be zero here (rho^2 is hermitian)
+
+##################################################################
+Sampled output in momentum space is given analogously (corr2restrmom)
+
+##################################################################
+Expectation values of two-particle loss operators (only for N=2 so far !!! ):
+P is integrals on the wavefunction in the given partition of Hilbert space.
+
+column        1    |   2                             |   3                                                      |    4
+          time       P([x_1<border]^[x_2<border])      P([x_1<border]^[x_2>border]or[x_2<border]^[x_1>border])     P([x_1>border]^[x_2>border])
+
+##################################################################
+Cuts through the reduced one- and two-body density matrices and normalized correlation functions of 2D systems (REALSPACE2D)
+column   1    |  2    | 3    |  4    |   5           |   6          |   7                          |  8                           |  9                      
+         r1_x    r1_y   r2_x    r2_y  rho(r1_x,r1_y)  rho(r2_x,r2_y) Re(rho^1(r1_x,r1_y,r2_x,r2_y)) Im(rho^1(r1_x,r1_y,r2_x,r2_y)) rho^2(r1_x,r1_y,r2_x,r2_y)
+
+##################################################################
+Cuts in momentum space have analogous output(MOMSPACE2D).
+
+##################################################################
+Effective 1D potential in 2D calculations (Proj_X):V_ij=int dx phi*_i(x,y) V(x,y) phi_j(x,y) / (int dx phi*_i(x,y) phi_j(x,y))
+
+column    1      |  2                                         |             3  ... 2+MORB**2 
+         x or y     Effective potential=sum_ij rho_ij V_ij         ( V_ij, i=1,...,MORB, j=1,...,MORB)
+##################################################################
+Orbital and total angular momentum (LZ) [EXPERIMENTAL !!!]:
+
+First line: Column 1: time, Column 2: total <L_z>=sum_ij rho_ij L_z_ij
+Further lines: MORB x MORB matrix elements of the orbital angular momentum (L_z_ij=<phi_i|L_z|phi_j>)
+

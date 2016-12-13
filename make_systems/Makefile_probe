@@ -1,0 +1,130 @@
+#=================== Selector for already tuned configurations  PCI, K100, BwGrid, etc
+#include ./make_systems/PCI_gnu_ifort.mk #cmp=gnu FFTW is a wrapper of  MKL
+include ./make_systems/PCI_ifort.mk
+#include ./systems/PCI_ifort.mk
+#=================== Selector for Compiler 
+#cmp=intel
+#cmp=pgi
+#cmp=gnu
+ifeq ($(cmp),'')
+cmp=gnu
+endif 
+$(info  cmp=$(cmp))
+#==================  Selector for BLAS LAPACK ====================================
+#================= If you use this option, you have to provide a directory to the libraries 
+#BLAS_LAPACK=intel  # change  DIR_MKL=$(MKLROOT)/lib/ia32/ 
+ifeq ($(BLAS_LAPACK),'')
+BLAS_LAPACK=gnu
+endif 
+$(info  BLAS_LAPACK=$(BLAS_LAPACK))
+#BLAS_LAPACK=gnu   # change DIR_BLAS=/usr/lib  # type: locate blas.a
+#==========================================================================================
+
+#==================  Selector for FFT  ====================================
+#FFT=FFTW   #type:  locate  fftw3.f
+#FFT=MKLFFT
+#FFT=FFTW_MKL
+#FFT=CUDACPP
+#FFT=CUDAPGI
+ifeq ($(FFT),'')
+FFT=FFTW
+endif 
+$(info  FFT=$(FFT))
+
+FF=mpif90
+ifneq ($(mpi_f90),'')
+FF=$(mpi_f90)         #ifort
+endif 
+$(info  FF=$(FF))
+#FF=mpif90.openmpi #gfortran on PCI
+FC =$(FF) -O1  -fopenmp -parallel -openmp
+$(info  FC=$(FC))
+#======================================== My user_guesslib Dynamical library ========================
+MY_LIB= -L./user_guesslib -lguess
+F90_LD= $(FC) -fPIC -shared  
+#==========================================================================================
+
+#================= INTEL ===================================================================#
+ifeq ($(BLAS_LAPACK),intel)
+ifeq ($(DIR_MKL),'')
+DIR_MKL=$(MKLROOT)/lib/ia32/ 
+endif
+BLAS=  -Wl,--start-group -L$(DIR_MKL) -lmkl_intel -lmkl_sequential -lmkl_core -Wl,--end-group -lpthread -I$(MKL_INC_DIR)
+endif
+#================= GCC GNU ===================================================================#
+ifeq ($(BLAS_LAPACK),gnu)
+ifeq ($(DIR_BLAS),'')
+DIR_BLAS=/usr/lib  
+endif
+BLAS =  -L$(DIR_BLAS)  -lblas -llapack 
+endif
+#==========================================================================================
+#======================================================= FFT inc and compilation keys ==========================
+# link to FFT libraries via MKL
+ifeq ($(FFT),MKLFFT) 
+#ifneq ($(cmp),intel) 
+#     err =  set -e;
+#     ERR = $(error error change to cmp=intel)
+#endif
+MKL_INC_DIR=$(MKLROOT)/include/
+INC_DIR_FFT=$(MKL_INC_DIR)
+INC_ALL =   -I$(INC_DIR_FFT)  
+LIBS =    -mkl
+MKL_DFTI_MOD=mkl_dfti.mod 
+endif
+# link to FFT libraries
+ifeq ($(FFT),FFTW)
+ifeq ($(INC_DIR_FFT),'')
+INC_DIR_FFT=/usr/include/
+$(info  INC_DIR_FFT=$(INC_DIR_FFT))
+endif
+LIBS=  -lfftw3_threads -lfftw3 
+INC_ALL =  -I$(INC_DIR_FFT) 
+endif
+# link to MKL_FFT libraries
+ifeq ($(FFT),FFTW_MKL) 
+MKL_INC_DIR=$(MKLROOT)/include/
+INC_DIR_FFT=$(MKL_INC_DIR)/fftw
+INC_ALL =   -I$(INC_DIR_FFT) 
+LIBS =    -lfftw3_threads -lfftw3 -mkl
+MKL_DFTI_MOD=mkl_dfti.mod
+endif
+# link to CUDA_FFT libraries with CPP
+ifeq ($(FFT),CUDACPP) 
+CUDALIB := /common/cuda
+LIBS = -L$(CUDALIB)/lib64 -lcufft -lcudart  -lcublas
+endif
+#====================================== Hard-core Co-Processor variables defining FFT
+ifeq ($(FFT),FFTW_MKL) #FFTW but with MKL wrappers...
+FFTFLAG= -DSFX1D=FFT_FFTW_1D -DSFX2D=FFT_FFTW_2D  -DSFX3D=FFT_FFTW_3D -DFFTIMEST=FFTWIMEST \
+         -DFFTW=.TRUE.  -DCUDACPP=.FALSE.  -DMKLFFT=.FALSE.  -DCUDAPGI=.FALSE.
+DIRSFFT := ./source/FFTFFTW
+endif
+ifeq ($(FFT),FFTW)     #Pure FFTW 
+FFTFLAG= -DSFX1D=FFT_FFTW_1D -DSFX2D=FFT_FFTW_2D  -DSFX3D=FFT_FFTW_3D -DFFTIMEST=FFTWIMEST \
+         -DFFTW=.TRUE.  -DCUDACPP=.FALSE.  -DMKLFFT=.FALSE.  -DCUDAPGI=.FALSE.
+DIRSFFT := ./source/FFTFFTW
+endif
+ifeq ($(FFT),CUDACPP) 
+FFTFLAG= -DSFX1D=FFT_CUDACPP_1D -DSFX2D=FFT_CUDACPP_2D  -DSFX3D=FFT_CUDACPP_3D  -DFFTIMEST=CUDACPPIMEST\
+       -DCUDACPP=.TRUE.  -DFFTW=.FALSE.  -DMKLFFT=.FALSE.  -DCUDAPGI=.FALSE.
+DIRSFFT := ./source/FFTCUDACPP
+endif
+ifeq ($(FFT),MKLFFT) 
+FFTFLAG= -DSFX1D=FFT_MKL_1D -DSFX2D=FFT_MKL_2D  -DSFX3D=FFT_MKL_3D -DFFTIMEST=MKLIMEST \
+         -DMKLFFT=.TRUE.  -DFFTW=.FALSE.  -DCUDACPP=.FALSE.   -DCUDAPGI=.FALSE.
+DIRSFFT := ./source/FFTMKL
+LIBRARIES = 
+endif
+ifeq ($(FFT),CUDAPGI) 
+FFTFLAG= -DSFX1D=FFT_CUDAPGI_1D -DSFX2D=FFT_CUDAPGI_2D  -DSFX3D=FFT_CUDAPGI_3D   -DFFTIMEST=CUDAPGIIMEST \
+       -DCUDAPGI=.TRUE. -DCUDACPP=.FALSE.  -DFFTW=.FALSE.  -DMKLFFT=.FALSE. 
+DIRSFFT := ./source/FFTCUDAPGI
+endif
+$(info  FFTFLAG=$(FFTFLAG))
+#============================ Check For errors ========================================================== 
+#check::
+#	  @$(err) $(ERR)
+#============================ Here list of files to compile and rules for executables====================
+include ./make_systems/mctdhb.mk
+

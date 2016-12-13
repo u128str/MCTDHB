@@ -1,0 +1,18 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+</head>
+<body>
+<br>
+<br>
+Format of the NO_PR.out<br>
+------------------------------------------<br>
+<br>
+write(10,2222)time," ",(Nocc(i)/Npar," ",i=1,Morb),Energy .,"
+",TolError_Total," ",eerr/TolError_Total .," ",ABS(zerr),"
+",ABS(zerrci) .," ",ABS(zerr)-ABS(zerrci)," "
+.,(Dreal(NO_Expectation_x(i))," ",i=1,Morb)
+.,(Dreal(SUM(PSI(:,i)*ort_X*dconjg(PSI(:,i))))," ",i=1,Morb)
+2222 format((78(G26.16,a3)))
+</body>
+</html>

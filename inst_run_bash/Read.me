@@ -1,0 +1,71 @@
+########################################################################################
+########## Basic features, environment variables
+########################################################################################
+I) To install and or run the code one has to add the following string to .bashrc:
+export LD_LIBRARY_PATH=./:./user_guesslib/:$LD_LIBRARY_PATH
+
+II) The aim of the libguess.so file is to separate 
+    the user-dependent and user-independent parts of the code
+    This library collects the user-defined stuff, like
+       a) Initial Guesses for PSI and for CI,
+       b) External trap potential: SUBROUTINE  VTRAP_EXT_TD(time)
+       c) The interparticle interaction potential W(r,r')
+
+
+III) Test-suite: If you modified or first installed the MCTDHB package on a machine,
+     please use the dotest.sh script to perform a validation of the installed version.
+     Type "./dotest.sh all" in the root directory of the installation. 
+
+########################################################################################
+##################  software prerequisites
+########################################################################################
+
+Needed things to install the package: Intel or Gfortran compilers and the Intel MKL library 
+as well as an MPI distribution;
+e.g. on the PCI CLUSTER in Heidelberg: source /usr/local/compilers/intel.sh
+e.g. on the BWGRiD or other clusters where a module system is available do:
+ module load {IFORT} {MPI} {MKL}
+etc. 
+
+
+########################################################################################
+################## workflow / usage 
+########################################################################################
+
+To execute the code one has to:
+
+1) Create a working directory, for example    mkdir TEST1
+2) Goto this directory
+3) Copy into this directory the following files
+   i)   bin/boson_MCTDHB_*
+   ii)  IN.FILES/input.in     (and modify it appropriately)
+   iii) user_guesslib/libguess.so   
+            which contains the interparticle potnetial W(x-x') in Get_InterParticle.F, 
+                                                         trap potential in file VTRAP_EXT_TD.F, 
+                                                         hand-made guess for orbitals in Guess_PSI.F,
+                                                         hand-made guess for CI in Guess_CI.F,
+                                                         and so on. (see also point II)) 
+?) If you change ANY of those files you MUST 
+   type ' make ' in trunk directory, 
+   and copy the new  libguess.so  to your   TEST1  direcotry.    
+
+########################################################################################
+################## To analyse your results 
+########################################################################################
+
+1) create a subdirectory, for example mkdir PROP
+2) Copy binary output files PSI_bin  and  CIc_bin  to it
+3) Copy  IN.FILES/properties.in  into it
+4) Copy  properties_MB/properties_MB.exe  into it
+5) modify  properties.in  file accordingly
+6) execute ./properties_MB.exe
+7) use the scripts found in Scripts/*.sh to visualize your computational results (*)
+
+(*) software prerequisites for the analysis scripts are gnuplot (version>=4.2) 
+    and mencoder if movies are desired. Please have a look at the subdirectory
+    ./EXTERNAL-SOFTWARE/ which contains a recent (2011) version of gnuplot and
+    mencoder.
+
+
+
+

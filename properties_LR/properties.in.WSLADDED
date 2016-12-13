@@ -1,0 +1,90 @@
+!==============================================================================================================
+!       ALL these variables are defined in properties_M/BMODULE_PROP_MB.f90
+!         LOGICAL,      public ::  Total_energy
+!         LOGICAL,      public ::  NO_x, NO_k
+!         LOGICAL,      public ::  DNS_XX,DNS_KK
+!         LOGICAL,      public ::  DATA_PSI,DATA_CIc
+!        NAMELIST /ZERO_body/ Total_energy,Kdip,DATA_PSI,DATA_CIc
+!     .,T_From,T_TILL,T_points
+!        NAMELIST /ONE_body/ NO_x, No_k,Pnot, xstart, xend
+!        NAMELIST /TWO_body/ DNS_XX,DNS_KK,corr1restr,xini1,xfin1,
+!     .                      corr2restr,xini2,xfin2
+!==============================================================================================================
+&ZERO_body
+Total_energy=.TRUE. !not activated yet
+!========================== Creates the *time.dat and *coef.dat files from the PSI_bin and CIc_bin binary files
+         DATA_PSI=.T. !*time.dat 
+         DATA_CIc=.T. !*coef.dat
+         T_From=10.0d0
+         T_TILL=10.0d0
+         T_points=1
+! Momenta Threshold: Data with momenta smaller than  Kdip * K_max are NOT taken into consideration, Kdip=0.01 == 1% is the threshold
+          Kdip=0.000000001d0 
+/
+&ONE_body
+!=============================== Prints diagonal part of the One-Body density in    REAL SPACE  ==========================
+!           NO_x=.FALSE.
+           NO_x=.FALSE.
+!=============================== Prints diagonal part of the One-Body density in MOMENTUM SPACE ==========================
+           NO_k=.F.      
+           MKLFT=.F.      ! A lot faster but does not support dilation
+           Pnot=.F.   ! This calculates the integral over x of the one-body-density from 
+           xstart=-8.0d0  ! xstart to
+           xend=0.d0    ! xend
+/
+&TWO_body
+!=============================== Prints correlation functionis  in   REAL SPACE  ==========================
+!         DNS_XX=.TRUE.
+         DNS_XX=.FALSE.
+!=============================== Prints correlation functionis  in   MOMENTUM SPACE  ==========================
+          DNS_KK=.F.
+!================        one-boson  Correlations in restricted (momentum) subspace 
+          corr1restr=.F.          ! activate rho^1(x_1,x'_1)
+          xini1=-4.0d0            ! from x
+          xfin1=4.d0              ! to x
+          xpts1=9999              ! desired no of pts
+          corr1restrmom=.F.       ! activate rho^(2)(k_1,k'_1)
+          kxini1=-4.d0            ! from k 
+          kxfin1=4.d0             ! to k
+          kpts1=2048              ! desired no of pts
+!===================    two-boson Correlations in restricted (momentum) subspace
+          corr2restr=.F.       ! activate rho^2(x_1,x_2)
+          xini2=-4.0d0         ! from x
+          xfin2=4.d0           ! to x
+          xpts2=2048           ! desired no of pts
+          corr2restrmom=.F.    ! activate rho^(2)(k_1,k_2)
+          kxini2=-4.d0         ! from k 
+          kxfin2=4.d0          ! to k
+          kpts2=2048           ! desired no of pts
+          lossops=.F.         ! compute the different integrals 
+          border=0.d0          ! on the partitioned (at 'border') N=2 Hilbertspace
+
+/
+&TWO_D         
+!####################  this gives the correlation functions for 2D problems in cuts
+          MOMSPACE2D=.F.       ! activate realspace or momentum space output of 
+          REALSPACE2D=.F.      ! rho^2(x_1x,x_1y,x_2x,x_2y) and
+          x1const=.T.          ! rho^1(x_1x,x_1y,x'_1x,x'_1y).  
+          x1slice=3.d0         ! Two coordinates of four have to be kept constant to obtain
+          y1const=.T.          ! a 3-D plot. Control variables are 
+          y1slice=3.d0         ! x1const,x2const,y1const(x'_1x),y2const(x'_1y)
+          x2const=.F.          ! Their values are set by the variables with the 'slice' suffix.
+          x2slice=0.d0
+          y2const=.F.
+          y2slice=0.d0
+          ZEROPADDING2D=.T.    ! This controls whether to try to increase the resolution of the 
+          DILATION2D=1         ! 2D FT or not and DILATION2D will give the increase
+          PROJ_X=.T.           ! calculate the projection 
+                               ! V(X or Y)=sum_ij rho_ij <phi_i|v_(x,y)|phi_j>_X/Y/<phi_i|phi_j>_X/Y
+          DIR='X'              ! if ='X' V(X), if = 'Y' V(Y), if = 'B' V(X) and V(Y) are given
+          L_Z=.F.               ! give orbital and total angular momentum for 2D FFT calculations
+/
+&LR
+!###################   Linear response analysis
+          get_LR=.T.           ! Activate linear response analysis
+          LR_maxsil=230        ! Size of CI-matrix in Krylov space
+&WSL
+!###################   WSL analysis
+          get_WSL=.T.           ! Activate  WSL part
+/
+

@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="generator" content="http://www.nongnu.org/elyxer/"/>
+<meta name="create-date" content="2015-04-01"/>
+<link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
+<title>Death of soliton trains in attractive Bose-Einstein condensates</title>
+</head>
+<body>
+<div id="globalWrapper">
+<div class="Unindented">
+The main goal of the MCTDHB-Lab project with Template.2 is to reproduce some results from Fig.2 and Fig. 3 of the manuscript (see below) published in <a class="URL" href="http://link.aps.org/doi/10.1103/PhysRevLett.106.240401">PRL 106, 240401 (2011)</a>:
+</div>
+<div class="Indented">
+<div class="listing">
+<pre class="listing">1) Verify that: 
+     a) all the parameters of the Hamiltonian are correct
+     click on "Hamitonian"-&gt;"System"-&gt;"N"-button (similarly for Trap V(x)=0, strength of the interaction lambda, etc.)
+     b) TDSE is solved for propagation, i.e., you are looking for time-evolution of the initial state
+     click on "Hamiltonian"-&gt;"TDSE" push on the "Propagation Forward"-button
+</pre>
+</div>
+
+</div>
+<div class="Indented">
+<img class="embedded" src="step1.png" alt="figure step1.png" style="max-width: 563px; max-height: 196px;"/>
+
+</div>
+<div class="Indented">
+<div class="listing">
+<pre class="listing">2) Run MCTDHB (click on "Computation"-&gt;"Run MCTDHB"-&gt;"Run"-&gt;"Ok"-button), wait till it is finished 
+   click on "Refresh"-button or on "Project Status"-button in the left bottom corner of the MCTDHB-Lab window
+</pre>
+</div>
+
+</div>
+<div class="Indented">
+<img class="embedded" src="step2.png" alt="figure step2.png" style="max-width: 1416px; max-height: 770px;"/>
+
+</div>
+<div class="Indented">
+<div class="listing">
+<pre class="listing">3) Compare the behavior of the natural occupation numbers with the reference ones, depicted in upper left panel of Fig.2
+   click on "Analysis: MCTDHB"-&gt;"Nat. occ. n_k(t)"-&gt;"Plot n_k(t)"-&gt;"Plot with GnuPlot" 
+   as result figure scripts/Nat_occ_of_t.jpeg will be generated
+</pre>
+</div>
+
+</div>
+<div class="Indented">
+<img class="embedded" src="step3.png" alt="figure step3.png" style="max-width: 983px; max-height: 708px;"/>
+
+</div>
+<div class="Indented">
+<div class="listing">
+<pre class="listing">4) Compare the behavior of the natural orbitals at time-slice T=27.9 with the reference ones, depicted in lower left panel of Fig.2
+   click on "Analysis: MCTDHB"-&gt;"Orbitals and density"-&gt;"rho V..."-&gt;"Re&amp;Im nat orb 3D view"
+   push the slider at the right part of the window till desired time slice (here T=27.3) and click on "Get figure"
+</pre>
+</div>
+
+</div>
+<div class="Indented">
+<img class="embedded" src="step4.png" alt="figure step4.png" style="max-width: 1439px; max-height: 669px;"/>
+
+</div>
+<div class="Indented">
+<div class="listing">
+<pre class="listing">5) Compare the behavior of the one-body correlation functions in k- and x-spaces at time-slices T=0 and T=27.9 
+   with the reference ones, depicted in Fig. 2
+   a) click on "Analysis: MCTDHB"-&gt;"Correlation functions"-&gt;"Plot g1(x’,x;t)"-&gt;"Plot g1(x’,x;t)" 
+   move the slider to T=27.9 click "Get figure"
+   b) click on "Analysis: MCTDHB"-&gt;"Correlation functions"-&gt;"g^1"-&gt;"Plot g1(k’,k;t)" 
+   move the slider to T=27.9, click "Get figure"
+</pre>
+</div>
+
+</div>
+<div class="Indented">
+<img class="embedded" src="step5.png" alt="figure step5.png" style="max-width: 1438px; max-height: 676px;"/>
+
+</div>
+<h1 class="title">
+Death of soliton trains in attractive Bose-Einstein condensates
+</h1>
+<h2 class="author">
+Alexej I. Streltsov<span class="formula"><sup>1</sup></span><span class="FootOuter"><span class="SupFootMarker"> [A] </span><span class="HoverFoot"><span class="SupFootMarker"> [A] </span>E-mail: Alexej.Streltsov@pci.uni-heidelberg.de</span></span>, Ofir. E. Alon<span class="formula"><sup>1, 2</sup></span>, and Lorenz S. Cederbaum<span class="formula"><sup>1</sup></span><span class="FootOuter"><span class="SupFootMarker"> [B] </span><span class="HoverFoot"><span class="SupFootMarker"> [B] </span>E-mail: Lorenz.Cederbaum@pci.uni-heidelberg.de</span></span>
+</h2>
+<div class="Affiliation">
+<span class="formula"><sup>1</sup></span> Theoretische Chemie, Physikalisch-Chemisches Institut, Universität Heidelberg,<br/>
+ Im Neuenheimer Feld 229, D-69120 Heidelberg, Germany
+</div>
+<div class="Affiliation">
+<span class="formula"><sup>2</sup></span> Department of Physics, University of Haifa at Oranim, Tivon 36006, Israel
+</div>
+<div class="abstract">
+<p class="abstract-message">
+Abstract
+</p>
+Experiments on ultra-cold attractive Bose-Einstein Condensates (BECs) have demonstrated that at low dimensions atomic clouds can form localized objects, propagating for long times without significant changes in their shapes and attributed to bright matter-wave solitons, which are coherent objects. We consider the dynamics of bright soliton trains from the perspective of many-boson physics. The fate of matter-wave soliton trains is actually to quickly loose their coherence and become macroscopically fragmented BECs. The death of the coherent matter-wave soliton trains gives birth to fragmented objects, whose quantum properties and experimental signatures differ substantially from what is currently assumed. 
+</div>
+<div class="PACS">
+03.75.Kk, 03.65.-w, 03.75.Nt, 05.30.Jp
+</div>
+<div class="Unindented">
+Solitons are common wave-packet phenomena in many areas of science and engineering <span class="bibcites">[<a class="bibliocite" name="cite-1" href="#biblio-1">1</a>, <a class="bibliocite" name="cite-2" href="#biblio-2">2</a>]</span>. Such localized structures can form when a wave-packet’s dispersion is compensated by self-focusing (attractive) forces. In this context, the physics of low-dimensional attractive Bose-Einstein condensates (BECs) has attracted much attention <span class="bibcites">[<a class="bibliocite" name="cite-3" href="#biblio-3">3</a>, <a class="bibliocite" name="cite-4" href="#biblio-4">4</a>, <a class="bibliocite" name="cite-5" href="#biblio-5">5</a>, <a class="bibliocite" name="cite-6" href="#biblio-6">6</a>, <a class="bibliocite" name="cite-7" href="#biblio-7">7</a>, <a class="bibliocite" name="cite-8" href="#biblio-8">8</a>, <a class="bibliocite" name="cite-9" href="#biblio-9">9</a>, <a class="bibliocite" name="cite-10" href="#biblio-10">10</a>]</span>. The similarity between the Gross-Pitaevskii (GP) equation <span class="bibcites">[<a class="bibliocite" name="cite-11" href="#biblio-11">11</a>, <a class="bibliocite" name="cite-12" href="#biblio-12">12</a>]</span> commonly used to describe these ultra-cold quantum systems and the non-linear Schrödinger equation used in optics <span class="bibcites">[<a class="bibliocite" name="cite-2" href="#biblio-2">2</a>]</span> to characterize self-focusing of light has encouraged the transfer of ideas, phenomena, and understanding from optics to ultra-cold atomic physics. Particularly, bright matter-wave solitons have been predicted to occur in low-dimensional attractive Bose gases <span class="bibcites">[<a class="bibliocite" name="cite-3" href="#biblio-3">3</a>, <a class="bibliocite" name="cite-4" href="#biblio-4">4</a>]</span>, stimulating the recent experiments <span class="bibcites">[<a class="bibliocite" name="cite-5" href="#biblio-5">5</a>, <a class="bibliocite" name="cite-6" href="#biblio-6">6</a>]</span>.
+</div>
+<div class="Indented">
+Very often, along with a single soliton, multi-hump matter-wave structures propagating for long times without significant changes in their shapes have been observed. Since the GP equation supports localized multi-hump solutions as excited states, the experimentally observed multi-hump structures have been attributed to soliton trains, which are coherent objects. This is the current widely accepted interpretation in the literature. Nowadays the GP equation (i.e., the non-linear Schrödinger equation) is the cornerstone of studying soliton trains in attractive BECs.
+</div>
+<div class="Indented">
+It is important to remember, however, that ultra-cold attractive BECs are quantum many-particle systems, governed by the many-boson Schrödinger equation. Hence, we consider in this work the dynamics of bright soliton trains from the perspective of many-boson physics. The fate of matter-wave soliton trains is actually to quickly loose their coherence and become macroscopically fragmented BECs <span class="bibcites">[<a class="bibliocite" name="cite-13" href="#biblio-13">13</a>, <a class="bibliocite" name="cite-14" href="#biblio-14">14</a>, <a class="bibliocite" name="cite-15" href="#biblio-15">15</a>]</span>. The death of the coherent matter-wave soliton trains gives birth to fragmented objects, whose quantum properties and experimental signatures differ substantially from what is currently assumed.
+</div>
+<div class="Indented">
+Our starting point is the GP dynamics <div class="formula">
+<span class="array"><span class="arrayrow"><span class="bracket align-left">⎡</span></span><span class="arrayrow"><span class="bracket align-left">⎣</span></span></span> − <span class="fraction"><span class="ignored">(</span><span class="numerator">1</span><span class="ignored">)/(</span><span class="denominator">2</span><span class="ignored">)</span></span><span class="fraction"><span class="ignored">(</span><span class="numerator">∂<sup>2</sup></span><span class="ignored">)/(</span><span class="denominator">∂<i>x</i><sup>2</sup></span><span class="ignored">)</span></span> + <i>λ</i><sub>0</sub>(<i>N</i> − 1)|<i>ψ</i>(<i>x</i>, <i>t</i>)|<sup>2</sup><span class="array"><span class="arrayrow"><span class="bracket align-right">⎤</span></span><span class="arrayrow"><span class="bracket align-right">⎦</span></span></span><i>ψ</i>(<i>x</i>, <i>t</i>) = <i>i</i><span class="fraction"><span class="ignored">(</span><span class="numerator">∂<i>ψ</i>(<i>x</i>, <i>t</i>)</span><span class="ignored">)/(</span><span class="denominator">∂<i>t</i></span><span class="ignored">)</span></span>
+</div>
+ of a soliton train with two humps (briefly, two-hump soliton). We consider in this work <span class="formula"><i>N</i> = 2000</span> bosons in one dimension and attractive inter-particle interaction of strength <span class="formula"><i>λ</i><sub>0</sub> =  − 0.002</span>. For convenience, we use dimensionless quantities which are readily arrived at by dividing the dimension-full Hamiltonian by <span class="formula"><span class="fraction"><span class="ignored">(</span><span class="numerator">ℏ<sup>2</sup></span><span class="ignored">)/(</span><span class="denominator"><i>mL</i><sup>2</sup></span><span class="ignored">)</span></span></span>, where <span class="formula"><i>m</i></span> is the mass of a boson and <span class="formula"><i>L</i></span> is a length scale. The corresponding dimension-full quantities are within range of current experimental setups and discussed below. As an initial profile (shape) of the two-hump soliton we take the commonly used linear combination of Sech-shaped functions: <div class="formula">
+<i>ψ</i>(<i>x</i>, 0) = <span class="unknown">\cal</span><i>N</i><span class="symbol">{</span><span class="mathrm">sech</span>[<i>γ</i>(<i>x</i> − <i>x</i><sub>0</sub>)]±<span class="mathrm"> sech</span>[<i>γ</i>(<i>x</i> + <i>x</i><sub>0</sub>)]<span class="symbol">}</span>, 
+</div>
+where <span class="formula"><span class="unknown">\cal</span><i>N</i></span> is the normalization factor. The "+" refers to a <span class="formula">0</span>-phase symmetric and the "-" to a <span class="formula"><i>π</i></span>-phase anti-symmetric soliton train. The parameter <span class="formula"><i>γ</i></span> is inversely proportional to the width of the humps. By assuming a large separation between humps, one gets by minimizing the GP energy functional the optimal value of <span class="formula"><i>γ</i> = |<i>λ</i><sub>0</sub>|(<i>N</i> − 1) ⁄ 4 ≈ 1.0</span>.
+</div>
+<div class="Indented">
+<div class="float">
+<a class="Label" name="Figure-1"> </a><div class="figure">
+<img class="embedded" src="Fig1.png" alt="figure Fig1.png" style="width: 12cm; max-width: 505px; height: auto; max-height: 721px;"/>
+ <div class="caption">
+Figure 1 (color online). Evolution in time of a two-hump soliton train in coordinate space. Shown is the evolution in time of the density <span class="formula"><i>ρ</i>(<i>x</i>, <i>t</i>)</span> of the attractive system with <span class="formula"><i>N</i> = 2000</span> bosons and <span class="formula"><i>λ</i><sub>0</sub> =  − 0.002</span> computed by the popular Gross-Pitaevskii equation on the mean-field level in panels a)-c), and the corresponding dynamics computed on the many-body level in panels d)-f). Panels a) and d) show the dynamics of a <span class="formula">0</span>-phase symmetric train; Panels b) and e) show the dynamics of a <span class="formula"><i>π</i></span>-phase anti-symmetric train; Panels c) and f) show the dynamics of a <span class="formula">0</span>-phase asymmetric train. On the many-body level the forces between the two density humps are weaker, and there is essentially only repulsion and no attraction between them at all but short times. All quantities shown are dimensionless.
+</div>
+<div class="PlainVisible">
+<a class="Label" name="fig1"> </a> 
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="Indented">
+The time-dependent density <span class="formula"><i>ρ</i>(<i>x</i>, <i>t</i>)</span> obtained by solving the time-dependent GP equation for different two-hump solitons is plotted in Fig. 1. In the left upper panel, Fig. 1a, we plot the dynamics for the <span class="formula">0</span>-phase symmetric soliton train, initially located at <span class="formula"><i>x</i><sub>0</sub> = ±4.0</span>. The system reveals the well known mean-field oscillatory dynamics: the humps attract each other, collide at <span class="formula"><i>t</i> ≈ 42</span>, then split and return to the initial separation and start a new cycle of oscillation. The left middle part, Fig. 1b, shows the dynamics for the <span class="formula"><i>π</i></span>-phase anti-symmetric soliton clouds placed initially at a larger separation of <span class="formula"><i>x</i><sub>0</sub> = ±6.0</span>. At such a separation the clouds very slightly repel each other, indicating that the inter-hump forces strongly depend on the initial separation. In the left lower panel, Fig. 1c, we depict the dynamics for a <span class="formula">0</span>-phase asymmetric soliton train, formed as the combination of the sech-shaped functions of slightly different widths <span class="formula"><i>γ</i> = 1.1</span> (left cloud) and <span class="formula"><i>γ</i> = 0.9</span> (right cloud), placed at <span class="formula"><i>x</i><sub>0</sub> = ±4.0</span>. A similar dynamics to Fig. 1a is seen. The GP theory describes the following characteristics of two-hump solitons: (i) the relative phase between humps defines whether the inter-hump interaction is attractive or repulsive, and (ii) the magnitude of the inter-hump interaction depends on the separation between the humps.
+</div>
+<div class="Indented">
+We remind the reader that GP theory is a mean-field approximation to the quantum many-boson problem which assumes all bosons to occupy one and the same quantum state throughout the system’s evolution in time. What happens if we relax the constraint of the attractive system to occupy a single quantum state? In other words, we allow the system to choose according to the variational principle its evolution in time by solving now the time-dependent many-boson Schrödinger equation <div class="formula">
+<i>i</i><span class="fraction"><span class="ignored">(</span><span class="numerator">∂Ψ(<i>t</i>)</span><span class="ignored">)/(</span><span class="denominator">∂<i>t</i></span><span class="ignored">)</span></span> = <i>Ĥ</i>Ψ(<i>t</i>)
+</div>
+with <div class="formula">
+<i>Ĥ</i>(<i>x</i><sub>1</sub>, …, <i>x</i><sub><i>N</i></sub>) = <span class="limits"><sup class="limit"><i>N</i></sup><span class="limit">⎲</span><span class="limit">⎳</span><sub class="limit"><i>j</i> = 1</sub></span> − <span class="fraction"><span class="ignored">(</span><span class="numerator">1</span><span class="ignored">)/(</span><span class="denominator">2</span><span class="ignored">)</span></span><span class="fraction"><span class="ignored">(</span><span class="numerator">∂<sup>2</sup></span><span class="ignored">)/(</span><span class="denominator">∂<i>x</i><span class="scripts"><sup class="script">2</sup><sub class="script"><i>j</i></sub></span></span><span class="ignored">)</span></span> + <span class="limits"><sup class="limit"><i>N</i></sup><span class="limit">⎲</span><span class="limit">⎳</span><sub class="limit"><i>j</i> &lt; <i>k</i></sub></span><i>λ</i><sub>0</sub><i>δ</i>(<i>x</i><sub><i>j</i></sub> − <i>x</i><sub><i>k</i></sub>).
+</div>
+ It is possible nowadays to go significantly beyond mean-field and compute the dynamics of BECs on the many-body level, by solving the time-dependent many-boson Schrödinger equation with the multiconfigurational time-dependent Hartree method for bosons, see the literature for details <span class="bibcites">[<a class="bibliocite" name="cite-16" href="#biblio-16">16</a>, <a class="bibliocite" name="cite-17" href="#biblio-17">17</a>]</span> and applications <span class="bibcites">[<a class="bibliocite" name="cite-18" href="#biblio-18">18</a>, <a class="bibliocite" name="cite-19" href="#biblio-19">19</a>]</span>. Is the dynamics of soliton trains described above to change in a dramatic manner?
+</div>
+<div class="Indented">
+We take as initial conditions the same <span class="formula">0</span>-phase symmetric and <span class="formula"><i>π</i></span>-phase anti-symmetric soliton trains as in the above GP studies and propagate them now not on the mean-field but on the many-body level. The time-dependent density <span class="formula"><i>ρ</i>(<i>x</i>, <i>t</i>)</span> obtained at the many-body level is plotted in the right panels of Fig. 1. The first observation is that the initially-localized wave-packets remain localized at the many-body level of the description as well. Hence, localization is indeed a characteristic dynamical feature of attractive bosonic clouds in one dimension, as predicted at the GP level and confirmed here at the many-body level. The many-body results, however, reveal different dynamics than the mean-field ones, compare the left and right panels of Fig. 1. In the right upper panel, Fig. 1d, we depict the many-body dynamics of the initially-prepared <span class="formula">0</span>-phase symmetric wave-packet. The two separated humps start to attract each other, similarly to the mean-field dynamics, but do not come close enough to collide, as it is in the GP case, Fig. 1a. Instead of the full collision the sub-clouds reach a minimal separation and then they start to depart from each other. This observation reveals, thereby, a repulsive character of the inter-hump interaction. So, during the many-body dynamics the interaction between the humps of the initially-prepared <span class="formula">0</span>-phase symmetric wave-packet changes from attractive to repulsive and stays repulsive afterwards. The many-body dynamics of the initially-prepared <span class="formula"><i>π</i></span>-phase anti-symmetric wave-packet is shown on the right middle panel, Fig. 1e. Due to the larger separation between the two humps, the spatial density profiles obtained at the many-body and GP levels are indeed very close to each other. The weak repulsive interaction between the humps persists at the many-body level as well. The right lower panel, Fig. 1f, shows the density profile for the <span class="formula">0</span>-phase asymmetric wave-packet constructed, as above, from two functions of slightly different widths. The dynamics obtained at the many-body level for the initially-prepared <span class="formula">0</span>-phase asymmetric wave-packet has a lot in common with the respective many-body dynamics obtained for the initially-prepared <span class="formula">0</span>-phase symmetric wave-packet, compare panel Fig. 1d and Fig. 1f. The sub-clouds start to attract each other and approach some minimal distance, and then the inter-hump interaction becomes of repulsive character. Summarizing, the many-body dynamics shows that irrespective to the phase between initially-prepared humps, after some time the inter-hump interaction changes its nature and becomes repulsive. This conclusion is general and has been checked for various initially-prepared symmetric and asymmetric wave-packets with different phases. This behavior is in accord with the experimental observation that the inter-hump interactions in low-dimensional attractive Bose gases are indeed repulsive. For more analysis of the inter-hump forces see <span class="bibcites">[<a class="bibliocite" name="cite-20" href="#biblio-20">20</a>]</span>.
+</div>
+<div class="Indented">
+The differences between the GP dynamics leading to bright soliton trains and the respective many-body dynamics collected in Fig. 1 show that bright soliton trains in one-dimensional BECs undergo changes in time. We shall see below that these changes are fundamental and dramatic. To get a deeper insight into the physics behind the intriguing many-body results, we examine further the quantum nature of the attractive bosons. First, we perform the natural orbital analysis of the propagating wave-packets at every point of the propagation time by constructing and diagonalizing the reduced one-body density matrix. The reduced one-body density matrix of the system is given by <div class="formula">
+<i>ρ</i><sup>(1)</sup>(<i>x</i>|<i>x</i>’;<i>t</i>) = ⟨Ψ(<i>t</i>)|<i><b>Ψ</b>̂</i><sup>†</sup>(<i>x</i>’)<i><b>Ψ</b>̂</i>(<i>x</i>)|Ψ(<i>t</i>)⟩, 
+</div>
+where <span class="formula"><i><b>Ψ</b>̂</i><sup>†</sup>(<i>x</i>)</span> is the usual bosonic field operator creating a boson at position <span class="formula"><i>x</i></span>. The eigenvalues obtained, called natural occupation numbers, are plotted in Fig. 2. All initial states, at <span class="formula"><i>t</i> = 0</span>, are fully condensed systems, i.e., only one natural orbital is macroscopically occupied. The GP theory implies that the system remains condensed all the time, i.e., that only one natural orbital remains occupied during the evolution. The many-body dynamics, in contrast, shows that both for the initially-prepared <span class="formula">0</span>-phase soliton train as well as for the <span class="formula"><i>π</i></span>-phase soliton train the bosons quickly populate the second natural orbital, forming thereby macroscopically (two-fold) fragmented many-boson states. The fate of bright soliton trains is thus death by fragmentation. We note that fragmentation of BECs is a general known and well-studied phenomena in the literature (see <span class="bibcites">[<a class="bibliocite" name="cite-13" href="#biblio-13">13</a>, <a class="bibliocite" name="cite-14" href="#biblio-14">14</a>, <a class="bibliocite" name="cite-15" href="#biblio-15">15</a>]</span> and references therein). For the <span class="formula">0</span>-phase symmetric initial state the fragmentation ratio of <span class="formula"><i>n</i><sub>1</sub> = 63.21%</span>, where the condensed fraction has decreased by <span class="formula">1 − <span class="fraction"><span class="ignored">(</span><span class="numerator">1</span><span class="ignored">)/(</span><span class="denominator"><i>e</i></span><span class="ignored">)</span></span></span> times, is reached already at <span class="formula"><i>t</i> ≈ 30</span> (see left upper panel of Fig. 2). Afterwards, the many-body wave-packet dynamics reveals oscillations around the two-fold fragmented state. The <span class="formula"><i>π</i></span>-phase soliton loses its coherence monotonously and lives a bit longer -- it becomes fragmented at <span class="formula"><i>t</i> ≈ 54</span> (see right upper panel of Fig. 2). We stress that the changes in the physics are dramatic despite the large separation between the density humps (see Fig. 1e). The lifetime of the <span class="formula">0</span>-phase asymmetric soliton (not shown) discussed above and in Fig. 1 is also <span class="formula"><i>t</i> ≈ 30</span>. We have also found out that increasing the number of atoms in the system and keeping the GP parameter <span class="formula"><i>λ</i><sub>0</sub><i>N</i></span> fixed, the lifetime of the soliton trains decreases, i.e., the lifetime of the initially-prepared coherent objects becomes even shorter <span class="bibcites">[<a class="bibliocite" name="cite-20" href="#biblio-20">20</a>]</span>. The conclusions are that initially coherent two-hump wave-packets become two-fold fragmented with time, and that the resulting coherence lifetime of the two-hump solitons is finite and ultrashort.
+</div>
+<div class="Indented">
+<div class="float">
+<a class="Label" name="Figure-2"> </a><div class="figure">
+<img class="embedded" src="Fig2.png" alt="figure Fig2.png" style="max-width: 720px; max-height: 504px;"/>
+ <div class="caption">
+Figure 2 (color online). Death of soliton trains by fragmentation. The upper panels show the occupation numbers of the reduced one-body density matrix of the initially-prepared <span class="formula">0</span>-phase symmetric (left) and <span class="formula"><i>π</i></span>-phase anti-symmetric (right) soliton trains of Fig. 1. It is seen that the initially condensed systems become quickly fragmented. The emergence of fragmentation signifies the death of the condensed objects known as bright soliton trains. The lower two panels depict the respective natural orbitals after fragmentation of the initially-prepared <span class="formula">0</span>-phase symmetric (left) and <span class="formula"><i>π</i></span>-phase anti-symmetric (right) coherent wave-packets. The two natural orbitals are delocalized functions of ’gerade’ (even) and ’ungerade’ (odd) symmetries. The delocalization of the natural orbitals in combination with the exchange interaction stabilizes the fragmented attractive Bose-Einstein condensates in comparison with the condensed soliton trains. All quantities shown are dimensionless.
+</div>
+<div class="PlainVisible">
+<a class="Label" name="fig2"> </a> 
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="Indented">
+We have performed similar many-body propagations of initially coherent three-hump and four-hump soliton trains and found that the dynamics leads to the formation of three-fold and four-fold fragmented many-body states, respectively. Summarizing, the death of multi-hump soliton trains is a generic rapid inevitable feature of the many-body dynamics of attractive bosons in one dimension, and gives birth to a potentially interesting object like the fragmenton <span class="bibcites">[<a class="bibliocite" name="cite-21" href="#biblio-21">21</a>]</span>, also see <span class="bibcites">[<a class="bibliocite" name="cite-20" href="#biblio-20">20</a>]</span>. This result has been obtained for initially coherent states made of different numbers of atoms, different number of the constituting humps, placed at different inter-hump separations, with different inter-hump phases, and of different humps’ widths.
+</div>
+<div class="Indented">
+We have shown so far the death of soliton trains as an emerging many-body phenomenon in one dimensional attractive BECs. It is important to discuss how can it be resolved experimentally. Looking at Fig. 1 we recall that on the many-body level the multi-boson attractive wave-packets remain localized objects in real space. This observation, together with the fragmentation of the reduced one-body density matrix, suggest to look for signatures in the correlation functions, both in coordinate and momentum space, which is done in Fig. 3. The first-order correlation function in coordinate space <div class="formula">
+<i>g</i><sup>(1)</sup>(<i>x</i>’, <i>x</i>;<i>t</i>) ≡ <span class="fraction"><span class="ignored">(</span><span class="numerator"><i>ρ</i><sup>(1)</sup>(<i>x</i>|<i>x</i>’;<i>t</i>)</span><span class="ignored">)/(</span><span class="denominator"><span class="sqrt"><span class="radical">√</span><span class="ignored">(</span><span class="root"><i>ρ</i>(<i>x</i>, <i>t</i>)<i>ρ</i>(<i>x</i>’, <i>t</i>)</span><span class="ignored">)</span></span></span><span class="ignored">)</span></span>
+</div>
+ quantifies the degree of spatial coherence of the interacting system <span class="bibcites">[<a class="bibliocite" name="cite-22" href="#biblio-22">22</a>, <a class="bibliocite" name="cite-23" href="#biblio-23">23</a>]</span>, and analogously <span class="formula"><i>g</i><sup>(1)</sup>(<i>k</i>’, <i>k</i>;<i>t</i>)</span> in momentum space <span class="bibcites">[<a class="bibliocite" name="cite-23" href="#biblio-23">23</a>]</span>. The upper two panels show the first-order correlation functions in coordinate (left) and momentum (right) space of the initially-prepared coherent <span class="formula">0</span>-phase symmetric soliton train at <span class="formula"><i>t</i> = 0</span>. It should be stressed that, within GP theory, the wave-packet remains coherent at all times; thus the upper two panels represent the first-order correlation functions of the two-hump attractive wave-packet at all times, assuming GP to be valid. In sharp contrast, the first-order correlation functions in coordinate and momentum space, when computed on the many-body level, show prominent structures, see middle and lower four panels in Fig. 3, which leave no place for confusion of the rise of fragmentation <span class="bibcites">[<a class="bibliocite" name="cite-23" href="#biblio-23">23</a>]</span> and the death of soliton trains. The respective signatures in the momentum distributions are discussed in <span class="bibcites">[<a class="bibliocite" name="cite-20" href="#biblio-20">20</a>]</span>.
+</div>
+<div class="Indented">
+It is left to determine whether the death of soliton trains is on a time scale relevant for current experimental setups. For this we consider explicitly <span class="formula"><i>N</i> = 2000</span> <span class="formula"><sup>7</sup></span>Li atoms (<span class="formula"><i>m</i> = 1.1650⋅10<sup> − 26</sup></span> kg, <span class="formula"><i>s</i></span>-wave scattering length is <span class="formula"><i>a</i><sub><i>s</i></sub> =  − 3<i>a</i><sub>0</sub></span>). We emulate a quasi-1D cigar-shaped trap in which the transverse confinement is <span class="formula"><i>w</i><sub>⊥</sub> = 2<i>π</i>⋅800</span> Hz, which is amenable to current experimental setups. Following <span class="bibcites">[<a class="bibliocite" name="cite-24" href="#biblio-24">24</a>]</span>, the transverse confinement renormalizes the interaction strength. Combining all the above, the length scale is given by <span class="formula"><i>L</i> = <span class="fraction"><span class="ignored">(</span><span class="numerator">ℏ|<i>λ</i><sub>0</sub>|</span><span class="ignored">)/(</span><span class="denominator">2<i>m</i><i>ω</i><sub>⊥</sub><i>a</i><sub><i>s</i></sub></span><span class="ignored">)</span></span> = 11.3⋅10<sup> − 6</sup></span> m, and the time scale by <span class="formula"><span class="fraction"><span class="ignored">(</span><span class="numerator"><i>mL</i><sup>2</sup></span><span class="ignored">)/(</span><span class="denominator">ℏ</span><span class="ignored">)</span></span> = 14.2⋅10<sup> − 3</sup></span> sec. Now, expressing the lifetime of the soliton trains (see Fig. 2) in real time, we get lifetimes of a couple of hundreds of milliseconds (see <span class="bibcites">[<a class="bibliocite" name="cite-20" href="#biblio-20">20</a>]</span> for analysis of the lifetime as a fucntion of <span class="formula"><i>N</i></span>), much below current experimental run times of a couple of seconds <span class="bibcites">[<a class="bibliocite" name="cite-5" href="#biblio-5">5</a>]</span>. Our theoretical results thus call for exciting experimental demonstration of the ultrafast death of soliton trains in low-dimensional attractive BECs, caused by fragmentation.
+</div>
+<div class="Indented">
+We are grateful to K. Sakmann and H.-D. Meyer for fruitful discussions. Financial support by the DFG is greatly acknowledged.
+</div>
+<a class="toc" name="References"></a><h1 class="biblio">
+References
+</h1>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-1">1</a>] </span> S. Trillo and W. Torruellas (Eds.), <i>Spatial Solitons</i> (Springer, Berlin, 2001).
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-2">2</a>] </span> G. I. Stegeman and M. Segev, Science <b>286</b>, 1518 (1999).
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-3">3</a>] </span> P. A. Ruprecht, M. J. Holland, K. Burnett, M. Edwards, Phys. Rev. A <b>51</b>, 4704 (1995).
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-4">4</a>] </span> V. M. Pérez-García, H. Michinel, and H. Herrero, Phys. Rev. A <b>57</b>, 3837 (1998).
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-5">5</a>] </span> K. E. Strecker, G. B. Partridge, A. G. Truscott, and R. G. Hulet, Nature <b>417</b>, 150 (2002).
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-6">6</a>] </span> L. Khaykovich <i>et al.</i>, Science <b>296</b>, 1290 (2002).
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-7">7</a>] </span> U. Al Khawaja <i>et al.</i>, Phys. Rev. Lett. <b>89</b>, 200404 (2002).
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-8">8</a>] </span> L. Salasnich, A. Parola, and L. Reatto, Phys. Rev. Lett. <b>91</b>, 080405 (2003).
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-9">9</a>] </span> L. D. Carr and J. Brand, Phys. Rev. Lett. <b>92</b>, 040401 (2004).
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-10">10</a>] </span> A. D. Martin, C. S. Adams, and S. A. Gardiner, Phys. Rev. Lett. <b>98</b>, 020402 (2007).
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-11">11</a>] </span> E. P. Gross, Nuovo Cimento <b>20</b>, 454 (1961).
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-12">12</a>] </span> L. P. Pitaevskii, Zh. Eksp. Teor. Fiz. <b>40</b>, 646 (1961) [Sov. Phys.--JETP <b>13</b>, 451 (1961)].
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-13">13</a>] </span> P. Nozières and D. Saint James, J. Phys. France <b>43</b>, 1133 (1982).
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-14">14</a>] </span> A. I. Streltsov, O. E. Alon, and L. S. Cederbaum, Phys. Rev. A <b>73</b>, 063626 (2006).
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-15">15</a>] </span> E. J. Mueller, T.-L. Ho, M. Ueda, and G. Baym, Phys. Rev. A <b>74</b>, 033612 (2006).
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-16">16</a>] </span> A. I. Streltsov, O. E. Alon, and L. S. Cederbaum, Phys. Rev. Lett. <b>99</b>, 030402 (2007).
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-17">17</a>] </span> O. E. Alon, A. I. Streltsov, and L. S. Cederbaum, Phys. Rev. A <b>77</b>, 033613 (2008).
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-18">18</a>] </span> J. Grond, J. Schmiedmayer, and U. Hohenester, Phys. Rev. A <b>79</b>, 021603(R) (2009).
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-19">19</a>] </span> K. Sakmann, A. I. Streltsov, O. E. Alon, and L. S. Cederbaum, Phys. Rev. Lett. <b>103</b>, 220601 (2009).
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-20">20</a>] </span> See EPAPS Document No. xxxx for supplemental physical analysis of the death of soliton trains. For more information on EPAPS, see http://www.aip.org/pubservs/epaps.html.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-21">21</a>] </span> A. I. Streltsov, O. E. Alon, and L. S. Cederbaum, Phys. Rev. Lett. <b>100</b>, 130401 (2008).
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-22">22</a>] </span> M. Naraschewski and R. J. Glauber, Phys. Rev. A <b>59</b>, 4595 (1999).
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-23">23</a>] </span> K. Sakmann, A. I. Streltsov, O. E. Alon, and L. S. Cederbaum, Phys. Rev. A <b>78</b>, 023615 (2008).
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-24">24</a>] </span> M. Olshanii, Phys. Rev. Lett. <b>81</b>, 938 (1998).
+</p>
+<div class="Unindented">
+<p><br/>
+</p>
+
+</div>
+<div class="Indented">
+<div class="float">
+<a class="Label" name="Figure-3"> </a><div class="figure">
+<img class="embedded" src="Fig3.png" alt="figure Fig3.png" style="max-width: 505px; max-height: 721px;"/>
+ <div class="caption">
+Figure 3 (color online). Detecting the death of soliton trains by means of first-order correlation functions. The upper two panels show the first-order correlation function of the initially-prepared <span class="formula">0</span>-phase symmetric soliton train of Fig. 1 in coordinate (left) and momentum (right) space. It is completely flat signifying a coherent and condensed state. Within Gross-Pitaevskii theory the system remains condensed for all times; thus the upper two panels represent the first-order correlation function in this case for all times. On the many-body level, the correlation functions are completely different and structured. The pattern emerging in coordinate space indicates no coherence between the two humps (left middle and lower panels), the respective pattern in momentum space represents a fragmented state (right middle and lower panels). Thus, measuring the first-order correlation functions in either coordinate or momentum space provides a direct indication of the death of the soliton train. All quantities shown are dimensionless.
+</div>
+<div class="PlainVisible">
+<a class="Label" name="fig3"> </a> 
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<hr class="footer"/>
+<div class="footer" id="generated-by">
+Document generated by <a href="http://elyxer.nongnu.org/">eLyXer 1.2.2 (2011-06-12)</a> on <span class="create-date">2015-04-01T15:10:46.549102</span>
+</div>
+</div>
+</body>
+</html>

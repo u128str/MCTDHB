@@ -1,0 +1,168 @@
+# 2001-11-21 * changed CVSROOT
+# 2001-10-19 * INFOPATH added
+# 2001-05-14 * LESS added
+# 2001-05-08 * removed some very old junk
+# 2001-06-13 * source KDE stuff
+# 2002-01-24 * use default KDE again
+
+#*************************************************************************
+#  In the following function definitions and aliases sometimes multiple
+#   possibilities are given. Only ONE should used for proper working!
+#   Hence for this file to make sense, read it carefully and remove
+#   multiple definition for the same thing.
+#*************************************************************************
+
+#  This file should ONLY be executed for interactive shells and NOT during
+#   rcp or rexec, it may then produce unwanted results. This line breaks
+#   the script immediately if this is not an interactive shell.
+xset b 0
+if [ ! -t 0 ] ; then
+  return
+fi
+
+test -z "$PROFILEREAD" && . /etc/profile
+
+# ------------------------------------------------------------------------
+# Other possibility for "rm": Just ask for every argument before deleting.
+source $HOME/bin/rsdel
+alias rm=rsdel
+#   Use a little bit different prompt.
+PROMPT_COMMAND=""
+PS1="\w:\n\h> "
+PS1="$LOGNAME@`hostname -f`|\W> "
+# ------------------------------------------------------------------------
+# Other useful aliases: Ask when move, copy or link would overwrite
+#  existing file.
+alias cp='cp -i'
+alias mv='mv -i'
+alias ltr='ls -ltr'  
+alias res='cat ~/resources.BWGRID.dat'
+alias decc='/usr/people/suren/bin/mybin/jobview dec'
+alias pcc='/usr/people/suren/bin/mybin/jobview pc'
+#alias mc='/usr/people/bernd/local/bin/mc'
+
+# ------------------------------------------------------------------------
+# Some settings for "bash":
+#   Notify immediately if a command in the background terminates.
+set -o notify
+
+#   Prevent the shell from accidently overwriting files via output
+#    redirection ">file". Explicit overwrite can be forced with ">|file".
+set -C
+
+#   A little bit longer history buffer.
+HISTFILESIZE=1500
+
+#   If the command "cd directory" is given, search for "directory" not
+#    only in current directory, but also in HOME directory.
+CDPATH=:$HOME
+
+#  Generate a core file when program aborts. Limit size to
+#   10 MBytes (Default is to generate NO core file):
+#ulimit -c 10000
+#  or create an arbitrary big core file:
+#ulimit -c unlimited
+
+# ------------------------------------------------------------------------
+# personal customizations
+export PATH=.:$PATH
+
+# add location of amsTeX file to TeX search path
+export TEXINPUTS=".::$HOME/latex/inputs:/usr/local/tex/latex2e/packages/amslatex/inputs"
+export PS_PERSONALITY=POSIX # für Linux
+alias myps='ps -f -u $USER'
+#alias ltr='ls -ltr'
+
+# zum Anzeigen von man-pages:
+export PAGER=less
+
+# OS specific executables
+PATH=$HOME/bin/$OSTYPE:$PATH
+export PATH
+
+# set up PGI compiler
+#export PGI=/usr/local/pgi
+#PATH=$PGI/linux86/bin:$PATH
+#MANPATH=$MANPATH:$PGI/man
+# By default, X looks for .Xdefaults-hostname
+#export XENVIRONMENT=.Xdefaults
+
+# this is our master repository
+#export CVSROOT=:ext:alext@coulomb:/home/alext/src/master
+#export CVS_RSH=ssh
+
+#case $OSTYPE in
+#  linux-gnu ) PVM_ROOT=/usr/lib/pvm3 ;;
+#  osf4.0 ) PVM_ROOT=/usr/local/pvm3 ;;
+#esac;
+ 
+#export PVM_ROOT
+#export XPVM_ROOT=/usr/X11R6/lib/xpvm
+
+#PS1="*** `hostname -s`:\$PWD\n> "
+
+
+export LESS='-S -I'
+
+export INFOPATH="$HOME/info:$INFOPATH"
+
+export PATH=.:$PATH
+
+#Intel compilers section
+#  export INTEL_INSTALL=/usr/local/intel/compiler81/
+#  export PATH=/usr/local/intel/compiler81/bin/:$PATH
+#  export PATH=/opt/SUNWhpc/HPC8.0/bin/:$PATH
+#  export LD_LIBRARY_PATH=/usr/local/intel/compiler81/lib:$LD_LIBRARY_PATH
+  export LD_LIBRARY_PATH=/usr/lib:$LD_LIBRARY_PATH
+#  export NLSPATH=/usr/local/intel/compiler81/lib/ifcore_msg.cat
+#  export LD_LIBRARY_PATH=/usr/local/intel/mkl/lib/32:$LD_LIBRARY_PATH
+  export PATH
+#Gaussian03 section
+#type_proc=`uname -m`
+#if [ $type_proc = "x86_64" ]; then
+#export LD_LIBRARY_PATH=/apps/prod/PGI/linux86-64/7.1-1/libso/:$LD_LIBRARY_PATH
+#fi
+#New settings for gnuplot 4.2.2 
+export PATH=$HOME/bin:$PATH
+
+ulimit -s unlimited
+
+
+
+#export IDB_HOME=/usr/local/intel/compiler10/bin
+
+#source /usr/local/compilers/intel.sh
+#source /usr/local/compilers/g95.sh
+#-I/usr/lib/mpich-shmem/include
+
+source /apps/intel/bin/compilervars.sh ia32
+
+#source /usr/local/compilers/intel.sh
+#export LD_LIBRARY_PATH=.:./:/usr/local/intel/mkl/lib/32:$LD_LIBRARY_PATH
+#source /usr/local/compilers/intel.sh
+#export LD_LIBRARY_PATH=/apps/prod/mkl/10.0.011/lib/em64t/:$LD_LIBRARY_PATH
+#*MCTDH*A***********************************************************************
+# Following lines written by install_mctdh.  Wed Sep 15 10:38:29 CEST 2010
+export MCTDH_DIR=/home/alexej/mctdh84.4.2
+. /home/alexej/mctdh84.4.2/install/mctdh.profile
+if [ -f ~/.mctdhrc ] ; then . ~/.mctdhrc ; fi
+#*MCTDH*B***********************************************************************
+
+export GLOBUS_LOCATION=/home/alexej/globus-4.0.7
+source $GLOBUS_LOCATION/etc/globus-user-env.sh
+grid-proxy-init
+echo " ====================================="
+echo " L I S T of the B W G R I D resources"
+#cat '$HOME/resources.BWGRID.dat'
+cat ~/resources.BWGRID.dat
+echo " ====================================="
+     
+alias gsiscp='gsiscp -i ~/.globus/usercert.pem -P 2222'
+alias gsissh='gsissh -XY -p 2222 -i ~/.globus/usercert.pem'
+alias res='cat ~/resources.BWGRID.dat'
+
+
+export PATH=/home/alexej/mpich2-1.0.8p1_install/bin:$PATH 
+
+ #DropBox startup
+~/.dropbox-dist/dropboxd &
