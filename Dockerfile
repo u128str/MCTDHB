@@ -20,6 +20,18 @@
 #  apt-get install fftw3  fftw3-dev
 #  apt-get install libblas-dev liblapack-dev
 # Version: 0.0.1
-FROM ubuntu:16.04
+
+#FROM ubuntu:16.04
+#MAINTAINER  Alexej I. Streltsov  <u128str@gmail.com>
+#RUN apt-get update && apt-get install -y  vim make  openmpi-bin libopenmpi-dev fftw3  fftw3-dev libblas-dev liblapack-dev
+
+## RUN MCTDHB through docker: docker run --rm -it -v $(pwd):/tmp mctdhb
+FROM mctdhb/minunix:latest
 MAINTAINER  Alexej I. Streltsov  <u128str@gmail.com>
-RUN apt-get update && apt-get install -y  vim make  openmpi-bin libopenmpi-dev fftw3  fftw3-dev libblas-dev liblapack-dev
+##COPY ./MCTDHB_V3.3.01  /mctdhb
+COPY Makefile  /mctdhb
+WORKDIR /mctdhb/
+#RUN  make
+##COPY ./MCTDHB_V3.3.01  /mctdhb
+#WORKDIR /tmp
+#CMD  ["/mctdhb/bin/boson_MCTDHB_gnu_FFTW"]
