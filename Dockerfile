@@ -29,7 +29,7 @@
 FROM mctdhb/minunix:latest
 MAINTAINER  Alexej I. Streltsov  <u128str@gmail.com>
 ##COPY ./MCTDHB_V3.3.01  /mctdhb
-#COPY Makefile  /mctdhb
+COPY Makefile  /tmp
 #WORKDIR /mctdhb/
 RUN ls
 RUN pwd
