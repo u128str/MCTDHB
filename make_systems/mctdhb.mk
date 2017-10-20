@@ -125,7 +125,7 @@ ci_all.mod ci_prod.mod dvr_all.mod parallel_ci.mod parallel_orb.mod rr_ww.mod sh
 	$(FC) -c ./source/MODULES_ALL_allocate.F90 -o  ./source/MODULES_ALL_allocate.o
  
 clean:
-	rm -r  *.a /external/*.o ./external/*.mod ./source/*.o ./*.mod ./user_guesslib/libguess.so ./user_guesslib/*.o ./*.o ./bin/* ./source/FFTMKL/*.o ./source/FFTFFTW/*.o ./source/FFTCUDACPP/*.o  ./source/FFTCUDAPGI/*.o ./source/FFTCUDAPGI/*.mod  properties_LR/*.o properties_LR/*.mod ./libguess.so  
+	rm -r  *.a ./external/*.o ./external/*.mod ./source/*.o ./*.mod ./user_guesslib/libguess.so ./user_guesslib/*.o ./*.o ./bin/* ./source/FFTMKL/*.o ./source/FFTFFTW/*.o ./source/FFTCUDACPP/*.o  ./source/FFTCUDAPGI/*.o ./source/FFTCUDAPGI/*.mod  properties_LR/*.o properties_LR/*.mod ./libguess.so  
 
 cl:
 	rm -r  *.a ./external/*.o ./external/*.mod ./source/*.o ./*.mod ./user_guesslib/libguess.so ./user_guesslib/*.o ./*.o ./bin/* ./source/FFTMKL/*.o ./source/FFTFFTW/*.o ./source/FFTCUDACPP/*.o  ./source/FFTCUDAPGI/*.o ./source/FFTCUDAPGI/*.mod  properties_LR/*.o properties_LR/*.mod ./libguess.so 

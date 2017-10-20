@@ -1,16 +1,15 @@
 # MCTDHB
 
 ```
-MCTDHB package MCTDHB_V3.2.32
  #===============================================================#
  #               __  __  ___ _____ ___  _  _ ___                 #
  #  Scientific  |  \/  |/ __|_   _|   \| || | _ ) (2006-present) #
  #              | |\/| | (__  | | | |) | __ | _ \    Germany     #
  #    Package   |_|  |_|\___| |_| |___/|_||_|___/   Heidelberg   #
- #                      http://mctdhb.org                        #
+ #      http://mctdhb.org    http://mctdhb-lab.com/              #
  #===============================================================#
  #   The Multiconfigurational Time-Dependent Hartree For Bosons  #
- #      Current version 3.2.32 l Heidelberg Mar (2015)           #
+ #    Current version 3.3.01 l Heidelberg/Kassel Apr (2017)      #
  #===============  BBB: Be superB with the mctdhbB ==============#
  #                        Founders:                              #
  #                                                               #
@@ -24,7 +23,7 @@ MCTDHB package MCTDHB_V3.2.32
  #                     Contributors:                             #
  #            Lorenz S. Cederbaum, Ofir E. Alon                  #
  #      Kaspar Sakmann, Axel U. J. Lode, Julian Grond            #
- #           Oksana I. Streltsova, Shachar Klaiman               #
+ #     Oksana I. Streltsova, Shachar Klaiman, Raphael Beinke     #
  #===============================================================#
  #                       Citation:                               #
  #   When citing the MCTDHB Package in the literature,           #
@@ -44,7 +43,7 @@ MCTDHB package MCTDHB_V3.2.32
  #       for Bosons Package, http://mctdhb.org,                  #
  #       A. I. Streltsov,  et al                                 #
  #                                                               #
- #      Current version 3.2.32 l Heidelberg Mar (2015)           #
+ #    Current version 3.3.01 l Heidelberg/Kassel Apr (2017)      #
  #===============================================================#
  ____    ____    ______  _________  ______    ____  ____ ______   
 |_   \  /   _|.'' ___  ||  _   _  ||_   _ `. |_   ||  _||_   _  \ 
@@ -52,6 +51,21 @@ MCTDHB package MCTDHB_V3.2.32
   | |\  /| | | |            | |      | |  | | |  __  |    |  __''.
  _| |_\/_| |_\ `.___.''\   _| |_    _| |_.''/_| |  | |_  _| |__) |
 |_____||_____|`.____ .''  |_____|  |______.''|____||____||_______/
-                        http://mctdhb.org                         
-For free Java-FX based GUI visit http://mctdhb-lab.com
+        http://mctdhb.org     http://mctdhb-lab.com/              
+====================================================================================================
+
 ```
+```
+ ____    ____    ______  _________  ______    ____  ____ ______   
+|_   \  /   _|.'' ___  ||  _   _  ||_   _ `. |_   ||  _||_   _  \ 
+  |   \/   | / .''   \_||_/ | | \_|  | | `. \ | |__| |    | |_)  |
+  | |\  /| | | |            | |      | |  | | |  __  |    |  __''.
+ _| |_\/_| |_\ `.___.''\   _| |_    _| |_.''/_| |  | |_  _| |__) |
+|_____||_____|`.____ .''  |_____|  |______.''|____||____||_______/
+        http://mctdhb.org     http://mctdhb-lab.com/              
+ #===============================================================#
+ #   The Multiconfigurational Time-Dependent Hartree For Bosons  #
+ #    Current version 3.3.01 l Heidelberg/Kassel Apr (2017)      #
+ #===============  BBB: Be superB with the mctdhbB ==============#
+```
+

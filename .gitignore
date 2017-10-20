@@ -1,0 +1,6 @@
+*.o
+*.mod
+*.a
+boson_MCTDHB*
+properties_LR*
+
