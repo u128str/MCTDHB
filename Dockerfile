@@ -30,7 +30,7 @@ FROM mctdhb/minunix:latest
 MAINTAINER  Alexej I. Streltsov  <u128str@gmail.com>
 ##COPY ./MCTDHB_V3.3.01  /mctdhb
 RUN mkdir -p /mctdhb
-COPY *  /mctdhb/.
+COPY .  /mctdhb/ver0.1
 WORKDIR /mctdhb
 RUN  make
 ##COPY ./MCTDHB_V3.3.01  /mctdhb
