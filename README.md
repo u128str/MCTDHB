@@ -5,7 +5,7 @@
 2)  ````$ docker pull mctdhb/auto-build````
 3)  ````$ docker run --rm -it  mctdhb/auto-build````
 and you will be inside the docker container in the TEST directory ```root@97f61e1389e7:/TEST#``` with 
-__input.in__ and __V_W_Psi_string.in__ files in it. To reproduce some data from PRA 86 063606 Table_1 type:
+__input.in__ and __V_W_Psi_string.in__ files in it. To reproduce some data from [PRA 86 063606] https://journals.aps.org/pra/abstract/10.1103/PhysRevA.86.063606  Table_1 type:
 4) ````$ /mctdhb/bin/boson_MCTDHB_gnu_FFTW````
 5) Wait ... and compare with reference: root@97f61e1389e7:/TEST````$ vimdiff basic_info.out basic_info.out_Reference ````
 
