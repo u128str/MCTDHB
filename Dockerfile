@@ -29,9 +29,9 @@
 FROM mctdhb/minunix:latest
 MAINTAINER  Alexej I. Streltsov  <u128str@gmail.com>
 ##COPY ./MCTDHB_V3.3.01  /mctdhb
-COPY Makefile  /mctdhb
-WORKDIR /mctdhb/
-#RUN  make
+#COPY Makefile  /mctdhb
+#WORKDIR /mctdhb/
+RUN  make
 ##COPY ./MCTDHB_V3.3.01  /mctdhb
 #WORKDIR /tmp
 #CMD  ["/mctdhb/bin/boson_MCTDHB_gnu_FFTW"]
