@@ -4,9 +4,9 @@
 1)   install docker (see e.g. https://www.docker.com/community-edition ) 
 2)  ````$ docker pull mctdhb/auto-build````
 3)  ````$ docker run --rm -it  mctdhb/auto-build````
-and you will be inside the docker container in the TEST directory with 
+and you will be inside the docker container in the TEST directory ```root@97f61e1389e7:/TEST#``` with 
 __input.in__ and __V_W_Psi_string.in__ files in it. To reproduce some data from PRA 86 063606 Table_1 type:
-4) ````root@97f61e1389e7:/TEST# /mctdhb/bin/boson_MCTDHB_gnu_FFTW````
+4) ````$ /mctdhb/bin/boson_MCTDHB_gnu_FFTW````
 5) Wait ... and compare with reference: root@97f61e1389e7:/TEST````$ vimdiff basic_info.out basic_info.out_Reference ````
 
 ```
@@ -62,16 +62,6 @@ __input.in__ and __V_W_Psi_string.in__ files in it. To reproduce some data from 
 |_____||_____|`.____ .''  |_____|  |______.''|____||____||_______/
         http://mctdhb.org     http://mctdhb-lab.com/              
 ====================================================================================================
-
-```
-```
- ____    ____    ______  _________  ______    ____  ____ ______   
-|_   \  /   _|.'' ___  ||  _   _  ||_   _ `. |_   ||  _||_   _  \ 
-  |   \/   | / .''   \_||_/ | | \_|  | | `. \ | |__| |    | |_)  |
-  | |\  /| | | |            | |      | |  | | |  __  |    |  __''.
- _| |_\/_| |_\ `.___.''\   _| |_    _| |_.''/_| |  | |_  _| |__) |
-|_____||_____|`.____ .''  |_____|  |______.''|____||____||_______/
-        http://mctdhb.org     http://mctdhb-lab.com/              
  #===============================================================#
  #   The Multiconfigurational Time-Dependent Hartree For Bosons  #
  #    Current version 3.3.01 l Heidelberg/Kassel Apr (2017)      #
