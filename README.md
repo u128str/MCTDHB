@@ -1,5 +1,7 @@
 # MCTDHB
-MCTDHB package MCTDHB_V3.2.32
+```
+MCTDHB package MCTDHB_V3.3.01
+
  #===============================================================#
  #               __  __  ___ _____ ___  _  _ ___                 #
  #  Scientific  |  \/  |/ __|_   _|   \| || | _ ) (2006-present) #
@@ -42,7 +44,7 @@ MCTDHB package MCTDHB_V3.2.32
  #       for Bosons Package, http://mctdhb.org,                  #
  #       A. I. Streltsov,  et al                                 #
  #                                                               #
- #      Current version 3.2.32 l Heidelberg Mar (2015)           #
+ #      Current version 3.3.01 l Heidelberg/Kassel (2015-2017)   #
  #===============================================================#
  ____    ____    ______  _________  ______    ____  ____ ______   
 |_   \  /   _|.'' ___  ||  _   _  ||_   _ `. |_   ||  _||_   _  \ 
@@ -52,3 +54,4 @@ MCTDHB package MCTDHB_V3.2.32
 |_____||_____|`.____ .''  |_____|  |______.''|____||____||_______/
                         http://mctdhb.org                         
 For free Java-FX based GUI visit http://mctdhb-lab.com
+```
