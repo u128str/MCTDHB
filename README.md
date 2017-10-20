@@ -10,7 +10,8 @@ __Free__ cross-platform (Mac/Unix/Windows) with GUI: http://www.mctdhb-lab.com
 and you will be inside the docker container in the TEST directory ```root@97f61e1389e7:/TEST#``` with 
 __input.in__ and __V_W_Psi_string.in__ files in it. To reproduce some data from [PRA 86 063606](https://journals.aps.org/pra/abstract/10.1103/PhysRevA.86.063606) [ArXiV:1207.5128](https://arxiv.org/abs/1207.5128)  Table_1 type:
 4) ````$ /mctdhb/bin/boson_MCTDHB_gnu_FFTW````
-5) Wait ... and compare with reference: root@97f61e1389e7:/TEST````$ vimdiff basic_info.out basic_info.out_Reference ````
+5) Wait ... and compare with reference: 
+root@97f61e1389e7:/TEST```$ vimdiff basic_info.out basic_info.out_Reference ```
 
 ## C. MCTDHB usage - How2 recomplile on Ubintu 16.04
 1) ```$ sudo apt-get update && apt-get install -y vim make openmpi-bin libopenmpi-dev fftw3 fftw3-dev libblas-dev liblapack-dev ``` 
