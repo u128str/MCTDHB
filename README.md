@@ -1,11 +1,14 @@
 # MCTDHB
-## MCTDHB usage with MCTDHB-Lab (Mac/Unix/Windows) http://www.mctdhb-lab.com
+
+## MCTDHB usage with MCTDHB-Lab 
+(Mac/Unix/Windows) http://www.mctdhb-lab.com
+
 ## MCTDHB usage with docker (5-steps)
 1)   install docker (see e.g. https://www.docker.com/community-edition ) 
 2)  ````$ docker pull mctdhb/auto-build````
 3)  ````$ docker run --rm -it  mctdhb/auto-build````
 and you will be inside the docker container in the TEST directory ```root@97f61e1389e7:/TEST#``` with 
-__input.in__ and __V_W_Psi_string.in__ files in it. To reproduce some data from [PRA 86 063606] (https://journals.aps.org/pra/abstract/10.1103/PhysRevA.86.063606) [ArXiV:1207.5128](https://arxiv.org/abs/1207.5128)  Table_1 type:
+__input.in__ and __V_W_Psi_string.in__ files in it. To reproduce some data from [PRA 86 063606](https://journals.aps.org/pra/abstract/10.1103/PhysRevA.86.063606) [ArXiV:1207.5128](https://arxiv.org/abs/1207.5128)  Table_1 type:
 4) ````$ /mctdhb/bin/boson_MCTDHB_gnu_FFTW````
 5) Wait ... and compare with reference: root@97f61e1389e7:/TEST````$ vimdiff basic_info.out basic_info.out_Reference ````
 
