@@ -1,4 +1,12 @@
 # MCTDHB
+## MCTDHB usage with MCTDHB-Lab (Mac/Unix/Windows) http://www.mctdhb-lab.com
+## MCTDHB usage with docker
+-   install docker (see ) 
+-   docker pull mctdhb/auto-build
+-  ````$docker run --rm -it  mctdhb/auto-build````
+- ''' $/TEST /mctdhb/bin/boson_MCTDHB_gnu_FFTW'''
+
+
 
 ```
  #===============================================================#
