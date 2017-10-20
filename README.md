@@ -44,7 +44,8 @@ Now copy the templates files to /TEMP reproduce some data from [PRA 86 063606](h
  #            Created, developed and designed by                 #
  #                                                               #
  #           Alexej I. Streltsov (Project Leader)                #
- #          Alexej.Streltsov@pci.uni-heidelberg.de               #
+ #          Alexej.Streltsov [At] pci.uni-heidelberg.de          #
+ #                   u128str [At] gmail.com                      #
  #                                                               #
  #                     Contributors:                             #
  #            Lorenz S. Cederbaum, Ofir E. Alon                  #
@@ -78,7 +79,7 @@ Now copy the templates files to /TEMP reproduce some data from [PRA 86 063606](h
  _| |_\/_| |_\ `.___.''\   _| |_    _| |_.''/_| |  | |_  _| |__) |
 |_____||_____|`.____ .''  |_____|  |______.''|____||____||_______/
         http://mctdhb.org     http://mctdhb-lab.com/              
-====================================================================================================
+==================================================================
  #===============================================================#
  #   The Multiconfigurational Time-Dependent Hartree For Bosons  #
  #    Current version 3.3.01 l Heidelberg/Kassel Apr (2017)      #
