@@ -1,7 +1,7 @@
 # MCTDHB
 
 ## MCTDHB usage with MCTDHB-Lab 
-(Mac/Unix/Windows) http://www.mctdhb-lab.com
+__Free__ cross-platform (Mac/Unix/Windows) with GUI: http://www.mctdhb-lab.com
 
 ## MCTDHB usage with docker (5-steps)
 1)   install docker (see e.g. https://www.docker.com/community-edition ) 
