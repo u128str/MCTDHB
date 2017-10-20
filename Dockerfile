@@ -29,11 +29,10 @@
 FROM mctdhb/minunix:latest
 MAINTAINER  Alexej I. Streltsov  <u128str@gmail.com>
 ##COPY ./MCTDHB_V3.3.01  /mctdhb
-COPY Makefile  /tmp
-#WORKDIR /mctdhb/
-RUN ls
-RUN pwd
-#RUN  make
+RUN mkdir -p /mctdhb
+COPY -rf *  /mctdhb/.
+WORKDIR /mctdhb
+RUN  make
 ##COPY ./MCTDHB_V3.3.01  /mctdhb
 #WORKDIR /tmp
 #CMD  ["/mctdhb/bin/boson_MCTDHB_gnu_FFTW"]
