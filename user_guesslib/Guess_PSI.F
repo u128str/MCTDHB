@@ -152,6 +152,18 @@ c=====================================
          CASE (2) ! 2D  2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D
          write(6,'(a35)')"I'm constructing 2D guess"
             CALL VTRAP_EXT_TD(0d0)
+            IF(ORB_DIAG.and.Time_DVRMETHODX==4) then 
+          write(6,'(a35)') "2D X-FFT: Diag Vtarp not supported" 
+          write(6,'(a35)') "put input.in:  ORB_DIAG=.F.," 
+          write(6,'(a35)') "define Psi_i in  V_W_Psi_string.in" 
+            stop("Guess_PSI.F l:158") 
+            endif
+            IF(ORB_DIAG.and.Time_DVRMETHODY==4) then
+          write(6,'(a35)') "2D Y-FFT: Diag Vtarp not supported" 
+          write(6,'(a35)') "put input.in:  ORB_DIAG=.F.," 
+          write(6,'(a35)') "define Psi_i in V_W_Psi_string.in" 
+            stop("Guess_PSI.F l:163") 
+            endif
 !> Initial guess is constructed by hands
          ind=1
          Do J=1,NDY
@@ -177,7 +189,7 @@ c=====================================
                IF(Morb.ge.11)  PSI(ind,11)=x*y*rx**4*ry**1
                IF(Morb.ge.12) then
                  do k=12,MORB
-                       PSI(ind,k)=x*y*rx**1*ry**4
+                       PSI(ind,k)=x*y*(rx*ry**k/3)
                  end do
                end if
               Do k=1,Morb
@@ -211,7 +223,7 @@ c         EndDO
 !             if(abs(x).le.8888880.00000000001d0) then
 !            zk=(0d0,0.5d0)*PI
 !             else
-            zk= -4*(0d0,1.0d0)*datan(y/x) ! for 2D HO Lz=l if psi=r^l*exp(-r^2/2))*exp(-i*l*datan2(y,x)
+!            zk= -4*(0d0,1.0d0)*datan(y/x) ! for 2D HO Lz=l if psi=r^l*exp(-r^2/2))*exp(-i*l*datan2(y,x)
 !             endif
         if(stringMOM.ne.'Imprint defaults K from Guess_PSI.F') then
            call init (stringMOM, variables, statusflag)

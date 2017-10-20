@@ -62,7 +62,7 @@
 &"  | |\  /| | | |            | |      | |  | | |  __  |    |  __''. ",&
 &" _| |_\/_| |_\ `.___.''\   _| |_    _| |_.''/_| |  | |_  _| |__) | ",&
 &"|_____||_____|`.____ .''  |_____|  |______.''|____||____||_______/ ",&
-&"                        http://mctdhb.org                          "/)
+&"        http://mctdhb.org     http://mctdhb-lab.com/               "/)
 
 
 
@@ -72,10 +72,10 @@
 &" #  Scientific  |  \/  |/ __|_   _|   \| || | _ ) (2006-present) # ",&
 &" #              | |\/| | (__  | | | |) | __ | _ \    Germany     # ",&
 &" #    Package   |_|  |_|\___| |_| |___/|_||_|___/   Heidelberg   # ",&
-&" #                      http://mctdhb.org                        # ",&
+&" #      http://mctdhb.org    http://mctdhb-lab.com/              # ",&
 &" #===============================================================# ",&
 &" #   The Multiconfigurational Time-Dependent Hartree For Bosons  # ",&
-&" #                  Major Version 3.2  (2006-2015)               # ",&
+&" #                  Major Version 3.3  (2006-2017)               # ",&
 &" #===============  BBB: Be superB with the mctdhbB ==============# ",&
 &" #                        Founders:                              # ",&
 &" #                                                               # ",&
@@ -89,7 +89,7 @@
 &" #                     Contributors:                             # ",&
 &" #            Lorenz S. Cederbaum, Ofir E. Alon                  # ",&
 &" #      Kaspar Sakmann, Axel U. J. Lode, Julian Grond            # ",&
-&" #           Oksana I. Streltsova, Shachar Klaiman               # ",&
+&" #     Oksana I. Streltsova, Shachar Klaiman, Raphael Beinke     # ",&
 &" #===============================================================# ",&
 &" #                       Citation:                               # ",&
 &" #   When citing the MCTDHB Package in the literature,           # ",&
@@ -531,8 +531,8 @@
           INTEGER, ALLOCATABLE  :: Ind_CI_2b(:,:)
           Real*8,  ALLOCATABLE  :: Prefactors_1b(:,:)
           Real*8,  ALLOCATABLE  :: Prefactors_2b(:,:)
-          LOGICAL :: CI_PRD=.TRUE. ! Production option, where the MAP of each CiCjCkCl is stored explesitelly PRO Prd
-!          LOGICAL :: CI_PRD=.FalsE. ! Ignores Production option, MAP is not constructed
+!          LOGICAL :: CI_PRD=.TRUE. ! Production option, where the MAP of each CiCjCkCl is stored explesitelly PRO Prd
+          LOGICAL :: CI_PRD=.FalsE. ! Ignores Production option, MAP is not constructed
           end module
 !c==================== END of Module for CI_Prod
         MODULE USR_PAR

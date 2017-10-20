@@ -1,5 +1,6 @@
 # USAGE: make mk_file=MinGW_Win_fftw.mk
 platform=unix
+MCTDHB_V="V3.3.01" # ATTN!! Also correct files: source/ParaMain.F  and source/MODULES_ALL_allocate.F90
 #=================== Selector for already tuned configurations  PCI, K100, BwGrid, etc
 #mk=./make_systems/BwGriD_ifort.mk
 #mk=./make_systems/BwGriD_gnu_fftw.mk
@@ -19,11 +20,12 @@ platform=unix
 #mk=./make_systems/Hermit_ifort.mk
 #mk=./make_systems/Hermit_gnu_fftw.mk
 
-#mk=./make_systems/SUSE_gnu_fftw.mk #standard for SUSE
-
-mk=./make_systems/MacPCI_gnu_OpenMPI_static.mk #STATIC version for UNIX should work without any external libs
+#mk=./make_systems/Hydra_ifort_static.mk # On Hydra creation of the semi-static  boinaries with ifortmpi mkl etc..
 
 mk=./make_systems/Ubuntu_gnu.mk
+#mk=./make_systems/SUSE_gnu_fftw.mk #standard for SUSE
+
+#mk=./make_systems/MacPCI_gnu_OpenMPI_static.mk #STATIC version for UNIX should work without any external libs
 #=================== Selector for Compiler 
 
 ifneq ($(mk_file),)
@@ -69,7 +71,9 @@ FF=$(mpi_f90)         #ifort
 endif 
 $(info  FF=$(FF))
 #FF=mpif90.openmpi #gfortran on PCI
+FC =$(FF)  -qopenmp
 FC =$(FF)  -openmp
+FC =$(FF)  
 #FC =$(FF) -O1  -fopenmp  -openmp #gun
 $(info  FC=$(FC))
 #======================================== My user_guesslib Dynamical library ========================
@@ -173,7 +177,7 @@ FFTFLAG= -DSFX1D=FFT_CUDAPGI_1D -DSFX2D=FFT_CUDAPGI_2D  -DSFX3D=FFT_CUDAPGI_3D  
        -DCUDAPGI=.TRUE. -DCUDACPP=.FALSE.  -DFFTW=.FALSE.  -DMKLFFT=.FALSE. 
 DIRSFFT := ./source/FFTCUDAPGI
 endif
-MCTDHB_V="V3.2.27"
+#MCTDHB_V="V3.2.27"
 #VERFLAG= -DMCTDHB_V=$(MCTDHB_V)
 VERFLAG= 
 

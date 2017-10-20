@@ -43,7 +43,7 @@ set locale "C"
 #set terminal jpeg enhanced 20 size 800,600
 #set terminal jpeg  enh size 1600,1200  font "arial,24"
 set terminal jpeg  enh size 800,600  font "arial,14"
-lwv=3
+lwv=1
 set grid
 set nobar 
 set key  bot right
@@ -71,14 +71,20 @@ plot  [X1:X2] [] \
 set format y "%5.2f"
 unset format 
 #OP_PR.out:
-#  1: time  
-#  2: <E>/N     3:  <T>/N    4: <V>/N  5: <W>/N  
-#  6: <x>/N     7:  <y>/N    8:   <z>/N  
-#  9: <x*x>/N  10: <y*y>/N  11: <z*z>/N 
-# 12: Var(x)/N 13: Var(y)/N 14: Var(z)/N 
-# 15:  <px>/N  16: <py>/N   17:  <pz>/N  
-# 18:<px*px>/N 19:<py*py>/N 20:<pz*pz>/N
-# 21:Var(px)/N 22:Var(py)/N 23:Var(pz)/N
+#OLD   1:time    2:User OP1=x   3:User OP2=r*r   4: Potential V   5:Kinetic T   6:Interaction W  7: Total E
+#OLD   1:time 2:<x>  3:<y>  4:<z>   5:<x*x>2body 6:<x*x>1body 7:Var(x) 8:<y*y>2body 9:<y*y>1body 10:Var(y) 
+#OLD   11:<z*z>2body 12:<z*z>1body 13:Var(z)  14: <V>    15:<T>     16: <W>     17: <E>           
+#             1: time                       
+#             2: <E>/N                      
+#             3: <T>/N
+#             4: <V>/N
+#             5: <W>/N 
+#             6-7-8:       <x>/N       <y>/N    <z>/N
+#             9-10-11:  <x*x>/N     <y*y>/N    <z*z>/N 
+#             12-13-14:  Var(x)/N    Var(y)/N   Var(z)/N 
+#             15-16-17:  <px>/N      <py>/N     <pz>/N 
+#             18-19-20:  <px*px>/N   <py*py>/N  <pz*pz>/N
+#             21-22-23:  Var(px)/N  Var(py)/N   Var(pz)/N
 filein=sprintf("%sOP_PR.out",dirIN)
 fileout2=sprintf("%sfig_E_of_t_T_V_W_PLT.jpeg",dirOUT)
 set out fileout2
@@ -87,14 +93,14 @@ set ylabel "E(t), T(t), V(t), W(t)"
 set key top left spacing 1.5
 err=9.0e-3
 plot  [X1:X2] [] \
-filein  using 1:(column(4)) t "V(t)/N" w l lt 1 lw lwv,\
-filein  using 1:(column(3)) t "T(t)/N" w l lt 2 lw lwv,\
-filein  using 1:(column(5)) t "W(t)/N" w l lt 3 lw lwv,\
-filein  using 1:(column(2)) t "E(t)/N" w l lt 4 lw lwv
+filein  using 1:(column(4)) t "V(t)" w l lt 1 lw lwv,\
+filein  using 1:(column(3)) t "T(t)" w l lt 2 lw lwv,\
+filein  using 1:(column(5)) t "W(t)" w l lt 3 lw lwv,\
+filein  using 1:(column(2)) t "E(t)" w l lt 4 lw lwv
 
 fileout3=sprintf("%sfig_OP_of_t_R_PLT.jpeg",dirOUT)
 set out fileout3
-set ylabel "Exp. val. of position operators [<X>, <Y>, <Z>](t)" 
+set ylabel "Exp. val. of Operators [<X>, <Y>, <Z>](t)" 
 set key top left spacing 1.5
 err=9.0e-3
 plot  [X1:X2] [] \
@@ -105,27 +111,27 @@ filein  using 1:(column(8)) t "Sum <z_i>/N" w l lt 3 lw lwv
 
 fileout4=sprintf("%sfig_OP_of_t_RR_PLT.jpeg",dirOUT)
 set out fileout4
-set ylabel "Exp. val. [<X^2>, <Y^2>, <Z^2>](t)" 
+set ylabel "Exp. val. of Operators [<X^2>, <Y^2>, <Z^2>](t)" 
 set key top left spacing 1.5
 err=9.0e-3
 plot  [X1:X2] [] \
 filein  using 1:(column(9))  t "<(Sum x_i)^2>/N" w l lt 1 lw lwv,\
-filein  using 1:(column(10)) t "<(Sum y_i)^2>/N" w l lt 2 lw lwv,\
-filein  using 1:(column(11)) t "<(Sum z_i)^2>/N" w l lt 3 lw lwv
+filein  using 1:(column(10))  t "<(Sum y_i)^2>/N" w l lt 2 lw lwv,\
+filein  using 1:(column(11))  t "<(Sum z_i)^2>/N" w l lt 3 lw lwv
 
-fileout5=sprintf("%sfig_OP_of_t_VarRR_PLT.jpeg",dirOUT)
-set out fileout5
-set ylabel "Var. [<X^2>-<X>^2, <Y^2>-<Y>^2, <Z^2>-<Z>^2](t)" 
+fileout4var=sprintf("%sfig_OP_of_t_VarRR_PLT.jpeg",dirOUT)
+set out fileout4var
+set ylabel "Exp. val. of Operators [Var(X), Var(Y), Var(Z)](t)" 
 set key top left spacing 1.5
 err=9.0e-3
 plot  [X1:X2] [] \
-filein  using 1:(column(12)) t "<(Sum x_i)^2>/N-(Sum<x_i>)^2/N" w l lt 1 lw lwv,\
-filein  using 1:(column(13)) t "<(Sum y_i)^2>/N-(Sum<y_i>)^2/N" w l lt 2 lw lwv,\
-filein  using 1:(column(14)) t "<(Sum z_i)^2>/N-(Sum<z_i>)^2/N" w l lt 3 lw lwv
+filein  using 1:(column(12))  t "Var(x)/N" w l lt 1 lw lwv,\
+filein  using 1:(column(13))  t "Var(y)/N" w l lt 2 lw lwv,\
+filein  using 1:(column(14))  t "Var(z)/N" w l lt 3 lw lwv
 
-fileout6=sprintf("%sfig_OP_of_t_dP_PLT.jpeg",dirOUT)
-set out fileout6
-set ylabel "Exp. val. of momentum operators [<Px>, <Py>, <Pz>](t)" 
+fileout5=sprintf("%sfig_OP_of_t_dP_PLT.jpeg",dirOUT)
+set out fileout5
+set ylabel "Exp. val. of Operators [<Px>, <Py>, <Pz>](t)" 
 set key top left spacing 1.5
 err=9.0e-3
 plot  [X1:X2] [] \
@@ -133,34 +139,33 @@ filein  using 1:(column(15)) t "Sum <Px_i>/N" w l lt 1 lw lwv,\
 filein  using 1:(column(16)) t "Sum <Py_i>/N" w l lt 2 lw lwv,\
 filein  using 1:(column(17)) t "Sum <Pz_i>/N" w l lt 3 lw lwv 
 
-fileout7=sprintf("%sfig_OP_of_t_dPP_PLT.jpeg",dirOUT)
-set out fileout7
-set ylabel "Exp. val. [<Px*Px>, <Py*Py>, <Pz*Pz>](t)" 
+fileout6=sprintf("%sfig_OP_of_t_dPP_PLT.jpeg",dirOUT)
+set out fileout6
+set ylabel "Exp. val. of Operators [<Px^2>, <Py^2>, <Pz^2>](t)" 
 set key top left spacing 1.5
 err=9.0e-3
 plot  [X1:X2] [] \
-filein  using 1:(column(18)) t "(<Sum Px_i)^2>/N" w l lt 1 lw lwv,\
-filein  using 1:(column(19)) t "(<Sum Py_i)^2>/N" w l lt 2 lw lwv,\
-filein  using 1:(column(20)) t "(<Sum Pz_i)^2>/N" w l lt 3 lw lwv
+filein  using 1:(column(18))  t "<(Sum Px_i)^2>/N" w l lt 1 lw lwv,\
+filein  using 1:(column(19))  t "<(Sum Py_i)^2>/N" w l lt 2 lw lwv,\
+filein  using 1:(column(20))  t "<(Sum Pz_i)^2>/N" w l lt 3 lw lwv
 
-fileout8=sprintf("%sfig_OP_of_t_VarPP_PLT.jpeg",dirOUT)
-set out fileout8
-set ylabel "Var. [<Px^2>-<Px>^2, <Py^2>-<Py>^2, <Pz^2>-<Pz>^2](t)" 
+fileout6var=sprintf("%sfig_OP_of_t_VarPP_PLT.jpeg",dirOUT)
+set out fileout6var
+set ylabel "Exp. val. of Operators [Var(Px), Var(Py), Var(Pz)](t)" 
 set key top left spacing 1.5
 err=9.0e-3
 plot  [X1:X2] [] \
-filein  using 1:(column(21)) t "<(Sum Px_i)^2>/N-(Sum<Px_i>)^2/N" w l lt 1 lw lwv,\
-filein  using 1:(column(22)) t "<(Sum Py_i)^2>/N-(Sum<Py_i>)^2/N" w l lt 2 lw lwv,\
-filein  using 1:(column(23)) t "<(Sum Pz_i)^2>/N-(Sum<Pz_i>)^2/N" w l lt 3 lw lwv
+filein  using 1:(column(21))  t "Var(Px)/N" w l lt 1 lw lwv,\
+filein  using 1:(column(22))  t "Var(Py)/N" w l lt 2 lw lwv,\
+filein  using 1:(column(23))  t "Var(Pz)/N" w l lt 3 lw lwv
 
-
-print "Energy, V, T, W, <x>, <x*x>, <p> <p*p> ...  are plotted"
+print "Energy, V, T, W, <x>,<x*x>, <px> <px*px> Var(x) Var(px) are plotted"
 print "File name  in: ", filein 
 print "File name out: ", fileout1
 print "File name out: ", fileout2
 print "File name out: ", fileout3
 print "File name out: ", fileout4
+print "File name out: ", fileout4var
 print "File name out: ", fileout5
 print "File name out: ", fileout6
-print "File name out: ", fileout7
-print "File name out: ", fileout8
+print "File name out: ", fileout6var

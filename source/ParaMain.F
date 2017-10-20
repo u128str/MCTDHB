@@ -12,11 +12,11 @@ c=================== MPI
        real*8   time_start,time_finish,tm1,tm2,enrg,Init_Start_Point_t
        real*4, dimension(2) :: TArray 
        real*4 tResult
-        character(len=50) :: MCTDHB_V
+        character(len=54) :: MCTDHB_V
         character*4 :: rtype ! can be 'scan' or 'full'
        logical :: Restart
 c==========================================================
-          MCTDHB_V="Current version 3.2.32 l Heidelberg Mar (2015)"
+       MCTDHB_V= "Current version 3.3.01 l Heidelberg/Kassel Apr (2017)"
 c================ MPI ===================================
          call MPI_INIT(ierr)
          call MPI_COMM_RANK(MPI_COMM_WORLD,MYID,ierr)
@@ -43,7 +43,7 @@ c==========================================================
 !          MCTDHB_V="Current version 3.2.14  w7h Heidelberg Aug (2014)"
           write(6,*)"MCTDHB_V=",MCTDHB_V
           write(6,*)banner(9)
-          write(banner(9),'(a8,a50,a8)') banner(9),MCTDHB_V,"#"
+          write(banner(9),'(a6,a54,a6)') banner(9),MCTDHB_V,"#"
           banner(43)=banner(9)
 !          write(6,*)banner(9)
 !          stop 'Version' 
