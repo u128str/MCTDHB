@@ -33,6 +33,9 @@ RUN mkdir -p /mctdhb
 COPY .  /mctdhb
 WORKDIR /mctdhb
 RUN  make
+RUN mkdir -p /TEST
+ADD Templates/PRA_86_063606_Table_1 /TEST
+WORKDIR /TEST
+
 ##COPY ./MCTDHB_V3.3.01  /mctdhb
-#WORKDIR /tmp
 #CMD  ["/mctdhb/bin/boson_MCTDHB_gnu_FFTW"]
