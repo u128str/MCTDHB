@@ -13,7 +13,7 @@ __input.in__ and __V_W_Psi_string.in__ files in it. To reproduce some data from 
 5) Wait ... and compare with reference: 
 root@97f61e1389e7:/TEST```$ vimdiff basic_info.out basic_info.out_Reference ```
 
-## C. MCTDHB usage - How2 recomplile on Ubintu 16.04
+## C. MCTDHB usage - How2 recompile on Ubintu 16.04
 1) ```$ sudo apt-get update && apt-get install -y vim make openmpi-bin libopenmpi-dev fftw3 fftw3-dev libblas-dev liblapack-dev ``` 
 2) ```$ cd ```  you are at your $HOME
 3) ```$ git clone https://github.com/u128str/MCTDHB.git MCTDHB_V3.3.01```
@@ -25,8 +25,6 @@ Now copy the templates files to /TEMP reproduce some data from [PRA 86 063606](h
 8)  ```$ $HOME/MCTDHB_V3.3.01/bin/boson_MCTDHB_gnu_FFTW ```
 9)  ```$ vimdiff basic_info.out basic_info.out_Reference ```
 10) __ENJOY__
-
-
 
 ```
  #===============================================================#
