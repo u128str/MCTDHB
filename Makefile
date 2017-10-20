@@ -22,6 +22,8 @@ platform=unix
 #mk=./make_systems/SUSE_gnu_fftw.mk #standard for SUSE
 
 mk=./make_systems/MacPCI_gnu_OpenMPI_static.mk #STATIC version for UNIX should work without any external libs
+
+mk=./make_systems/Ubuntu_gnu.mk
 #=================== Selector for Compiler 
 
 ifneq ($(mk_file),)
