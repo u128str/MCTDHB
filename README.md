@@ -1,7 +1,6 @@
 # MCTDHB
- 
-a) To clone master MCTDHB: ````git clone https://github.com/u128str/MCTDHB.git````
-b) To clone LR-MCTDHB:  ````git clone -b MCTDHB_V3.3.02 https://github.com/u128str/MCTDHB.git````
+1) To clone master MCTDHB: ````git clone https://github.com/u128str/MCTDHB.git````
+2) To clone LR-MCTDHB:  ````git clone -b MCTDHB_V3.3.02 https://github.com/u128str/MCTDHB.git````
 
 
 ## A. MCTDHB usage with MCTDHB-Lab 
