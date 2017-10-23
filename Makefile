@@ -22,10 +22,11 @@ MCTDHB_V="V3.3.01" # ATTN!! Also correct files: source/ParaMain.F  and source/MO
 
 #mk=./make_systems/Hydra_ifort_static.mk # On Hydra creation of the semi-static  boinaries with ifortmpi mkl etc..
 
-mk=./make_systems/Ubuntu_gnu.mk
+#mk=./make_systems/Ubuntu_gnu.mk
 #mk=./make_systems/SUSE_gnu_fftw.mk #standard for SUSE
 
 #mk=./make_systems/MacPCI_gnu_OpenMPI_static.mk #STATIC version for UNIX should work without any external libs
+mk=./make_systems/ARNOLDI_gcc_mkl.mk
 #=================== Selector for Compiler 
 
 ifneq ($(mk_file),)
@@ -90,7 +91,7 @@ F90_LD= $(FC) -fPIC -shared  -Bdynamic
 #================= INTEL ===================================================================#
 ifeq ($(BLAS_LAPACK),intel)
 ifeq ($(DIR_MKL),'')
-DIR_MKL=$(MKLROOT)/lib/ia32/ 
+DIR_MKL=$(MKLROOT)/lib/intel64/ 
 endif
 BLAS=  -Wl,--start-group -L$(DIR_MKL) -lmkl_intel -lmkl_sequential -lmkl_core -Wl,--end-group -lpthread -I$(MKL_INC_DIR)
 BLAS=
@@ -110,12 +111,19 @@ endif
 endif
 $(info  BLAS libs are from=$(DIR_BLAS))
 #==========================================================================================
+#==================== PARPACK ============================================================
+#DIR_PARPACK=/home/u128str/ARPACK-NG/lib/
+#PARPACK=-L $(DIR_PARPACK) -lparpack #-lblas -llapack
+#==================== end PARPACK ============================================================
 #======================================================= FFT inc and compilation keys ==========================
 # link to FFT libraries via MKL
 ifeq ($(FFT),MKLFFT) 
 MKL_INC_DIR=$(MKLROOT)/include/
 INC_ALL =   -I$(MKL_INC_DIR)  
 LIBS =    -mkl
+LIBS =    -L$(DIR_MKL) -lmkl_intel -lmkl_sequential -lmkl_core
+#32 LIBS =     -Wl,--start-group -L$(DIR_MKL) -lmkl_intel -lmkl_sequential -lmkl_core -Wl,--end-group 
+LIBS =     -Wl,--start-group -L$(DIR_MKL) -lmkl_intel_lp64 -lmkl_sequential -lmkl_core -Wl,--end-group 
 MKL_DFTI_MOD=mkl_dfti.mod 
 endif
 

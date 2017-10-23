@@ -92,14 +92,23 @@ TIME = "`date +"%j_%s"`"
 	mpif90 -O2  -fast  -Mcuda=3.2 -c $(INC_ALL)  $< -o $@ 
 
 add_dep=
-RES=  $(MODS) ./bin/boson_MCTDHB_$(cmp)_$(FFT) ./bin/properties_LR_$(cmp)_$(FFT)  info 
+
+RES =  $(MODS) ./bin/boson_MCTDHB_$(cmp)_$(FFT) ./bin/properties_LR_$(cmp)_$(FFT) 
+
+#ifeq ($(BLAS_LAPACK),intel)
+ifeq ($(ARNOLDI),PARPACK)
+RES1 =  ./bin/lr_arnoldi_$(cmp)_$(FFT) 
+endif
+
+
 ifeq ($(comp_mode),Split)
 add_dep= libguess.a
 endif
 
-$(info  add_dep=$(add_dep))
 
-all: $(add_dep) $(RES)
+$(info i "EXEcutables:"  $(add_dep) $(RES) $(RES1) info )
+
+all: $(add_dep) $(RES) $(RES1) info
 
 $(info  LIBS=$(LIBS))
 $(info  MY_LIB=$(MY_LIB))
@@ -125,10 +134,10 @@ ci_all.mod ci_prod.mod dvr_all.mod parallel_ci.mod parallel_orb.mod rr_ww.mod sh
 	$(FC) -c ./source/MODULES_ALL_allocate.F90 -o  ./source/MODULES_ALL_allocate.o
  
 clean:
-	rm -r  *.a ./external/*.o ./external/*.mod ./source/*.o ./*.mod ./user_guesslib/libguess.so ./user_guesslib/*.o ./*.o ./bin/* ./source/FFTMKL/*.o ./source/FFTFFTW/*.o ./source/FFTCUDACPP/*.o  ./source/FFTCUDAPGI/*.o ./source/FFTCUDAPGI/*.mod  properties_LR/*.o properties_LR/*.mod ./libguess.so  
+	rm -r  *.a ./external/*.o ./external/*.mod ./source/*.o ./*.mod ./user_guesslib/libguess.so ./user_guesslib/*.o ./*.o ./bin/* ./source/FFTMKL/*.o ./source/FFTFFTW/*.o ./source/FFTCUDACPP/*.o  ./source/FFTCUDAPGI/*.o ./source/FFTCUDAPGI/*.mod  properties_LR/*.o properties_LR/*.mod ./libguess.so  LR_ARNOLDI/*.o
 
 cl:
-	rm -r  *.a ./external/*.o ./external/*.mod ./source/*.o ./*.mod ./user_guesslib/libguess.so ./user_guesslib/*.o ./*.o ./bin/* ./source/FFTMKL/*.o ./source/FFTFFTW/*.o ./source/FFTCUDACPP/*.o  ./source/FFTCUDAPGI/*.o ./source/FFTCUDAPGI/*.mod  properties_LR/*.o properties_LR/*.mod ./libguess.so 
+	rm -r  *.a ./external/*.o ./external/*.mod ./source/*.o ./*.mod ./user_guesslib/libguess.so ./user_guesslib/*.o ./*.o ./bin/* ./source/FFTMKL/*.o ./source/FFTFFTW/*.o ./source/FFTCUDACPP/*.o  ./source/FFTCUDAPGI/*.o ./source/FFTCUDAPGI/*.mod  properties_LR/*.o properties_LR/*.mod ./libguess.so  LR_ARNOLDI/*.o
 clP:
 	rm -r  *.a ./properties_LR/*.o ./properties_LR/*.mod
 
@@ -146,8 +155,16 @@ libguess.a: $(MODS) $(DYN_OBJ_F)  ./external/interpreter.o ./external/read_strin
 #================= Properties  =================
 include ./make_systems/properties.mk
 
+#ifeq ($(BLAS_LAPACK),intel)
+ifeq ($(ARNOLDI),PARPACK)
+$(info  "Incliding "  ./make_systems/lr_arnoldi.mk )
+#================= LR_ARNOLDI  =================
+include ./make_systems/lr_arnoldi.mk
+endif
+
 .PHONY: info
 info:
+	$(info MCTDHB package has been compiled with BLAS_LAPACK=$(BLAS_LAPACK))
 	$(info MCTDHB package has been compiled with cmp=$(cmp))
 	$(info BLAS and LAPACK=$(BLAS_LAPACK))
 	$(info FFT=$(FFT))

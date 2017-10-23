@@ -20,9 +20,9 @@ cccccc MKL STUFF
       type(DFTI_DESCRIPTOR), POINTER :: Desc_Handle_Dim1
       Integer :: Status
 c=========================================================
-#if FFTW
-      write(*,*) 'THE IMEST ALGORITHM IS NOT IMPLEMENTED WITH FFTW!!!'
-#endif
+!STR 2017 #if FFTW
+!STR 2017       write(*,*) 'THE IMEST ALGORITHM IS NOT IMPLEMENTED WITH FFTW!!!'
+!STR 2017 #endif
 cccccccccccccccccc
 cccccc define grid spacing
        dx=0d0

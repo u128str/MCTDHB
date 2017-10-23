@@ -21,10 +21,10 @@ cccccccc MKL STUFF
       INTEGER :: STRIDE(2),INFO
       INTEGER :: L(2),G(3),GSTRIDE(3)
 c=================================
-#if FFTW
-       write(6,*) 'THE IMEST ALGORITHM IS NOT IMPLEMENTED FOR FFTW!!!'
-       STOP
-#endif
+!STR 2017#if FFTW
+!STR 2017       write(6,*) 'THE IMEST ALGORITHM IS NOT IMPLEMENTED FOR FFTW!!!'
+!STR 2017       STOP
+!STR 2017#endif
 !compute f_sl = dx phi_s^* phi_l
        do m=1,NDX*NDY*NDZ
          fsltilde(m)=DCONJG(psi_s(m))*psi_l(m)

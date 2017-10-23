@@ -531,8 +531,8 @@
           INTEGER, ALLOCATABLE  :: Ind_CI_2b(:,:)
           Real*8,  ALLOCATABLE  :: Prefactors_1b(:,:)
           Real*8,  ALLOCATABLE  :: Prefactors_2b(:,:)
-!          LOGICAL :: CI_PRD=.TRUE. ! Production option, where the MAP of each CiCjCkCl is stored explesitelly PRO Prd
-          LOGICAL :: CI_PRD=.FalsE. ! Ignores Production option, MAP is not constructed
+          LOGICAL :: CI_PRD=.TRUE. ! Production option, where the MAP of each CiCjCkCl is stored explesitelly PRO Prd
+!          LOGICAL :: CI_PRD=.FalsE. ! Ignores Production option, MAP is not constructed
           end module
 !c==================== END of Module for CI_Prod
         MODULE USR_PAR

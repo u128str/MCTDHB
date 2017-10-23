@@ -785,16 +785,40 @@ c=========================================================================
 c=========================================================================
 c     Lagrange multipliers !AIS 17JUL2014
        OPEN(unit=117,File='muij.out')
-!       OPEN(unit=118,File='murij.out')
+       OPEN(unit=118,File='Energy.out',status='replace')
+       OPEN(unit=119,File='WIJKL.out',status='replace')
+       OPEN(unit=120,File='InvZRIJ.out',status='replace')
+       OPEN(unit=121,File='ZRIJ.out',status='replace')
+       OPEN(unit=122,File='ZRIJKL.out',status='replace')
 !Is used in LR         ZmuR=MAtMul( MAtmul(Zmu,Transpose(-Rho_ij)) !Rho_ij is not yet defined
        DO i=1,Morb
           DO j=1,Morb
-!             WRITE(117,'(I4,I4,2E16.8)') i, j, ZmuR(i,j)
-             WRITE(117,'(I4,I4,2E16.8)') i, j, Zmu(i,j)
+             WRITE(120,'(I4,15x,I4,15x,F22.10,10x,F22.10)') i, j,  
+     .                                   Real(InvZRIJ(i,j)), 
+     .                                   Dimag(InvZRIJ(i,j))
+             WRITE(117,'(I4,I4,2F20.10)') i, j, Real(Zmu(i,j)),
+     .                                   Dimag(Zmu(i,j))
           END DO
        END DO
        CLOSE(117)
-!       CLOSE(118)
+         Rdim = Morb*(Morb+1)/2
+         Rdim1=Rdim*(Rdim+1)/2
+       do i=1, Rdim 
+            WRITE(121,'(I4,2F20.10)') i, Real(ZRIJ(i)),
+     .                                 DIMAG(ZRIJ(i))   
+       end do  
+       do i=1, Rdim1 
+            write(119,'(I4,2F20.10)') i, Real(WIJKL(i)),
+     .                              Dimag(WIJKL(i))  
+            WRITE(122,'(I4,2E20.10)') i, Real(ZRIJKL(i)),
+     .                              Dimag(ZRIJKL(i)) 
+       end do  
+       close(119) 
+         write(118,'(F20.10)') Energy
+       CLOSE(118)
+       CLOSE(120)
+       CLOSE(121)
+       CLOSE(122)
       call wr_info(6)
       call wr_info(9)
       call wr_info(10)
