@@ -4,6 +4,7 @@
 0) In the Makefile file uncomment line: 
  ```mk=./make_systems/ARNOLDI_gcc_mkl.mk ```
 
+ARNOLDI_gcc_mkl.mk file has reference to the DIR_PARPACK with __YOUR__ PARPACK and MKL (it is free) installations:
  ```mk=./make_systems/ARNOLDI_gcc_mkl.mk 
  cmp=ifort
 BLAS_LAPACK=intel
@@ -11,7 +12,7 @@ BLAS_LAPACK=intel
 FFT=MKLFFT
 
 ARNOLDI=PARPACK
-DIR_PARPACK=/home/u128str/ARPACK-NG/lib/
+DIR_PARPACK=/home/$USER/ARPACK-NG/lib/
 PARPACK=-L $(DIR_PARPACK) -lparpack #-lblas -llapack
 
 mpi_f90=mpif90  -O2 -mkl
