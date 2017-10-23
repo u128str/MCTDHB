@@ -1,0 +1,54 @@
+files:
+MC_Wijkl.out =====> from MCHB Wijkl
+ MC_rmu.out =======> from MCHB Lagrange multipliers
+ MC_Rij.out =======> from MCHB 
+ MC_Rijkl.out =====> from MCHB
+ CI.out    =======> CI vector from MCHB
+ MC_mu.out   =====> not used 
+ MC_Hij.out  =====> not used
+ MC_norm.out =====> not used
+ MC_en.out   =====> =====> not used
+ Vhelp1.out =====> not used
+ Vhelp2.out =====> not used
+ rhoinvsqr.out =====> not used
+ MC_S1.out  =====> not used
+ MC_L3d.out =====> Hermicity test 
+ MC_L1d.out =====> Hermicity test
+ MC_wtest.out =====> unsoreted eigenvalues of the TOTAL responce MAtrix
+ MC_w.out     =====>  sorted eigenvalues of the TOTAL response MAtrix format: index, original index Re[E_i] IM[E_i]
+============================= Orbital Eigenvectors ====================
+ MC_ev_u.out  =====>  sorted eigenvectors orbital_U
+ MC_ev_v.out  =====>  sorted eigenvectors orbital_V                   format:    -0.80000000E+01    1    1   0.17656113E-09  0.90680164E-10
+ -0.80000000E+01  |  1  |  1  | 0.17656113E-09  0.90680164E-10
+
+ X coord   | index of sorted eigenvalue|  index of Orbital's M=1,2| Re[V] | Im[V] 
+
+GNUPLOT: to plot 35 eigenvector ($2==35) corresponding to the 2 orbital($3==2) , it's Real PART($4)
+plot "MC_ev_u.out" u 1:($2==35 && $3==2 ? $4:1/0)
+
+all eigenvectoras are one after other WITHOUT separation!!
+VEC1
+VEC2
+
+ MC_ev_Cv.out =====>  sorted eigenvectors configinter_V Length of each vector is Nconf
+ MC_ev_Cu.out =====>  sorted eigenvectors configinter_U
+
+MC_norm_diff.out => Analysis of the nature of  exitations (orb-like or CI-like) 
+format: 1   0.10000026E+01   0.26033912E-05   0.10000000E+01
+Index of the eigenvalue | ???? | ?????? | if == 1 for orbital-like if==-1 -CI-like        
+
+plot "MC_w.out" u 1:3, "MC_norm_diff.out" u 1:4
+=========================================================================================
+   LR-Matrix: Dimension: 2*Morb*Nd+2*Nconf
+
+    ORB  | ORB-CI OrbU
+    ORB  | ORB-CI OrbV
+   CI-ORB| CI     Cu
+   CI-ORB| CI     Cv
+c====================================== Routine_Julian.f90
+
+1) READ HIJ,WIJKL from data files, produced by MCTDHB_exe file.
+
+
+
+

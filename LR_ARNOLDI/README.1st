@@ -1,0 +1,56 @@
+########################################################################################
+#########    MANY BODY ANALYSIS PACKAGE FOR MCTDHB WAVEFUNCTIONS  ######################
+########################################################################################
+
+
+The Many-Body wavefunctions generated with the MCTDHB package can be analyzed with this
+program. It needs as an input the binary output files of an MCTDHB calculation, i.e., 
+######### 
+CiC_bin 
+######### 
+and 
+######### 
+PSI_bin
+######### 
+. Which analysis is to be performed is controlled by the input file 
+######### 
+properties.in
+######### 
+. Output documentation is found in:
+######################
+Properties_output_documentation
+######################
+.
+
+
+Examples and reference outputs are provided in the archive 
+
+######### 
+PROPERTIES_TEST.tgz
+######### 
+
+
+########################################################################################
+########################################################################################
+########################################################################################
+After a first compilation (i.e. on a new platform or first usage), it is strongly 
+recommended to untar and perform the tests in these archives to see by comparison 
+to the reference provided, that the output is correct!!!!!!!!
+########################################################################################
+########################################################################################
+########################################################################################
+
+
+########################################################################################
+########################################################################################
+########################################################################################
+PREREQUISITES: 
+########################################################################################
+0) Intel Fortran Compilers
+1) MKL FFT routines 
+2) Environment variable $MKLROOT has to point to the directory of the MKL
+3) MCTHB has to be installed in the parent directory,i.e. ../source/ is accessed in the 
+   makefile.
+########################################################################################
+########################################################################################
+########################################################################################
