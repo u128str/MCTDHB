@@ -1,8 +1,9 @@
 # MCTDHB
 1) To clone master MCTDHB: ````git clone https://github.com/u128str/MCTDHB.git````
-2) To clone LR-MCTDHB:  ````git clone -b MCTDHB_V3.3.02 https://github.com/u128str/MCTDHB.git
-wget --no-check-certificate --content-disposition https://github.com/u128str/MCTDHB/blob/MCTDHB_V3.3.02/MCTDHB-MCTDHB_V3.3.02.zip
-curl -LJO https://github.com/u128str/MCTDHB/blob/MCTDHB_V3.3.02/MCTDHB-MCTDHB_V3.3.02.zip
+2) To download zip-archive LR-MCTDHB:  
+````git clone -b MCTDHB_V3.3.02 https://github.com/u128str/MCTDHB.git````
+````wget --no-check-certificate --content-disposition https://github.com/u128str/MCTDHB/blob/MCTDHB_V3.3.02/MCTDHB-MCTDHB_V3.3.02.zip````
+````curl -LJO https://github.com/u128str/MCTDHB/blob/MCTDHB_V3.3.02/MCTDHB-MCTDHB_V3.3.02.zip
 ````
 
 
