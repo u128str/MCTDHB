@@ -48,6 +48,9 @@ c======= Read Restart files or their intialization.
        call Binary_guess_prop !CASE involving operations with binary files
        call Share_init_prop !Master node shares the namelist of the current job
        call Init_CI ! Needed to activate Ter_ReQ for densitity matrix ....
+!AIS 2017
+        call read_parse_V_W_Psi !parsing V_W_Psi_string.in file
+         write(6,*) "File with user potential was parsed" 
  
 
 !       if(construction.eqv..FALSE.) then

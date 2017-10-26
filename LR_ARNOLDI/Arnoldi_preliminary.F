@@ -151,6 +151,9 @@ c==========================================================================
 
        write(*,*) myid,"ZRIJ",(ZRIJ(I),I=1,Rdim) 
 
+!AIS 2017
+        call read_parse_V_W_Psi !parsing V_W_Psi_string.in file
+         write(6,*) "File with user potential was parsed" 
 
 
        xlambda0=xlambda_0

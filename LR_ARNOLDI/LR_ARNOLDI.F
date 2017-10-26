@@ -324,6 +324,11 @@ c
 
       call CPU_TIME(start)
 
+!AIS 2017
+        call read_parse_V_W_Psi !parsing V_W_Psi_string.in file
+         write(6,*) "File with user potential was parsed" 
+
+
        xlambda0=xlambda_0
 !       CALL Get_InterPart(time)
        write(*,*) "xlambda_0",xlambda_0
