@@ -1,0 +1,27 @@
+#  Here are the input.in and V_W_Psi_string.in files needed to reproduce M=2 N=200 results from Fig.2a of PRL 99, 030402 (2007)
+#  with first application of the MCTDHB method on time-dependent  rump-up problem. And the test for back propagation.
+#  Here  the evolution of natiral occupations is plotted as function of time.
+#  2 computational steps are needed
+#  step1 - to get initial state for MCTDHB(2) many-body -- a ground state N=200 with lambda_0=0.1  in a parabolic x**2/(2*2.6*2.6) trap
+#          make a working directory step1
+#         copy the input.in and V_W_Psi_string.in and exe -files
+#         execute  the job:       mpirun -n 2  ./boson_MCTDHB_gnu_FFTW
+#         compare with reference: vimdiff basic_info.out basic_info.out_Reference
+#  step2 - to propagate the MCTDHB equation with initial wave-function obtained at step1
+#          make a working directory step2
+# BEFORE running second job one has to copy the wave-function stored in  CIc_bin and PSI_bin files
+#         if you are already in step2 type:
+#         copy the respective input.in and V_W_Psi_string.in exe -files and basic_info.out_Reference
+#         cp ../step1/*bin .
+#         run the propagation:  mpirun -n 2  ./boson_MCTDHB_gnu_FFTW  
+#         compare with reference: vimdiff basic_info.out basic_info.out_Reference
+#  plot the figure, if you are still in the step2 directory --
+#  here to compare the data plotted in  Fig.2a of PRL 99, 030402 (2007) we scale the time to units of rump-up time T_rump=25
+#        plot [0.3:21]  "./NO_PR.out" u ($1/25):($2*100) w l lt 3 t "n_2*100%", "./NO_PR.out" u ($1/25):($3*100) w l lt 3 t "n_1*100%"
+#  step3 PROPAGATION BACK
+#          make a working directory step3
+# BEFORE running this job you have to copy the final wave-function from the previous (2) step 
+# i.e.  copy the wave-function stored in  CIc_bin and PSI_bin files, run the propagation:  
+#         mpirun -n 2  ./boson_MCTDHB_gnu_FFTW  
+#         plot [0:60]  "./NO_PR.out" u (60-$1):($2*100) t "Backward" w lp ps  0.001 , "../step2/NO_PR.out"  u ($1):($2*100) w l t "Forward"
+#             both curves must be on-top of each other indicating that we solve the MCTDHB-eom correctly with the required precision.

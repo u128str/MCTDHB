@@ -1,0 +1,124 @@
+#!/bin/bash
+rm -f *gnu*
+rm -f *ppm*
+rm -f *gif*
+rm -f *sort*
+
+# process args
+case "$1" in
+    clean|-cl*)   
+rm -f *gnu*
+rm -f *ppm*
+rm -f *gif*
+rm -f *sort*
+  exit 0 ;;
+    help|-h*)   
+echo "Usage: ../Scripts/sng_movie_MCHB_PSI_NO_scaled 0 15 1 10 20"
+echo "where: from T=0 till T=15 dT=1 Morb=10 N=20"
+echo "the files *k-density.dat MUST already be in the working directory"
+  exit 0 ;;
+    "")   
+echo "!!!Usage: ../Scripts/sng_movie_MCHB_PSI_NO_scaled 0 15 1 10 20 "
+echo "where: from T=0 till T=15 dT=1 Morb=10 N=20"
+echo "the files *k-density.dat MUST already be in the working directory"
+exit 0 ;
+esac
+
+case "$1" in
+    [0-9]*)
+echo "Plot from:" $1
+echo "Plot till:" $2
+#LIST="`seq -f %1.1f $1 0.1 $2`"
+
+if [ ! "$4" ]
+        then
+                echo "Number Of orbitals is not defined - I stop"
+echo "!!!Usage: ../Scripts/sng_movie_MCHB_PSI_NO_scaled 0 15 1 10 20 "
+echo "where: from T=0 till T=15 dT=1 Morb=10 N=20"
+echo "the files *N20M10k-density.dat MUST already be in the working directory"
+          exit
+fi
+if [ ! "$5" ]
+        then
+                echo "Number Of Bosons is not defined - I stop"
+echo "!!!Usage: ../Scripts/sng_movie_MCHB_PSI_NO_scaled 0 15 1 10 20 "
+echo "where: from T=0 till T=15 dT=1 Morb=10 N=20"
+echo "the files *N20M10k-density.dat MUST already be in the working directory"
+          exit
+fi
+
+esac
+
+FILE_LIST="`ls *k-density.dat | sort -g | sed s/N\$5M\$4k\-density.dat//`"
+#esac
+IFS=$'\n'
+((j=0))
+for i in ${FILE_LIST}
+do 
+((j=j+1))
+A=$i
+B=$3
+C="`echo $A%$B | bc`"
+if [ "$C" == "0" ]
+then
+if [ $(echo "$A >= $1"|bc) -eq 1 ]
+then
+if [ $(echo "$A <= $2"|bc) -eq 1 ]
+then
+echo "$A""N$5M$4k-density.dat" >> TMP 
+fi
+fi
+fi
+done
+echo "`cat TMP | sort -g `" > TMP1
+echo "`cat TMP1`"
+FILE_LIST1="`cat TMP1`"
+rm TMP
+rm TMP1
+
+minX=*
+maxX=*
+maxY=*
+minY=0.0
+echo "minX: "$minX" maxX: "$maxX
+#################################################################
+for i in ${FILE_LIST1} ; 
+do
+echo "file: ",$i
+#echo "set terminal pbm small color;"> $i.gnu
+ echo "set terminal jpeg medium size 800,600;"> $i.gnu
+echo "set size 1.0,1.0;" >> $i.gnu
+echo "set mxtics 10;" >> $i.gnu
+echo "set grid;" >> $i.gnu
+#echo "set output\"$i.ppm\";" >> $i.gnu
+echo "set output\"$i.jpg\";" >> $i.gnu
+echo "set title \"File: $i \" ;">> $i.gnu
+#echo " plot [-15:15][0.0:0.3] \"$i\" using (\$1):(\$4) t \"MCHB\" w lp lt 4 pt 6 ps 0.1 ; " >>$i.gnu
+Morb=$4
+echo " plot [$minX:$maxX][$minY:$maxY] \\">> $i.gnu
+echo "\"$i\" using (\$1):(\$4) t \"K-Space DNS MCTDHB("$Morb")\" w lp lt 4 lw 3 pt 6 ps 0.7  ; " >>$i.gnu
+
+gnuplot $i.gnu
+#ppmtogif $i.ppm > $i.gif
+#cjpeg $i.ppm >$i.jpeg
+done
+
+#FILE_LIST="`ls -t *.gif`"
+#FILE_LIST1="`sort -n ${FILE_LIST}`"
+
+ls -t *k-density.dat.jpg > qq.sort
+sort -g qq.sort > qq1.sort
+FILE_LIST1="`cat qq1.sort`"
+echo FILE_LIST1: ${FILE_LIST1}
+mencoder mf://@qq1.sort -mf w=800:h=600:fps=5:type=jpg -ovc lavc -lavcopts vcodec=msmpeg4v2 -oac copy -o MCTDHB_DNS_K-Space_$1_$2.mpg
+echo "Created Movie File is named: MCTDHB_DNS_K-Space_$1_$2.mpg"
+
+rm -f *gnu*
+rm -f *ppm*
+#rm -f *jpg*
+#rm -f *jpeg*
+rm -f *gif*
+rm -f *sort*
+rm -f TMP
+rm -f TMP1
+  exit 0 

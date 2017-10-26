@@ -1,0 +1,168 @@
+! FFT business with CUDA
+! X_i index pointing to the T_x,T_y or T_z will be calculated - only for
+! 2D and 3D problems
+! NdimMax = 1D(NDX)
+! NdimMax = 2D(NDX*NDY)
+! NdimMax = 3D(NDX*NDY*NDZ)
+      SUBROUTINE Get_Op_PSI_FFT_CUDAPGI_3D(psi,X_i) 
+      USE SHARED_DIMS
+      USE DVR_ALL
+      USE W_INTERPARTICLE
+
+
+      Use MKL_DFTI
+      
+     USE precision_m
+      USE cufft_m
+!      USE GPU_ALL  
+
+      USE omp_lib
+      IMPLICIT NONE
+      INCLUDE 'mpif.h'
+
+! cccccccc FFTW stuff
+      INTEGER ::  ierr
+      COMPLEX*16,   DIMENSION(NDX*NDY*NDZ) :: psi
+!-------------------- variabls on divece(GPU) --------------------------- 
+      complex(fp_kind), device, allocatable :: psi_d(:) 
+     complex(fp_kind), device, allocatable :: ortkx_d(:),ortky_d(:),ortkz_d(:)
+         
+      integer :: plan, planType 
+
+!==================== Local Arrays for 3D Transformations 
+      INTEGER :: I,J,K,I1,incr,j1,X_i,ind
+      REAL*8 :: tm
+! cccccccc MKL STUFF
+      COMPLEX*16 :: ortky(NDY),ortkX(NDX),ortkz(NDZ)
+      ortkx=ort_kx
+      ortky=ort_ky
+      ortkz=ort_kz
+     
+      tm=MPI_WTIME(ierr)
+! c===============================================================================
+      Xi1: SELECT CASE (X_i)
+      CASE (1) ! 1D FFT in X-dimension 
+          stop
+      CASE (2) !1D FFT in Y-dimension
+          stop
+      CASE (3)
+          stop
+      CASE (4)
+          stop
+      CASE (5) ! True  3D FFT
+!#########################################################################
+!#########################################################################
+!  allocate arrays on the device
+                  allocate(psi_d(NDX*NDY*NDZ))
+                  allocate(ortkx_d(NDX))
+                  allocate(ortky_d(NDY))
+                  allocate(ortkz_d(NDZ))
+
+!copy arrays to device
+          
+           psi_d = psi
+           ortkx_d= ort_kx*ort_kx/NDX/2/Time_mass/NDY/NDZ
+           ortky_d= ort_ky*ort_ky/NDX/2/Time_mass/NDY/NDZ
+           ortkz_d= ort_kz*ort_kz/NDX/2/Time_mass/NDY/NDZ
+
+
+! ref oksa       timeCPU(3)=timeCPU(3)+MPI_WTIME(ierr)-tm
+! ref oksa       tm=MPI_WTIME(ierr)
+  
+! ------------------------------ time -------------------
+
+            timeCPU(3)=MPI_WTIME(ierr)-tm
+            tm=MPI_WTIME(ierr)
+
+
+! set planType to either single or double precision
+        if (fp_kind == singlePrecision) then
+              planType = CUFFT_C2C
+          else
+              planType = CUFFT_Z2Z     ! Double-Complex to Double-Complex
+        endif 
+
+! initialize the plan and execute the FFTs.
+        
+!            call cufftPlan3d(plan, NDX, NDY,NDZ, planType)
+            call cufftPlan3d(plan, NDZ, NDY,NDX, planType)
+          
+!             call  cufftSetCompatibilityMode(plan, CUFFT_COMPATIBILITY_FFTW_ALL)
+
+           call cufftExec(plan,planType,psi_d,psi_d,CUFFT_FORWARD)
+
+! ref oksa    call cudaThreadSynchronize() 
+
+! ref oksa      L(1)=NDX
+! ref oksa      L(2)=NDY
+! ref oksa      L(3)=NDZ
+! ref oksa      Status = DftiCreateDescriptor(Desc_Handle_Dim1,DFTI_DOUBLE,
+! ref oksa     &  DFTI_COMPLEX, 3, L )
+! ref oksa      Status = DftiCommitDescriptor(Desc_Handle_Dim1) 
+! ref oksa      Status = DftiComputeForward(Desc_Handle_Dim1,psi)  
+ 
+
+! ref oksa       timeCPU(3)=timeCPU(3)+MPI_WTIME(ierr)-tm
+! ref oksa       tm=MPI_WTIME(ierr)
+
+      ind=1
+
+ !$cuf kernel do <<< *, *>>> 
+      Do i=1,NDZ
+         Do j=1,NDY
+            do k=1,NDX            
+             ind=k+(j-1)*NDX+(i-1)*NDX*NDY
+            psi_d(ind)=(ortkx_d(k)+ ortky_d(j)+ortkz_d(i))*psi_d(ind)
+            enddo
+         EndDo
+      EndDo
+
+!===========================================
+! ref oksa  !$OMP PARALLEL DO PRIVATE(i,j,k,ind) 
+! ref oksa !$OMP& Firstprivate(Time_mass,ortkx,ortky,ortkz,NDY,NDX,ndz)
+! ref oksa       Do i=1,NDZ
+! ref oksa          Do j=1,NDY
+! ref oksa             do k=1,NDX            
+! ref oksa              ind=k+(j-1)*NDX+(i-1)*NDX*NDY
+! ref oksa             psi(ind)=(ortkx(k)**2+ ortky(j)**2+ortkz(i)**2)
+! ref oksa      &                  /(2*Time_mass)/NDX/NDY/NDZ*
+! ref oksa      &            psi(ind)
+! ref oksa             enddo
+! ref oksa          EndDo
+! ref oksa       EndDo
+! c!$OMP END PARALLEL DO
+
+!=============================================
+ 
+        call cufftExec(plan,planType,psi_d,psi_d,CUFFT_INVERSE)  
+  
+             timeCPU(4)= MPI_WTIME(ierr)-tm
+             tm=MPI_WTIME(ierr)
+
+! ref oksa          timeCPU(4)=timeCPU(4)+MPI_WTIME(ierr)-tm
+! ref oksa          tm=MPI_WTIME(ierr)
+
+ 
+        ! Copy results back to host
+               psi = psi_d  
+
+         ! release memory on the host and device
+             deallocate(psi_d)
+             deallocate(ortkx_d)
+             deallocate(ortky_d)
+             deallocate(ortkz_d)
+
+            ! Destroy the plan
+           call cufftDestroy(plan)  
+
+!ref oksa      Status = DftiComputeBackward(Desc_Handle_Dim1,psi)
+!ref oksa      Status = DftiFreeDescriptor(Desc_Handle_Dim1)
+
+
+!ref oksa      timeCPU(3)=timeCPU(3)+MPI_WTIME(ierr)-tm
+               timeCPU(3)= timeCPU(3)+MPI_WTIME(ierr)-tm
+
+      tm=MPI_WTIME(ierr)
+      END SELECT Xi1
+!================================================================================
+      END  SUBROUTINE Get_Op_PSI_FFT_CUDAPGI_3D

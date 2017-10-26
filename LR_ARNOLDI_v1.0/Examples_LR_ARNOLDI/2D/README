@@ -1,0 +1,38 @@
+This folder contains a 2D example of the LR-MCTDHB code
+using the implicitly restarted Arnoldi method (IRAM).
+
+System: 2D harmonic interaction model (HIM)
+        N=100, M=3
+
+Instructions to run the example:
+
+1) Use the MCTDHB imaginary time propagation to get the ground state on
+   which linear-response is applied afterwards:
+
+   mpirun -n 3 ./boson_MCTDHB_gnu_MKLFFT
+
+2) Construct the LR-matrix. Input parameters are located in "lr_arnoldi.in".
+   Important: task = 1 => construction mode of the LR-ARNOLDI code.
+   There are given short explanations of all other parameters.
+   NOTE: For the HIM model it is important to set tol1=1e-11
+   or even lower to get accurate results.
+
+   mpirun -n 16 ./lr_arnoldi_gnu_MKLFFT
+
+3) Partial diagonalization of the LR-matrix. Set "task = 2" in 
+   "lr_arnoldi.in". Output files are written in folder "Eigenv" and subfolders.
+
+   mpirun -n 16 ./lr_arnoldi_gnu_MKLFFT
+
+4) Compare the values in "Eigenv/eigenvalues.dat" with the values in    
+   "Ref_eigenvalues_M1.dat".
+    
+
+I STEP:
+LR-MATRIX constructed in   1479.4680000000001      seconds
+real	24m56.980s
+
+II Step works only with 2 mpi: time mpirun -n 2  ../../bin/lr_arnoldi_gnu_FFTW_MKL
+  Computation time    195.44399999999999      seconds
+real	4m59.867s
+

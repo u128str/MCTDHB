@@ -1,0 +1,173 @@
+#!/bin/bash
+rm -f *gnu*
+rm -f *ppm*
+rm -f *gif*
+rm -f *sort*
+
+# process args
+case "$1" in
+    clean|-cl*)   
+rm -f *gnu*
+rm -f *ppm*
+rm -f *gif*
+rm -f *sort*
+  exit 0 ;;
+    help|-h*)   
+echo "Makes a 1D (|psi_i|^2 Time) movie of evolution of working WK orbitals"
+echo "Usage: ../Scripts/sng_movie_MCHB_PSI_WORK 0 15 1 10 "
+echo "where: from T=0 till T=15 dT=1 Morb=10"
+  exit 0 ;;
+    "")   
+echo "!!!Usage: ../Scripts/sng_movie_MCHB_PSI_WORK 0 15 1 10 "
+echo "where: from T=0 till T=15 dT=1 Morb=10"
+exit 0 ;
+esac
+
+
+FILE_LIST="`ls -t *time.dat`"
+
+
+case "$1" in
+    [0-9]*)
+echo "Plot from:" $1
+echo "Plot till:" $2
+#LIST="`seq -f %1.1f $1 0.1 $2`"
+
+if [ ! "$3" ]
+        then
+                echo "Step is not defined - I use default: dt= 0.1"
+LIST="`seq -f %1.1f $1 0.1 $2`"
+LIST="`seq -f%.6f  $1 $3 $2`"
+#                exit
+        else
+                echo "Step is defined - : dt="$3
+LIST="`seq -f %1.1f $1 $3 $2`"
+LIST="`seq -f%.6f  $1 $3 $2`"
+if [ "$3" == 0.01 ] 
+then
+LIST="`seq -f %1.2f $1 $3 $2`"
+LIST="`seq -f%.6f  $1 $3 $2`"
+fi
+#          exit
+fi
+
+
+
+
+
+((j=0))
+for i in ${LIST} ;
+do
+((j=j+1))
+case "$i" in
+    [0-9][0-9][0-9].*)
+lvar[j]=${i}time.dat
+if [ "$3" == 0.01 ] 
+then
+lvar[j]=${i}time.dat
+fi
+esac
+case "$i" in
+    [0-9][0-9].*)
+lvar[j]=${i}0time.dat
+if [ "$3" == 0.01 ] 
+then
+lvar[j]=${i}0time.dat
+fi
+esac
+case "$i" in
+    [0-9].*)
+lvar[j]=${i}00time.dat
+if [ "$3" == 0.01 ] 
+then
+lvar[j]=${i}00time.dat
+fi
+esac
+#printf "     %s\n" "${lvar[j]}" "$jj"
+done
+FILE_LIST1=${lvar[@]}
+#echo "Full: " ${lvar[@]}
+FILE_LIST="`ls -t ${FILE_LIST1}`"
+#fi
+esac
+
+
+echo FILE_LIST: ${FILE_LIST}
+flname=${FILE_LIST[@]:0:18}
+
+col=1
+minX=$(awk -v col=$col -v flname=$flname 'NR>2 && min=="" || $col < min {min=$col; minline=$0}; END{ print min}' $flname;)
+maxX=$(awk -v col=$col -v flname=$flname 'NR>2 && max=="" ||$col > max {max=$col; minline=$0}; END{ print max}' $flname;)
+#echo "   hjkhjkh" ${FILE_LIST[@]:0:18}
+#flname=$($FILE_LIST  | awk '{for (i = 1; i <= 2; i++) {print $i}}')
+#flname=${FILE_LIST[@]:0:18}
+echo "minX: "$minX" maxX: "$maxX
+
+minX=-15
+maxX=15
+#################################################################
+for i in ${FILE_LIST} ; 
+do
+echo "file: ",$i
+#echo "set terminal pbm small color;"> $i.gnu
+ echo "set terminal jpeg medium size 800,600;"> $i.gnu
+echo "set size 1.0,1.0;" >> $i.gnu
+echo "set mxtics 10;" >> $i.gnu
+echo "set grid;" >> $i.gnu
+#echo "set output\"$i.ppm\";" >> $i.gnu
+echo "set output\"$i.jpg\";" >> $i.gnu
+echo "set title \"File: $i \" ;">> $i.gnu
+#echo " plot [-15:15][0.0:0.3] \"$i\" using (\$1):(\$4) t \"MCHB\" w lp lt 4 pt 6 ps 0.1 ; " >>$i.gnu
+#echo " plot [-18:18][-6:40.0] 
+Morb=$4
+echo " plot [$minX:$maxX][-0.1:3.0] \
+\"$i\" using (\$1):(0.05*\$5-0.01) t \"V(t)\" w filledcurves y1=-0.01 lc rgb \"black\" fs transparent solid 0.5 noborder ,\\">> $i.gnu
+ii=1;
+x1=0.0000;
+while [ $ii -le $Morb ] 
+do
+i1=$[10+2*($ii-1)];
+i0=$[$i1+1];
+i2=$[$Morb-$ii+1];
+i2=$[$ii];
+x1=$[$i2 / $Morb];
+x1=$(echo "$ii/($Morb)" | bc -l);
+x1=$(echo "$ii*0.75" | bc -l);
+#ni=$[4*$Morb+10+$ii-1];
+#echo "\"$i\" using (\$1):(("$x1"+\$"$i1"*\$"$i1"+\$"$i0"*\$"$i0")*20/dvr/dvr/2) t \"NO Dns PSI"$i2"\" w lp lt "$i2" pt 6 ps 0.1 ,\\">>$i.gnu
+echo "\"$i\" using (\$1):("$x1"+((\$"$i1"*\$"$i1"+\$"$i0"*\$"$i0"))/(\$4*\$4)) t \"Working Orb |PSI_"$i2"|^2\" w filledcurves y1="$x1" lt "$i2"  fs transparent solid 0.8 noborder ,\\">>$i.gnu
+ii=$[$ii+1]
+done 
+echo "\"$i\" using (\$1):(\$8) t \"DNS MCTDHB("$Morb")\" w filledcurves y1=0.0 lc rgb \"#00008B\" fs transparent solid 0.4 noborder  ; " >>$i.gnu
+
+gnuplot $i.gnu
+#ppmtogif $i.ppm > $i.gif
+#cjpeg $i.ppm >$i.jpeg
+done
+
+#FILE_LIST="`ls -t *.gif`"
+#FILE_LIST1="`sort -n ${FILE_LIST}`"
+
+ls -t *time.dat.jpg > qq.sort
+sort -n qq.sort > qq1.sort
+FILE_LIST1="`cat qq1.sort`"
+echo FILE_LIST1: ${FILE_LIST1}
+
+#gifmerge -1 ${FILE_LIST1} > out.GIF
+#gifmerge -1 ${FILE_LIST1} > out_PSI_$1_$2.GIF
+#mencoder mf://${FILE_LIST1} on:type=jpeg -ovc lavc -lavcopts vcodec=mpeg1video ${FILE_LIST1} -o movie.avi
+#mencoder mf://*.*time.dat.jpeg -mf type=jpeg -fps 5 -ovc lavc -lavcopts vcodec=mpeg1video ${FILE_LIST1} -o PSI_$1_$2.avi
+#mencoder mf://@qq1.sort -mf type=jpg -fps 5 -ovc lavc -lavcopts vcodec=mpeg1video -o PSI_$1_$2.mpg
+
+#mencoder mf://@qq1.sort -mf w=800:h=600:fps=5:type=jpg -ovc lavc -lavcopts vcodec=mpeg4:mbd=2:trell -oac copy -o PSI_$1_$2.avi
+mencoder mf://@qq1.sort -mf w=800:h=600:fps=5:type=jpg -ovc lavc -lavcopts vcodec=msmpeg4v2 -oac copy -o PSI_WorK_$1_$2.mpg
+#mencoder mf://*.jpg -ovc lavc -lavcopts vcodec=mpeg1video ${FILE_LIST1} -o PSI_$1_$2.avi
+echo "Created Movie File is named: PSI_WR_$1_$2.mpg"
+
+rm -f *gnu*
+rm -f *ppm*
+#rm -f *jpg*
+rm -f *jpeg*
+rm -f *gif*
+rm -f *sort*
+  exit 0 

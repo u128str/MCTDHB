@@ -1,0 +1,16 @@
+ # This computation has been done in
+ # /mnt/MCTDHB/MCTDH-MCTDHB_TD/step2
+ # Date 20/10/0014; time 18:29:09
+ #      Current version 3.2.25 w7h Heidelberg Oct (2014)         # 
+ # Morb=  4  Npar=       4   Job= Job->Prop.  Forward
+ # V(x_y_z&t)= x^2/(2*2.6*2.6)+0.2*t*exp(-x*x/(2*2.6*2.6))                                                         
+ # W(R=|r1-r2|&t)= exp(-10*r^2)                                                                                        
+ # Kind of W== 1 [if ==0 W=delta(R) else W=f(R) see Get_InterParticle.F]  lambda_0=     3.500000 Time-dependent? (T/F): F
+ # NDX=  157 NDY=    1 NDZ=    1 DIM-MCTDH=    1 DVR_X=    3 DVR_Y=    4 DVR_Z=    5
+ # MCTDHB-EOM have been solved from T_bgn=   0.000000000000 till T_fnl=132.292480000000 with Time_print_step=     0.041341
+ # T_cpu=            8864.0820 Num_OMP_threads=    1 Num_MPI_proc =    1
+ Energy =       20.2942201616705589
+  n( 1) =        2.1842430255355385
+  n( 2) =        1.6553314710177578
+  n( 3) =        0.0839601129985810
+  n( 4) =        0.0764653904481204

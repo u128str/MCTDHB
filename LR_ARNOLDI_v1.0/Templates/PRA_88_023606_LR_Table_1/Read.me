@@ -1,0 +1,17 @@
+#  Here are the input.in and V_W_Psi_string.in files needed to reproduce M=6 N=10 energy from Table I of PRA_86_063606 (2012)
+#  with application of the LR-MCTDHB method to bosons with contact interaction in harmonic trap.
+# 1)  create directory LR_Table_1 
+# 2)  copy files from the mctdhb-package/Templates/PRA_88_023606__LR_Table_1 to LR_Table_1
+# 3)  copy mctdhb-package/bin/* to LR_Table_1
+# 4)  cd to LR_Table_1 
+# 5)  execute the job, typically (the name of the exe file depends on a compiler used...):
+#         mpirun -n 6  ./boson_MCTDHB_gnu_FFTW 
+# 6)  After successfully done computation compare with reference: 
+#         vimdiff basic_info.out basic_info.out_Reference
+# 7)  Start one-processor analysis:
+#          mpirun(aprun)  -n 1  -N1  ./properties_LR_gnu_FFTW  
+# 8)  Compare the computed  spectrum with reference:
+#          vimdiff DATA/getLR/MC_anlsplot.out MC_anlsplot.out_Reference      
+# 9)  To compare with published in Table.1 results one has to devide 
+#     the excitation energies from the DATA/getLR/MC_anlsplot.out file by sqrt(2)!!!! 
+# 10) To get other numbers please change M, Npar in input.in  and restart the jobs

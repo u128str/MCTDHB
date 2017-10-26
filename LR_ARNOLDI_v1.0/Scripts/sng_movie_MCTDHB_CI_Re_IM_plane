@@ -1,0 +1,123 @@
+#!/bin/bash
+rm -f *gnu*
+rm -f *jpg*
+rm -f *gif*
+rm -f *sort*
+
+# process args
+case "$1" in
+    clean|-cl*)
+rm -f *gnu*
+rm -f *ppm*
+rm -f *jpg*
+rm -f *gif*
+rm -f *sort*
+  exit 0 ;;
+    help|-h*)
+echo "Usage: ../Scripts/sng_movie_MCHB_CI 0 15 1"
+echo "where: from T=0 till T=15 dT=1"
+  exit 0 ;;
+    "")
+echo "!!!Usage: ../Scripts/sng_movie_MCHB_CI 0 15 1"
+echo "where: from T=0 till T=15 dT=1"
+exit 0 ;
+esac
+
+
+FILE_LIST="`ls -t *coef.dat`"
+
+if [ ! "$3" ]
+        then
+                echo "Step is not defined - I use default: dt= 0.1"
+LIST="`seq -f %1.1f $1 0.1 $2`"
+#                exit
+        else
+                echo "Step is defined - : dt="$3
+LIST="`seq -f %1.1f $1 $3 $2`"
+LIST="`seq -f%.6f  $1 $3 $2`"
+if [ "$3" == 0.01 ] 
+then
+LIST="`seq -f %1.2f $1 $3 $2`"
+LIST="`seq -f%.6f  $1 $3 $2`"
+fi
+#          exit
+fi
+
+
+((j=0))
+for i in ${LIST} ;
+do
+((j=j+1))
+case "$i" in
+    [0-9][0-9][0-9].*)
+lvar[j]=${i}coef.dat
+if [ "$3" == 0.01 ]
+then
+lvar[j]=${i}coef.dat
+fi
+esac
+case "$i" in
+    [0-9][0-9].*)
+lvar[j]=${i}0coef.dat
+if [ "$3" == 0.01 ]
+then
+lvar[j]=${i}0coef.dat
+fi
+esac
+case "$i" in
+    [0-9].*)
+lvar[j]=${i}00coef.dat
+if [ "$3" == 0.01 ]
+then
+lvar[j]=${i}00coef.dat
+fi
+esac
+#printf "    %s\n" "${lvar[j]}" "$jj"
+done
+
+
+FILE_LIST1=${lvar[@]}
+#echo "Full: " ${lvar[@]}
+FILE_LIST="`ls -t ${FILE_LIST1}`"
+#fi
+
+echo FILE_LIST: ${FILE_LIST}
+
+for i in ${FILE_LIST} ; 
+do
+echo "file: ",$i
+#echo "set terminal pbm small color;"> $i.gnu
+#echo "set terminal jpeg transparent medium size 800,600;"> $i.gnu
+echo "set terminal png transparent truecolor enhanced medium size 800,600;"> $i.gnu
+
+
+echo "set grid;" >> $i.gnu
+echo "set size 1.0,1.0;" >> $i.gnu
+#echo "set output\"$i.jpg\";" >> $i.gnu
+echo "set output\"$i.png\";" >> $i.gnu
+echo "set title \"CI coefficients at: $i \" ;">> $i.gnu
+#echo "set multiplot" >> $i.gnu
+#echo "set origin 0.0,0.0" >> $i.gnu
+#echo "set size 1.0,0.5" >> $i.gnu
+echo " plot [-1.01:1.01][-1.01:1.01] \
+\"$i\" using (\$2):(\$3) t \"Re vs Im \" w lp lt 1 pt 5 ps 1.1 ; " >>$i.gnu
+gnuplot $i.gnu
+done
+
+#FILE_LIST="`ls -t *.gif`"
+#FILE_LIST1="`sort -n ${FILE_LIST}`"
+#ls -t *.jpg > qq.sort
+ls -t *.png > qq.sort
+sort -n qq.sort > qq1.sort
+FILE_LIST1="`cat qq1.sort`"
+echo FILE_LIST1: ${FILE_LIST1}
+
+#mencoder mf://@qq1.sort -mf w=800:h=600:fps=5:type=jpg -ovc lavc -lavcopts vcodec=msmpeg4v2 -oac copy -o CI_Re_IM_plane_$1_$2.mpg
+#mencoder mf://@qq1.sort -mf w=800:h=600:fps=2:type=png -ovc raw -oac copy -o CI_Re_IM_plane_$1_$2.avi
+#mencoder mf://@qq1.sort -mf w=800:h=600:fps=2:type=png -ovc copy -oac copy  -vf bmovl=0:0:tfifo -o CI_Re_IM_plane_$1_$2.avi
+mencoder mf://@qq1.sort -mf w=800:h=600:fps=2:type=png -ovc copy -oac copy  -sub-bg-alpha 255  -o CI_Re_IM_plane_$1_$2.avi
+
+rm -f *coef.dat.gnu*
+rm -f *coef.dat.jpg*
+rm -f *coef.dat.png*
+rm -f *sort*

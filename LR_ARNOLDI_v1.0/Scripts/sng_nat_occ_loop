@@ -1,0 +1,163 @@
+#!/bin/sh
+
+
+case "$1" in
+     [0-9])  
+echo "OK!! Case of Morb=$1" 
+       ;;
+     [0-9][0-2])  
+echo "OK!! Case of Morb=$1" 
+       ;;
+     "" )
+echo "!!!Usage: ../Scripts/sng_nat_occ_loop 10 "
+echo "where: Morb=10"
+exit 0 ;;
+      * )
+echo "Usage: ../Scripts/sng_nat_occ_loop 10 "
+echo "where: Morb=10"
+exit 0 ;;
+esac
+
+echo "
+     c_p = c_p+1
+     plot  [X1:X2] [Y1:Y2]  \"\$0\" using 1:c_p with lines linetype c_p
+     if(c_p <=  n_p) reread
+                           " > ./sng_looper
+
+
+
+minT=$(awk 'min=="" || $1 < min {min=$1; minline=$0}; END{ print min}' NO_PR.out;)
+maxT=$(awk 'max=="" || $1 > max {max=$1; minline=$0}; END{ print max}' NO_PR.out;)
+#minT=12.5
+#maxT=13
+echo " Data on a Time [from:to]   ["$minT:$maxT"] from column 1 of file: NO_PR.out"
+
+#col=$[$1+7+$1]
+#maxX=$(awk -v col=$col 'max=="" || $col > max {max=$col; minline=$0}; END{ print max}' NO_PR.out;)
+#minX=$(awk -v col=$col 'min=="" || $col < min {min=$col; minline=$0}; END{ print min}' NO_PR.out;)
+#
+#echo " Data on a DVR grid ["$minX:$maxX"] from column "$col" of file: NO_PR.out"
+#exit
+
+gnuplot << EOF
+#    G N U P L O T
+Tmin=$minT
+Tmax=$maxT
+#Xmin=$minX
+#Xmax=$maxX
+#Xmin=-0.00001
+#Xmax=+0.00001
+#Tmin=zero
+#Tmax=0.05
+
+set function style lines
+set ticslevel 0.5
+set mxtics 10  
+set mytics 10
+set xtics border nomirror norotate 
+set ytics border nomirror norotate 
+set ytics border nomirror norotate 
+set ztics border nomirror norotate 
+set nox2tics 
+set noy2tics
+set zero 1e-010
+set lmargin -1
+set bmargin -1
+set rmargin -1
+set tmargin -1
+set locale "C"
+
+
+#set terminal jpeg medium size 1600x1200
+set terminal jpeg enhanced 20 size 1600,1200
+#set out "fig_nat_occ_log.ps"
+set out "fig_nat_occ_log.jpeg"
+set grid
+set nobar 
+set key  bot right
+#set term po po enh col solid "Times-Roman" 18
+#set term po land  enh col solid "Times-Roman" 18
+set title 'Evolution of the system ' 
+set xlabel "t" 0.000000,0.000000  
+set ylabel "n_i/N" 0.000000,0.000000  
+set logscale y 10
+
+zero=1.0e-16
+Morb=$1
+print "You are processing data file with Morb=",Morb
+#============== n_Morb ======================
+set nologscale y 
+plot  [] []  "NO_PR.out"  using 1:Morb+1 t "N_max" w l lt 1 
+#              "NO_PR.out.1"  using 1:Morb+1 t "N_max 1" w l lt 1 
+#============== Nocc(i) ======================
+Occmin=0.00001
+Occmax=1.1
+     set multiplot
+set logscale y 10
+#set nologscale y 
+X1=Tmin
+X2=Tmax
+Y1=Occmin
+Y2=Occmax
+unset key
+     plot  [X1:X2] [Y1:Y2] 0.5 t "50x50" w l lt -1,\
+n_p=Morb
+c_p=1
+     call 'sng_looper' 'NO_PR.out'
+     unset multiplot
+#set out "fig_nat_occ.ps"
+set out "fig_nat_occ.jpeg"
+
+     set multiplot
+set nologscale y 
+X1=Tmin
+X2=Tmax
+Y1=Occmin
+Y2=Occmax
+unset key
+     plot  [X1:X2] [Y1:Y2] 0.5 t "50x50" w l lt -1,\
+n_p=Morb
+c_p=1
+     call 'sng_looper' 'NO_PR.out'
+     unset multiplot
+
+#=============== E(t) =====================
+#set out "fig_E_of_t.ps"
+set out "fig_E_of_t.jpeg"
+set nologscale y 
+set ylabel "E(t)/N " 0.000000,0.000000  
+set format y "%20.10f"
+plot  [] [] \
+"NO_PR.out"  using 1:Morb+2 t "E_{total}" w l lt 1 
+
+#=============== Err =====================
+set nologscale y 
+#set out "fig_Err_of_t.ps"
+set out "fig_Err_of_t.jpeg"
+set xlabel "t" 0.000000,0.000000  
+set format y "%g"
+set ylabel "Cummulative Error " 0.000000,0.000000  
+plot  [0.1*(Tmax-Tmin):Tmax] [] \
+"NO_PR.out"  using 1:Morb+3 t "Assumed Err" w l lt -1 lw 2,\
+"NO_PR.out"  using 1:Morb+5 t "Error" w l lt 3 
+
+set nologscale y 
+#set out "fig_Err_of_t.ps"
+set out "fig_Err_of_t.jpeg"
+set ylabel "Partioning of Cummulative Error " 0.000000,0.000000  
+err=9.0e-3
+plot  [] [] \
+"NO_PR.out"  using 1:Morb+3 t "Assumed Err" w l lt -1 lw 2,\
+"NO_PR.out"  using 1:Morb+6 t "CI Error %" w l lt 3,\
+"NO_PR.out"  using 1:Morb+7 t "PSI Error %" w l lt 4 
+
+set ylabel "Partioning of Cummulative Error Log " 0.000000,0.000000  
+set logscale y 
+plot  [] [] \
+"NO_PR.out"  using 1:Morb+3 t "Assumed Err" w l lt -1 lw 2,\
+"NO_PR.out"  using 1:Morb+6 t "CI Error %" w l lt 3,\
+"NO_PR.out"  using 1:Morb+7 t "PSI Error %" w l lt 4 
+
+
+EOF
+rm sng_looper

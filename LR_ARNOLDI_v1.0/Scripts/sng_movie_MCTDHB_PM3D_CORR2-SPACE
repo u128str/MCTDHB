@@ -1,0 +1,124 @@
+#!/bin/bash
+rm -f *gnu*
+rm -f *ppm*
+rm -f *gif*
+rm -f *sort*
+rm TMP
+
+# process args
+case "$1" in
+    clean|-cl*)   
+rm -f *gnu*
+rm -f *ppm*
+rm -f *gif*
+rm -f *sort*
+  exit 0 ;;
+    help|-h*)   
+echo "Usage: ../Scripts/sng_movie_MCHB_PSI_NO_scaled 0 15 1 10 20"
+echo "where: from T=0 till T=15 dT=1 Morb=10 N=20"
+echo "the files *x-density.dat MUST already be in the working directory"
+  exit 0 ;;
+    "")   
+echo "!!!Usage: ../Scripts/sng_movie_MCHB_PSI_NO_scaled 0 15 1 10 20 "
+echo "where: from T=0 till T=15 dT=1 Morb=10 N=20"
+echo "the files *x-density.dat MUST already be in the working directory"
+exit 0 ;
+esac
+
+case "$1" in
+    [0-9]*)
+echo "Plot from:" $1
+echo "Plot till:" $2
+
+if [ ! "$3" ]
+        then
+                echo "Step is not defined - I use default: dt= 0.1"
+        else
+                echo "Step is defined - : dt="$3
+fi
+
+if [ ! "$4" ]
+        then
+                echo "Number Of orbitals is not defined - I stop"
+echo "!!!Usage: ../Scripts/sng_movie_MCHB_PSI_NO_scaled 0 15 1 10 20 "
+echo "where: from T=0 till T=15 dT=1 Morb=10 N=20"
+echo "the files *N20M10x-density.dat MUST already be in the working directory"
+          exit
+fi
+if [ ! "$5" ]
+        then
+                echo "Number Of Bosons is not defined - I stop"
+echo "!!!Usage: ../Scripts/sng_movie_MCHB_PSI_NO_scaled 0 15 1 10 20 "
+echo "where: from T=0 till T=15 dT=1 Morb=10 N=20"
+echo "the files *N20M10x-density.dat MUST already be in the working directory"
+          exit
+fi
+
+esac
+FILE_LIST="`ls *x-correlations.dat | sort -g | sed s/N\$5M\$4x\-correlations.dat//`"
+#esac
+IFS=$'\n'
+((j=0))
+for i in ${FILE_LIST}
+do 
+((j=j+1))
+A=$i
+B=$3
+C="`echo $A%$B | bc`"
+if [ "$C" == "0" ]
+then
+if [ $(echo "$A >= $1"|bc) -eq 1 ]
+then
+if [ $(echo "$A <= $2"|bc) -eq 1 ]
+then
+echo "$A""N$5M$4x-correlations.dat" >> TMP 
+fi
+fi
+fi
+done
+
+
+
+echo "`cat TMP | sort -g `" > TMP1
+echo "`cat TMP1`"
+FILE_LIST1="`cat TMP1`"
+rm TMP
+rm TMP1
+
+minX=-4
+maxX=4
+minY=-4
+maxY=4
+
+echo "minX: "$minX" maxX: "$maxX
+for i in ${FILE_LIST1} ; 
+do
+echo "file: ",$i
+gnuplot << EOF
+set terminal jpeg medium size 800,600
+set size square 1.0,1.0;
+set output"$i.jpg
+set title "File: $i " 
+set pm3d map;
+set xrange [ $minX : $maxX ] noreverse nowriteback	
+set yrange [ $minY : $maxY ] noreverse nowriteback	
+splot [$minX:$maxX][$maxY:$minY][*:*] \
+"$i" using 1:4:(\$11/(\$7*\$10)) t "X-Space g^{(2)} MCTDHB($4)"
+EOF
+done
+
+ls -t *.jpg > qq.sort
+sort -g qq.sort > qq1.sort
+FILE_LIST1="`cat qq1.sort`"
+echo FILE_LIST1: ${FILE_LIST1}
+
+mencoder mf://@qq1.sort -mf w=800:h=600:fps=5:type=jpg -ovc lavc -lavcopts vcodec=msmpeg4v2 -oac copy -o MCTDHB_CORR2_PM3D_X_$1_$2.mpg
+echo "Created Movie File is named: MCTDHB_CORR2_PM3D_X_$1_$2.mpg"
+
+rm -f *gnu*
+rm -f *ppm*
+rm -f *jpg*
+rm -f *jpeg*
+rm -f *gif*
+rm -f *sort*
+  exit 0 

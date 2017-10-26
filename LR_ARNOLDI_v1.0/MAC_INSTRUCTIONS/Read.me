@@ -1,0 +1,30 @@
+To compile the mac binaries one has to:
+1) 
+  GCC gfortran  https://wiki.helsinki.fi/display/HUGG/Installing+the+GNU+compilers+on+Mac+OS+X
+  openMPI       https://wiki.helsinki.fi/display/HUGG/Installing+Open+MPI+on+Mac+OS+X
+    tar zxvf openmpi-1.6.5.tar.gz
+    ./configure --disable-shared --without-memory-manager  --enable-static   --prefix=/Users/tc-user/Alexej/openmpi-1.8.4_full_static
+    make all
+    make install
+(To make static) one has to coopy ALL static libs to /Users/tc-user/Alexej/openmpi-1.8.4_full_static/lib_static
+and put the compilation flags to  
+mpi_f90=/Users/tc-user/Alexej/openmpi-1.8.4_full_static/bin/mpif90 -O2 -fopenmp  -static-libgfortran -lquadmath -static-libgcc -L /Users/tc-user/Alexej/openmpi-1.8.4_full_static/lib_static -lmpi -lmpi_mpifh -lopen-rte -lopen-pal
+
+to check libs dependencies type: otool -L bin/boson_MCTDHB_gnu_FFTW 
+
+PROBLEM with -lquadmath to activate static one has to copy/hide the dynamical libraries because during the compilation
+FIRST look for dynamical libs!!!!
+as a root:
+ sudo mv /usr/local/lib/libquadmath.0.dylib /usr/local/lib/libquadmath.0.dylib.hidden
+ sudo mv /usr/local/lib/libquadmath.dylib /usr/local/lib/libquadmath.dylib.hidden
+  
+and to restore back:
+ sudo mv /usr/local/lib/libquadmath.0.dylib.hidden /usr/local/lib/libquadmath.0.dylib 
+ sudo mv /usr/local/lib/libquadmath.dylib.hidden /usr/local/lib/libquadmath.dylib
+
+2) fftw-3.3.4
+3) lapack-3.4.2
+4) blas
+5) gnuplot-4.6.6.tar.gz
+6) Packages.dmg to make installator.pkg
+7) Platypus-4.8 to make MCTDHB-Lab.app

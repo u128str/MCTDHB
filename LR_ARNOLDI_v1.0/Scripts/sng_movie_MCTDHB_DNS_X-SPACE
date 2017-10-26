@@ -1,0 +1,136 @@
+#!/bin/bash
+rm -f *gnu*
+rm -f *ppm*
+rm -f *gif*
+rm -f *sort*
+rm TMP
+
+# process args
+case "$1" in
+    clean|-cl*)   
+rm -f *gnu*
+rm -f *ppm*
+rm -f *gif*
+rm -f *sort*
+  exit 0 ;;
+    help|-h*)   
+echo "Usage: ../Scripts/sng_movie_MCHB_PSI_NO_scaled 0 15 1 10 20"
+echo "where: from T=0 till T=15 dT=1 Morb=10 N=20"
+echo "the files *x-density.dat MUST already be in the working directory"
+  exit 0 ;;
+    "")   
+echo "!!!Usage: ../Scripts/sng_movie_MCHB_PSI_NO_scaled 0 15 1 10 20 "
+echo "where: from T=0 till T=15 dT=1 Morb=10 N=20"
+echo "the files *x-density.dat MUST already be in the working directory"
+exit 0 ;
+esac
+
+case "$1" in
+    [0-9]*)
+echo "Plot from:" $1
+echo "Plot till:" $2
+
+if [ ! "$3" ]
+        then
+                echo "Step is not defined - I use default: dt= 0.1"
+        else
+                echo "Step is defined - : dt="$3
+fi
+
+if [ ! "$4" ]
+        then
+                echo "Number Of orbitals is not defined - I stop"
+echo "!!!Usage: ../Scripts/sng_movie_MCHB_PSI_NO_scaled 0 15 1 10 20 "
+echo "where: from T=0 till T=15 dT=1 Morb=10 N=20"
+echo "the files *N20M10x-density.dat MUST already be in the working directory"
+          exit
+fi
+if [ ! "$5" ]
+        then
+                echo "Number Of Bosons is not defined - I stop"
+echo "!!!Usage: ../Scripts/sng_movie_MCHB_PSI_NO_scaled 0 15 1 10 20 "
+echo "where: from T=0 till T=15 dT=1 Morb=10 N=20"
+echo "the files *N20M10x-density.dat MUST already be in the working directory"
+          exit
+fi
+
+esac
+FILE_LIST="`ls *time.dat | sort -g | sed s/time.dat//`"
+#esac
+IFS=$'\n'
+((j=0))
+for i in ${FILE_LIST}
+do 
+((j=j+1))
+A=$i
+B=$3
+C="`echo $A%$B | bc`"
+if [ "$C" == "0" ]
+then
+if [ $(echo "$A >= $1"|bc) -eq 1 ]
+then
+if [ $(echo "$A <= $2"|bc) -eq 1 ]
+then
+echo "$A""time.dat" >> TMP 
+echo "FILES:""$A""time.dat" 
+fi
+fi
+fi
+done
+
+
+
+echo "`cat TMP | sort -g `" > TMP1
+echo "`cat TMP1`"
+FILE_LIST1="`cat TMP1`"
+rm TMP
+rm TMP1
+
+minX=*
+maxX=*
+minY=*
+maxY=*
+echo "minX: "$minX" maxX: "$maxX
+#((j=0))
+((k=0))
+for i in ${FILE_LIST1} ; 
+do
+echo "file: ",$i
+ echo "set terminal jpeg medium size 800,600;"> $i.gnu
+echo "set size 1.0,1.0;" >> $i.gnu
+echo "set mxtics 10;" >> $i.gnu
+echo "set grid;" >> $i.gnu
+#echo "set logscale y;" >> $i.gnu
+echo "set output\"$i.jpg\";" >> $i.gnu
+echo "set title \"File: $i \" ;">> $i.gnu
+Morb=$4
+echo " plot [$minX:$maxX][$minY:$maxY] \\">> $i.gnu
+echo "\"$i\" using (\$1):(\$8) t \"X-Space DNS MCTDHB("$Morb")\" w lp lt 4 lw 3 pt 6 ps 0.7 \\" >>$i.gnu
+#echo "\"den1d_f1_2p_l0_3_l226\" index "$j" using (\$1):(\$2) t \"X-Space DNS_1 MCTDH("$Morb")\" w lp lt 3 lw 3 pt 6 ps 0.7, \\" >>$i.gnu
+#echo "\"den1d_f1_2p_l0_3_l50\" index "$k" using (\$1):(\$2) t \"X-Space DNS_2 MCTDH("$Morb")\" w lp lt 2 lw 3 pt 6 ps 0.7, \\" >>$i.gnu
+#echo "0.0000273*(x-20)**3 t \"abs(W_1(x))\" w lp lt 5 lw 3 pt 6 ps 0.7, \\" >>$i.gnu
+#echo "0.0000273*(x-196)**3 t \"abs(W_2(x))\" w lp lt 5 lw 3 pt 6 ps 0.7  " >>$i.gnu
+
+gnuplot $i.gnu
+#echo "processing file" "$i" " of the MCTDHB densities"
+#echo "Processing timestep " "$j" " of the MCTDH densities"
+#echo "Processing timestep " "$k" " of the short MCTDH densities"
+#((j=j+4))
+((k=k+1))
+done
+
+ls -t *.jpg > qq.sort
+sort -g qq.sort > qq1.sort
+FILE_LIST1="`cat qq1.sort`"
+echo FILE_LIST1: ${FILE_LIST1}
+
+mencoder mf://@qq1.sort -mf w=800:h=600:fps=5:type=jpg -ovc lavc -lavcopts vcodec=msmpeg4v2 -oac copy -o MCTDHB_DNS_X-Space_$1_$2.mpg
+echo "Created Movie File is named: MCTDHB_DNS_X-Space_$1_$2.mpg"
+
+rm -f *gnu*
+rm -f *ppm*
+rm -f *jpg*
+rm -f *jpeg*
+rm -f *gif*
+rm -f *sort*
+  exit 0 

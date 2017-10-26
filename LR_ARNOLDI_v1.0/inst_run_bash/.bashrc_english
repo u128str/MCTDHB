@@ -1,0 +1,12 @@
+# .bashrc
+export LC_ALL=en_US
+
+# User specific aliases and functions
+
+export PSM_RCVTHREAD=0
+export LD_LIBRARY_PATH=/usr/shmem/qlogic/lib64/openmpi:/common/intel/lib/intel64:/common/cuda/lib64:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/usr/lib:$LD_LIBRARY_PATH
+
+alias ltr='ls -ltr'
+
+export PATH=/home/strel/mplayer/bin:$PATH

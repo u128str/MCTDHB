@@ -1,0 +1,18 @@
+module purge > initialization
+module load moab/6.1.4 torque/2.5.9 >> initialization
+module load PrgEnv-intel/4.0.36 intel/12.1.1.256 >> initialization
+module load xt-mpich2/5.3.4 xt-shmem/5.3.4 >> initialization
+module load xtpe-interlagos craype-hugepages64M >> initialization
+export PATH=$PATH:/opt/hlrs/system/ws/bin:/zhome/academic/HLRS/xhc/xhcmbtb2/Mercurial-stable-branch--42d5165975ad:$HOME/GNUPLOT/bin:$HOME/MPLAYER/bin
+export LD_LIBRARY_PATH=../user-guesslib:./user-guesslib:./:.:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/opt/intel/composer_xe_2011_sp1.7.256/mkl/include:$LD_LIBRARY_PATH
+source /opt/intel/composer_xe_2011_sp1.7.256/mkl/bin/mklvars.sh intel64
+export GXX_ROOT=/usr/lib64/gcc/x86_64-suse-linux/4.3/
+export OMP_NUM_THREADS=8
+export MKL_NUM_THREADS=8
+########## magic OMP spells
+export KMP_STACKSIZE=1677721006
+ulimit -s unlimited
+ulimit -v unlimited
+ws_list
+

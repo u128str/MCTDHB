@@ -1,0 +1,9 @@
+#  Here are the input.in and V_W_Psi_string.in files needed to reproduce M=6 N=10 energy from Table I of PRA_86_063606 (2012)
+#  with calibration of the MCTDHB method on HIM model
+# 1) create directory HIM_Table_1 
+# 2) copy files from the mctdhb-package/Templates/PRA_86_063606_Table_1 to HIM_Table_1
+# 3) copy mctdhb-package/bin/* to HIM_Table_1
+# 4) cd to HIM_Table_1 
+# 5) execute the job, typically: mpirun -n 7  ./boson_MCTDHB_gnu_FFTW , the name of the exe file depends on a compiler used...
+# 6) After successfully done computation compare with reference: vimdiff basic_info.out basic_info.out_Reference
+# 7) To get other numbers please change M, Npar in input.in  and restart the job

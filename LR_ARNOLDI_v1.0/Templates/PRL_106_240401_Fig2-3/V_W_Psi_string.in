@@ -1,0 +1,24 @@
+# ==================== V_W_Psi_string.in ========================================
+# Here we define lexical expressions for external trap V; interparticle interaction W
+# as well as  the initial orbitals Psi on which one can  imptint momentum  k1x+k2y+k3z
+# This parser does not recognize:
+# 2) Blank (empty space): x^ (-1) is wrong, while  x^(-1) is correct 
+# These examples of the LEGAL expresions:  
+#  Exp(abs(r)**(2^0.5)*t) 
+#   x^(-2)+x*10**(-1.d-10)+3.1416*y**2+1.0000000000000001**z**2
+# To monitor what you have provided please check   V_W_Psi_string.out file
+# In this out file NON means that nothing is provided, i.e., the default V,W or Psi are used from
+# user_guesslib/ Get_InterParticle.F  Guess_CI.F      Guess_PSI.F          VTRAP_EXT_TD.F  
+# If you define something here it overreads the respective default values from the user_guesslib files!!!!
+# If you do NOT want to override the default - remove this file or leave the respective parameters blank (empty e.g: V(x_y_z&t)=  )    
+#V(x_y_z&t)= 0.5d0*x^2*(1+sin(t)*cos(2*t)*sin(0.5*t)*sin(0.4*t))
+V(x_y_z&t)= 0.0d0
+W(R=|r1-r2|&t)=  #r**2*(1-0.1*sin(t)*cos(2*t)*sin(0.5*t)*sin(0.4*t))
+Psi_1(x_y_z)= ((exp(x-4.0)+exp(-x+4.0))^(-1)+(exp(x+4.0)+exp(-x-4.0))^(-1))
+Psi_2(x_y_z)= ((exp(x-4.0)+exp(-x+4.0))^(-1)-(exp(x+4.0)+exp(-x-4.0))^(-1))
+Psi_3(x_y_z)= #
+Imprint_MOM=  #+3*x-1*y+0*z
+#Df_cnf_Fock= |10:0:0:0>*-1.0
+#Df_cnf_Fock= |98:2>*-3.5d-1
+#Df_cnf_Fock= |95:5>*-3.5e-1
+#Df_cnf_Fock= |3:7>*-3.5d-1

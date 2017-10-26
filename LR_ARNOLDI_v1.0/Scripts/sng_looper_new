@@ -1,0 +1,3 @@
+c_p = c_p+1
+     plot  [X1:X2] [Y1:Y2]  $0 using 1:c_p with lines linetype c_p
+     if(c_p <=  n_p) reread

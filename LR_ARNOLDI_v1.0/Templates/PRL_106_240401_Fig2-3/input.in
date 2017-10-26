@@ -1,0 +1,74 @@
+&PRM
+
+MB_JOB_TYPE='ALL'        !c========== Standard MCTDHB used
+!MB_JOB_TYPE='FCI'        !c========== Full CI used
+
+Morb = 2,                !c============== Number of Orbitals USED  M in [1:12] =========================
+Npar = 2000,                !c============== Number of Particles 
+xlambda_0=-0.002e0,         !c============== Strength of the interparticle interaction 
+JOB_PreFac=(0d0,-1.0d0),!  PreFac=(0.0d0,-1.0d0) ! FORward propagation
+                          !  PreFac=(0.0d0,+1.0d0) ! BACKward propagation
+                          !  PreFac=(-1.0d0,0.0d0) ! R E L A X A T I O N
+GUESS='BINR',
+!GUESS='DATA',
+GUESS='HAND',
+                            !GUESS='DATA'   CASE ('DATA', 'HAND','BINR')' ORB_DIAG=.TRUE. ORB_Rest ORB_Binr
+                            !ORB_DIAG=.FALSE. works with 'HAND'  and means h with trap is diagonalized to get initial PSI's
+                            !Binary_Start_Point_t=10.0d0 works with 'BINR' and means that (re)starting data are taken at that time point 
+ORB_DIAG=.F.,
+Binary_Start_Point_t=10.0d0,
+ Time_Res_Orb_File_Name='10.0000000time.daT', !Restart  ORBITAL file Time_Res_Orb_File_Name='3.00000000time.daT',
+ Time_Res_CIc_File_Name='10.0000000coef.daT', !Restart CI COEFF file Time_Res_CIc_File_Name='3.00000000coef.daT',
+! Time_Res_Orb_File_Name='',
+! Time_Res_CIc_File_Name='',
+/
+&ORB
+ DIM_MCTDHB=1,      !c======= Dimension of the Problem ====
+ NDX=512,          !c========== Number of DVR points ========= in X -axis
+ NDY=1,            !c========== Number of DVR points ========= in Y -axis in 1D it is NDZ=1
+ NDZ=1,            !c========== Number of DVR points ========= in Z -axis in 1D it is NDZ=1
+ Time_DVRMETHODX=4
+ Time_DVRMETHODY=4
+ Time_DVRMETHODZ=5, !c=========DVRMETHOD:      1      3     4     5
+                   !c=========Corrseponds:  HO DVR  SinDVR  FFT  ExpDVR
+ Wxx_TYPE=0,       !c=============== Wxx_TYPE=0:  W(r,r')=Delta(x-x') contact interaction
+                   !c=============== Wxx_TYPE=1:  W(r,r')=W(x-x')*W(y-y')*W(z-z') separable interaction
+                   !c=============== Wxx_TYPE=2:  W(r,r')=W(r-r') ONLY FOR Equidistant grids!!!!!! DVRMETHOD= SinDVR or  ExpDVR
+                   !c=============== Wxx_TYPE=3:  W(r,r')=W(r,r') one need to store matrix W(i,j) Dim(W)=NDX*NDY*NDZ * NDX*NDY*NDZ
+                   !c=============== Wxx_TYPE=4:  W(r,r')=W(r-r') FFT - the fastest, FFT matrix Wxx of W Dim(W)=NDX*NDY*NDZ is needed
+Time_xint=-30.0d0,  !c===============  The system is defined on a interval =========================
+Time_xfnl=+30.0d0,  !c===============  [ Time_xint : Time:xfnl] ====================================
+Time_yint=-8.0d0,
+Time_yfnl=+8.0d0,
+Time_zint=-8.0d0,
+Time_zfnl=+8.0d0,
+Time_mass=1.0d0, !c=========== Mass of the particle def ==1.0d0  lambda_0=lambda_0/Mass -> V_0=V_0/Mass 
+WTD=.F.,         !c======== This falg indicates on explicite dependency W(r,r',time) on TIME 
+/
+&TM
+Time_Bgn=0.0d0,              !c========= Starting==Initial Time point
+Time_Fnl=30.0d0, !0.3Fs         !c=========           Final   Time point
+Time_MAX=20000.0d0,          !c========= Overall Maximal time
+Time_print_step=0.1d0,  !c========= time step used to print the 0.000000time.dat (0.0+time_print_step)000000time.dat 
+Time_ici_prt=10        !c========= =10 means that each 10ns ci-file will be created
+Time_tau=0.0001d0,          !c========= INITIAL propagation step and working R E L A X A T I O N step !!!!!Carefull
+!Time_tau=0.1d0,          
+Time_TolError_Total=1.0d-8,  !c========= Error of Integration for both SIL and ABM 
+Time_Min_Occ_Allowed=1.0d-12,!c========= In Get_r_R.F the exceptional situation when Natural occupation number is less then it
+Time_minsil=10,               !c========= In SIL Minimal Krylov subspace
+Time_maxsil=35,              !c========= In SIL Maximal Krylov subspace
+Time_intgr='OMPABM',         !c=== Integrator for orbital part (BS,ABM,OMPABM,RK,STIFF)
+Time_intgr_order=7,     !c=== order of the integrator (Max. 7 for ABM/OMPABM,
+                        !c===  Max. 16 for BS, 5 or 8 for RK,
+                        !c===  1 or 2 for 'STIFF'[a Gear-Type 2nd order backwards differentiation stuff, 
+                        !c===  1 means error is total error, 2 means it is the error per point)
+Time_intgr_max_step=0.1d0  !c=== maximal step which you allow for orbital part
+PRINT_DATA=.T.,          !c========= Create or Not the *coef.dat ot *time.dat files - later on one can create them using properties_MB.exe
+TD_Err_scale=1.0d0       !c========= Error scaling factor for TD potential
+LZ=.F.                   !c========= (de)activate angular momentum in z direction for 2D calculations
+OMEGAZ=0.5d0            !c========= set the angular frequency
+STATE=1                  !c==== select which eigenstate is computed (STATE=1 is the groundstate)
+/          !c========= Scaling of the error in Time-Dependent external potentials - better to put 0.1d0
+&USRPAR
+/
+

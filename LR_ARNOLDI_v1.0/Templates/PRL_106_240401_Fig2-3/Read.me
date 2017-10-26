@@ -1,0 +1,25 @@
+#   Swift Loss of Coherence of Soliton Trains in Attractive Bose-Einstein Condensates
+#  Here are the input.in V_W_Psi_string.in and properties.in files needed to reproduce M=2 N=2000 results from PRL_106_240401 (2011)
+#  in this example we plot correlation functions g1 in real and momenum spaces.
+# 1)  create working directory  Swift_Loss_Attractive
+# 2)  copy files from the $mctdhb_dir/Templates/PRL_106_240401_Fig2-3 to Swift_Loss_Attractive
+# 3)  copy $mctdhb_dir/bin/* to Swift_Loss_Attractive
+# 4)  cd to Swift_Loss_Attractive
+# 5)  execute the job, typically (the name of the exe file depends on a compiler used...):
+#         mpirun -n 2  ./boson_MCTDHB_gnu_FFTW 
+# 6)  After successfully done computation compare with the reference: 
+#         vimdiff basic_info.out basic_info.out_Reference
+# 7)  To reproduce a part of the results published in upper Left panel of Fig.2 start script:
+#          $mctdhb_dir/Scripts/plot_E_V_T_W_Err_nat_occ 0 30 0.1 2
+# 8)  to see the evolution of Natural occupations as in Fig.2  type:
+#          eog media/fig_Nat_occ_of_t_* 
+# 7)  To reproduce a part of the results published in lower Left panel of Fig.2 start script for T=27.9 and Morb=2:
+            $mctdhb_dir/Scripts/plot_1D_DNS_NO_X_t-slice 27.9 2
+# 9)  to see the respective Figures type:
+             eog media/*NatOrb*
+# 10) To reproduce correlation functions from left panels of Fig.2 start one-processor analysis for T=27.9 (as already specified in properties.in):
+#          mpirun(aprun)  -n 1  -N1  ./properties_LR_gnu_FFTW  
+# 11)  to produce the correlation functions from Fig.3 start script for T=27.9 and Morb=2: 
+            $mctdhb_dir/Scripts/plot_1D_DNS_g1_t-slice 27.9 2
+# 12)  to see the respective Figures type:
+             eog media/*-correlations.jpeg

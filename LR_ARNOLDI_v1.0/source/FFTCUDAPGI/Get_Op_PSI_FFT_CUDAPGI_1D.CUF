@@ -1,0 +1,278 @@
+! FFT business with CUDA
+! X_i index pointing to the T_x,T_y or T_z will be calculated - only for
+! 2D and 3D problems
+! NdimMax = 1D(NDX)
+! NdimMax = 2D(NDX*NDY)
+! NdimMax = 3D(NDX*NDY*NDZ)
+      SUBROUTINE Get_Op_PSI_FFT_CUDAPGI_1D(psi,X_i) 
+      USE SHARED_DIMS
+      USE DVR_ALL
+      USE W_INTERPARTICLE
+      Use MKL_DFTI
+ 
+      USE precision_m
+      USE cufft_m
+!      USE GPU_ALL
+
+    
+      USE omp_lib
+      IMPLICIT NONE
+      INCLUDE 'mpif.h'
+
+
+      INTEGER ::  ierr
+      COMPLEX*16,   DIMENSION(NDX*NDY*NDZ) :: psi
+!==================== Local Arrays for 3D Tnsformations 
+      INTEGER :: I,J,K,I1,incr,j1,X_i,ind,NDfdim
+      REAL*8 :: tm
+!================== MKL STUFF
+      INTEGER :: STRIDE(2),INFO
+      INTEGER :: L(1),inem(1),onem(1)
+      type(DFTI_DESCRIPTOR), POINTER :: Desc_Handle_Dim1
+      type(DFTI_DESCRIPTOR), POINTER :: Desc_Handle_Dim2
+      Integer :: Status
+      COMPLEX*16 :: ortkx(NDX),ortky(NDY),ortkz(NDZ)
+
+  
+      complex(fp_kind), device, allocatable :: psi_d(:)
+      complex(fp_kind), device, allocatable :: ortkx_d(:)
+ 
+
+         integer :: plan, planType
+
+      ortkx=ort_kx
+      ortky=ort_ky
+      ortkz=ort_kz
+      tm=MPI_WTIME(ierr)
+
+!-------------------- variabls on divece(GPU) ---------------------------
+                 
+!STR I have ADDED NDfdim to define the size, dimension of the PSI array
+         NDfdim=ndx*ndy*ndz
+
+!========================================================================      
+      Xi1: SELECT CASE (X_i)
+      CASE (1) ! 1D FFT in X-dimension 
+!======== cccccc  do the mkl fft voodoo
+
+! allocate arrays on the device
+                  allocate(psi_d(NDfdim))
+                  allocate(ortkx_d(NDX))
+
+
+!copy arrays to device
+          
+           psi_d = psi
+           ortkx_d= ort_kx*ort_kx/NDX/2/Time_mass
+!              print *, "case-1 cuda"
+
+
+! set planType to either single or double precision
+        if (fp_kind == singlePrecision) then
+              planType = CUFFT_C2C
+          else
+              planType = CUFFT_Z2Z     ! Double-Complex to Double-Complex
+        endif
+
+! initialize the plan and execute the FFTs.
+          call cufftPlan1D(plan,NDfdim,planType,1)
+!cufftPlanMany(cufftHandle *plan, int rank, int *n, int *inembed, int istride, int idist, int *onembed, int ostride, int odist, cufftType type, int batch);
+! subroutine cufftPlanMany(plan, rank, nx, in, is, id, on, os, od, type, batch) 
+      L(1)=NDX
+      inem(1)=0
+      onem(1)=0
+      call cufftPlanMany(plan,  1, L, inem, 1, NDX, onem, 1, NDX, planType, NDY*NDZ)
+!      call cufftPlanMany(plan,  1, NDX, 0, 1, NDX, 0, 1, NDX, planType, NDY*NDZ)
+
+!        call cufftExec(plan,planType,psi_d,psi_d,CUFFT_FORWARD) !This is correctelly working call but single plan, i need manyPlans
+
+        ! Copy results back to host
+        !  psi = psi_d           !  ref oksa
+  
+!          print *, "Forward B"
+!          write (*,"(8('(',f16.10,',',f16.10,')',1x))") b
+
+
+! oksa      Status = DftiCreateDescriptor(Desc_Handle_Dim1, DFTI_DOUBLE,
+! oksa      &  DFTI_COMPLEX, 1, NDX )
+! oksa       Status = DftiSetValue( Desc_Handle_Dim1,
+! oksa      &  DFTI_NUMBER_OF_TRANSFORMS, NDY*NDZ )
+! oksa       Status = DftiSetValue( Desc_Handle_Dim1, DFTI_INPUT_DISTANCE, NDX)
+! oksa      Status = DftiSetValue( Desc_Handle_Dim1, DFTI_OUTPUT_DISTANCE,NDX)
+! oksa       Status = DftiCommitDescriptor(Desc_Handle_Dim1)
+! oksa       Status = DftiComputeForward(Desc_Handle_Dim1,psi)
+
+
+!================= Kinetic FFT: multiply by k**2
+!c!$OMP PARALLEL DO 
+!c!$OMP& FIRSTPRIVATE(NDX,ortkx,Time_mass)
+!c!$OMP& PRIVATE(i,ind,j)
+!c      Do i=1,NDX
+!c         ind=i
+!c         Do j=1,NDY*NDZ
+!c            ind=i+NDX*(J-1)
+!c            psi(ind)=psi(ind)*ortkx(i)**2/(2*Time_mass)/NDX
+!c         EndDo
+!c      EndDo
+!c!$OMP END PARALLEL DO
+
+
+
+
+
+
+! !$OMP PARALLEL DO 
+! !$OMP& FIRSTPRIVATE(NDX,NDY,NDZ,ortkx,Time_mass)
+! !$OMP& PRIVATE(i,ind,j,K)
+!STR ref            Do K=1,NDX
+!STR ref            Do I=1,NDZ
+!STR ref            Do J=1,NDY
+!STR ref            ind=k+(J-1)*NDX+(I-1)*NDX*NDY
+!STR ref            psi(ind)=psi(ind)*ortkx(K)**2/(2*Time_mass)/NDX
+!STR ref            EndDo
+!STR ref            EndDo
+!STR ref            EndDo
+!!$OMP END PARALLEL DO
+!CUDA blas and lapack operations
+! in the assumption that ortkx(K)**2/NDX/2/Time_mass is areary allocated on GPU ortkx_d
+
+! ref oksa              status = cula_sgesv(n,nrhs,a_dev,n,ipiv_dev,b_dev,n)
+! ref oksa            status = cula_ZGERU(M,N,1.0d0,X,1,Y,1,A,LDA) 
+
+!           call gpu_kerner<<<32,8>>> (psi_d,ortkx_d)
+
+!=========================================================
+         !$cuf kernel do <<< *, 256 >>>
+            Do K=1,NDX
+               Do I=1,NDZ
+                 Do J=1,NDY
+                  ind=k+(J-1)*NDX+(I-1)*NDX*NDY
+                  psi_d(ind)=psi_d(ind)*ortkx_d(K)
+                 EndDo
+               EndDo
+            EndDo
+
+
+!==========================================================
+!c            ind=1
+!c            Do I=1,NDZ
+!c            Do J=1,NDY
+!c            Do K=1,NDX
+!c            psi(ind)=psi(ind)*ortkx(K)**2/(2*Time_mass)/NDX
+!c            ind=ind+1
+!c            EndDo
+!c            EndDo
+!c            EndDo
+!c==========================  Cuda ---------------------------
+!c  oksa MKLFFT backtransform
+!c  oksa        Status = DftiComputeBackward(Desc_Handle_Dim1,psi)
+!c  oksa      Status = DftiFreeDescriptor(Desc_Handle_Dim1)
+            
+            !copy arrays to device
+          !   psi_d = psi
+
+            call cufftExec(plan,planType,psi_d,psi_d,CUFFT_INVERSE)
+                  
+            ! Copy results back to host
+              psi = psi_d
+    
+            ! Scale
+            !  psi = psi /NDX
+          
+            !release memory on the host and device
+             deallocate(psi_d)
+             deallocate(ortkx_d)
+
+            ! Destroy the plan
+           call cufftDestroy(plan)
+
+
+             timeCPU(3)=timeCPU(3)+MPI_WTIME(ierr)-tm
+!c===============================================================================
+      CASE (2) !1D FFT in Y-dimension
+
+!c          tm=MPI_WTIME(ierr)
+
+       Status = DftiCreateDescriptor(Desc_Handle_Dim2, DFTI_DOUBLE, DFTI_COMPLEX,1,NDY)
+
+!      Stride(1) = 0 
+      
+       Stride(2) = NDX
+      Status = DftiSetValue( Desc_Handle_Dim2,  DFTI_NUMBER_OF_TRANSFORMS, NDX)
+      Status = DftiSetValue(Desc_Handle_Dim2,DFTI_INPUT_DISTANCE, 1)
+      Status = DftiSetValue(Desc_Handle_Dim2,DFTI_OUTPUT_DISTANCE,1)
+           DO I=1,NDX*NDY*NDZ,NDX*NDY
+      Stride(1) = I-1
+      Status=  DftiSetValue(Desc_Handle_Dim2,DFTI_INPUT_STRIDES,Stride) 
+      Status=  DftiSetValue(Desc_Handle_Dim2,DFTI_OUTPUT_STRIDES,Stride)
+      Status = DftiCommitDescriptor(Desc_Handle_Dim2)
+      Status = DftiComputeForward(Desc_Handle_Dim2,psi)
+           ENDDO
+!c================= Kinetic FFT: multiply FT by k**2
+!c!$OMP PARALLEL DO
+!c      Do i=1,NDX
+!c         ind=i
+!c         Do j=1,NDY
+!c           ind=i+NDX*(J-1)
+!c           psi(ind)=psi(ind)*ort_ky(j)**2/(2*Time_mass)/NDY
+!c         EndDo
+!c      EndDo
+!$OMP PARALLEL DO 
+!$OMP& FIRSTPRIVATE(NDX,NDY,NDZ,ortky,Time_mass)
+!$OMP& PRIVATE(i,ind,j,K)
+            Do J=1,NDY
+            Do I=1,NDZ
+            Do K=1,NDX
+            ind=k+(J-1)*NDX+(I-1)*NDX*NDY
+            psi(ind)=psi(ind)*ortky(J)**2/(2*Time_mass)/NDY
+            EndDo
+            EndDo
+            EndDo
+!$OMP END PARALLEL DO
+!ccccc Do the MKL_FFT reverse mumbo-jumbo
+           DO I=1,NDX*NDY*NDZ,NDX*NDY
+      Stride(1) = I-1
+      Status=  DftiSetValue(Desc_Handle_Dim2,DFTI_INPUT_STRIDES,Stride) 
+      Status=  DftiSetValue(Desc_Handle_Dim2,DFTI_OUTPUT_STRIDES,Stride)
+      Status = DftiCommitDescriptor(Desc_Handle_Dim2)
+      Status = DftiComputeBackward(Desc_Handle_Dim2,psi)
+           ENDDO
+      Status = DftiFreeDescriptor(Desc_Handle_Dim2)
+      timeCPU(3)=timeCPU(3)+MPI_WTIME(ierr)-tm
+
+!c===============================================================================
+      CASE (3)
+!           tm=MPI_WTIME(ierr)
+      Status = DftiCreateDescriptor(Desc_Handle_Dim1, DFTI_DOUBLE, DFTI_COMPLEX, 1, NDZ )
+      
+      Stride(1) = 0 
+      Stride(2) = NDX*NDY
+      Status = DftiSetValue( Desc_Handle_Dim1, DFTI_NUMBER_OF_TRANSFORMS, NDX*NDY )
+      Status = DftiSetValue(Desc_Handle_Dim1,DFTI_INPUT_DISTANCE, 1)
+      Status = DftiSetValue(Desc_Handle_Dim1,DFTI_OUTPUT_DISTANCE,1)
+      Status=  DftiSetValue(Desc_Handle_Dim1,DFTI_INPUT_STRIDES,Stride) 
+      Status=  DftiSetValue(Desc_Handle_Dim1,DFTI_OUTPUT_STRIDES,Stride)
+      Status = DftiCommitDescriptor(Desc_Handle_Dim1)
+      Status = DftiComputeForward(Desc_Handle_Dim1,psi)
+!$OMP PARALLEL DO 
+!$OMP& FIRSTPRIVATE(NDX,NDY,NDZ,ortkz,Time_mass)
+!$OMP& PRIVATE(i,ind,j,K)
+            Do I=1,NDZ
+            Do J=1,NDY
+            Do K=1,NDX
+            ind=k+(J-1)*NDX+(I-1)*NDX*NDY
+            psi(ind)=psi(ind)*ortkz(I)**2/(2*Time_mass)/NDZ
+            EndDo
+            EndDo
+            EndDo
+!$OMP END PARALLEL DO
+!ccccc Do the MKL_FFT reverse mumbo-jumbo
+      Status = DftiComputeBackward(Desc_Handle_Dim1,psi)
+      Status = DftiFreeDescriptor(Desc_Handle_Dim1)
+      timeCPU(3)=timeCPU(3)+MPI_WTIME(ierr)-tm
+!c          stop
+      CASE (4) ! True  2D FFT
+          stop
+      END SELECT Xi1
+!c================================================================================
+      END  SUBROUTINE Get_Op_PSI_FFT_CUDAPGI_1D

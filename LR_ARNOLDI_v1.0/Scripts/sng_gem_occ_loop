@@ -1,0 +1,120 @@
+#!/bin/sh
+
+
+case "$1" in
+     [0-9])  
+echo "OK!! Case of Morb=$1" 
+       ;;
+     [0-9][0-2])  
+echo "OK!! Case of Morb=$1" 
+
+       ;;
+     "" )
+echo "!!!Usage: ../Scripts/sng_nat_occ_loop 4 "
+echo "where: Morb=4"
+exit 0 ;;
+      * )
+echo "Usage: ../Scripts/sng_nat_occ_loop 4 "
+echo "where: Morb=4"
+exit 0 ;;
+esac
+
+echo "
+     c_p = c_p+1
+     plot  [X1:X2] [Y1:Y2]  \"\$0\" using 1:c_p with lines linetype c_p
+     if(c_p <=  n_p) reread
+                           " > ./sng_looper
+
+
+
+minT=$(awk 'min=="" || $1 < min {min=$1; minline=$0}; END{ print min}' GO_PR.out;)
+maxT=$(awk 'max=="" || $1 > max {max=$1; minline=$0}; END{ print max}' GO_PR.out;)
+echo " Data on a Time [from:to}   ["$minT:$maxT"] from column 1 of file: NO_PR.out"
+
+#col=$[($1+1)*$1/2+1]
+#echo "column ", $col
+#maxX=$(awk -v col=$col 'max=="" || $col > max {max=$col; minline=$0}; END{ print max}' GO_PR.out;)
+#minX=$(awk -v col=$col 'min=="" || $col < min {min=$col; minline=$0}; END{ print min}' GO_PR.out;)
+
+echo " Maximal and minimal occupations are ["$minX:$maxX"] from column "$col" of file: GO_PR.out"
+#exit
+
+gnuplot << EOF
+#    G N U P L O T
+Tmin=$minT
+Tmax=$maxT
+#Xmin=$minX
+#Xmax=$maxX
+#Xmin=-0.00001
+#Xmax=+0.00001
+#Tmin=zero
+#Tmax=0.05
+
+set function style lines
+set ticslevel 0.5
+set mxtics 10  
+set mytics 10
+set xtics border nomirror norotate 
+set ytics border nomirror norotate 
+set ytics border nomirror norotate 
+set ztics border nomirror norotate 
+set nox2tics 
+set noy2tics
+set zero 1e-010
+set lmargin -1
+set bmargin -1
+set rmargin -1
+set tmargin -1
+set locale "C"
+
+
+set out "fig_gem_occ.ps"
+set grid
+set nobar 
+set key  bot right
+set term po po enh col solid "Times-Roman" 18
+set term po land  enh col solid "Times-Roman" 18
+set title "Evolution of the system's natural geminals"
+#set title "stem's natural geminals"
+
+set xlabel "t" 0.000000,0.000000  
+set ylabel "n_i^{(2)}/(N(N-1))" 0.000000,0.000000  
+set logscale y 10
+
+zero=1.0e-16
+Morb=$[($1+1)*$1/2]
+print "You are processing data file with Morb=",Morb
+#============== n_Morb ======================
+set nologscale y 
+plot  [] []  "GO_PR.out"  using 1:Morb+1 t "Maximally occupied geminal" w l lt 1  
+#============== Nocc(i) ======================
+Occmin=0.00000001
+Occmax=1.1
+     set multiplot
+set logscale y 10
+#set nologscale y 
+X1=Tmin
+X2=Tmax
+Y1=Occmin
+Y2=Occmax
+     plot  [X1:X2] [Y1:Y2] 0.5 t "50x50" w l lt -1,\
+n_p=Morb
+c_p=1
+     call 'sng_looper' 'GO_PR.out'
+     unset multiplot
+
+     set multiplot
+set nologscale y 
+X1=Tmin
+X2=Tmax
+Y1=Occmin
+Y2=Occmax
+     plot  [X1:X2] [Y1:Y2] 0.5 t "50x50" w l lt -1,\
+n_p=Morb
+c_p=1
+     call 'sng_looper' 'GO_PR.out'
+     unset multiplot
+
+EOF
+rm sng_looper
+gv  fig_gem_occ.ps

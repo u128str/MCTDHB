@@ -1,0 +1,135 @@
+#!/bin/sh
+
+case "$1" in
+     [0-9])  
+echo "OK!! Case of Morb=$1" 
+       ;;
+     [0-9][0-2])  
+echo "OK!! Case of Morb=$1" 
+       ;;
+     "" )
+echo "!!!Usage: ../Scripts/sng_2D-Movie_MCTDHB 10 "
+echo "where: Morb=10"
+exit 0 ;;
+      * )
+echo "Usage: ../Scripts/sng_2D-Movie_MCTDHB 10 "
+echo "where: Morb=10"
+exit 0 ;;
+esac
+
+rm -f *gnu*
+rm -f *ppm*
+rm -f *gif*
+rm -f *sort*
+rm all.dat
+FILE_LIST="`ls -t *time.dat`"
+echo FILE_LIST: ${FILE_LIST}
+
+ls -t *time.dat > qq.sort
+sort -n qq.sort > qq1.sort
+FILE_LIST1="`cat qq1.sort`"
+echo FILE_LIST1: ${FILE_LIST1}
+
+for i in ${FILE_LIST1}
+do 
+echo "remove extra blank line from" $i
+tail -n +2 "$i" > $i.new
+cat  $i.new > $i
+done
+rm -f *dat.new
+#tail -n +2 "$FILE"
+
+
+cat ${FILE_LIST1} > all.dat
+
+rm -f *sort*
+
+#flname=${FILE_LIST[@]:0:18}
+#col=1
+#minX=$(awk -v col=$col -v flname=$flname 'NR>2 && min=="" || $col < min {min=$col; minline=$0}; END{ print min}' $flname;)
+#maxX=$(awk -v col=$col -v flname=$flname 'NR>2 && max=="" ||$col > max {max=$col; minline=$0}; END{ print max}' $flname;)
+#echo "I plot using all DVR grid point from minX: "$minX" maxX: "$maxX
+#============GNUPLOT part ======
+gnuplot << EOF
+Morb=$1
+tmax=30.0
+tmin=0.0000
+#xmin=$minX
+#xmax=$maxX
+xmin=-12
+xmax=+12
+
+# File to plot the correlation functions
+set terminal postscript col enhanced 16 
+set terminal postscript lan col enhanced 16 
+#set terminal postscript mon enhanced 16 
+set term png size 1200, 800 enhanced 16 
+#set term jepg size 800, 600 enhanced 16 
+set border 4095 lt -1 lw 1.000
+set samples 105, 105
+set isosamples 105, 105
+unset surface
+set style data pm3d
+set style function pm3d
+set ticslevel 0
+#set xlabel "Reduced one-body density" 0.000000,0.000000  font "" 
+#set output "all_ORB.ps"	
+set output "all_ORB.png"	
+#set output "all_ORB.jpg"	
+set xrange [ -25.0 : 25.0 ] noreverse nowriteback	
+#set ylabel "time" 0.000000,0.000000  font ""		
+set yrange [ -25.0 : 25.0 ] noreverse nowriteback	
+
+set pm3d at b			
+set view map
+#set size ratio -1			
+PI = 3.1415926535898		
+set pm3d at st			
+
+
+
+set pm3d implicit at b
+set pm3d scansforward
+#set pm3d interpolate 10,1 flush begin noftriangles nohidden3d corners2color mean
+set pm3d interpolate 1,1 flush begin noftriangles nohidden3d corners2color mean
+
+
+set palette rgbformulae 7,5,15
+set palette model RGB rgbformulae 7,5,15 
+#set palette defined (-3 "blue", 0 "white", 1 "red")
+#set palette defined (0.7 "blue", 0.9 "white", 1 "red")
+#set palette defined (0.5 "blue", 0.9 "white", 1 "blue")
+#set palette defined (0.5 "white", 0.9 "blue", 1 "white")
+#set palette defined (0.0 "white", 0.05 "blue", 0.1"red")
+#set palette defined (0.0 "white", 0.2 "blue", 0.6 "red")
+#set pm3d interpolate 3,3 flush begin ftriangles nohidden3d corners2color mean
+#set palette rgbformulae 7,5,15
+#set pm3d interpolate 5,5 flush begin ftriangles nohidden3d corners2color mean
+
+#set multiplot 
+set mxtics 5
+set mytics 5
+set grid mxtics xtics mytics ytics
+unset colorbox 
+
+#set size     0.58,1.1
+#set size     1.0,1.1
+#set origin   0.0,-0.1
+
+set title "MCTDHB(3) N=100 V(x)=0.5x^2: sudden ramp; III-hump asymmetric initial guess D=1 X_L=4.5 X_R=5.0" 
+set title "MCTDHB(2) N=100 l_0=-0.04: k=1 is imprinted to the left-most cloud. 0.2^{1/2}|N,0>+ 0.8^{1/2}|0,N>" 
+set title "MCTDHB(3) N=100 l_0=-0.04: k=1 to the left-most cloud. 0.1111^{1/2}|N,0,0>+ 0.4444^{1/2}|0,N,0>+0.4444^{1/2}|0,0,N>" 
+
+#set label 1 "{/Times-Roman=35 {/Symbol=25s}=0.2} V_0=0.3 {/Symbol=25D}x=0.0"  at 2,2,2  front nopoint tc lt 3
+set xlabel "coordinate"
+set ylabel "Time"
+
+set cbrange[0.0:0.3]
+set clabel ""
+time=5*Morb+10
+splot [xmin:xmax][tmin:tmax] "all.dat" using 1:time:6 t " " 
+
+EOF
+#gs -sDEVICE=jpeg -dJPEGQ=50 -dNOPAUSE -dBATCH -dSAFER -r300 -sOutputFile=all_ORB.jpg all_ORB.ps
+#kghostview all_ORB.ps
+#gnome-open  all_ORB.png
