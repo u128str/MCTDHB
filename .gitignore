@@ -1,7 +1,6 @@
 *.o
 *.mod
 *.a
-boson_MCTDHB*
-properties_LR*
-lr_arnoldi*
-MCTDHB-MCTDHB_V3.3.02.zip
+boson_MCTDHB_*
+properties_LR_*
+lr_arnoldi_*
