@@ -1,8 +1,8 @@
 # Arnoldi LR test LR-GP=LR-MCTDHB(1)=BdG results.
 
 Prerequisites: Installed Arnoldi-LR package: https://github.com/u128str/MCTDHB/tree/MCTDHB_V3.3.02
-In the dir where all these files
 
+In the dir where all these files are:
 1) Run the mctdhb to get GS:
 ```
 $  ../bin/boson_MCTDHB_ifort_MKLFFT 
@@ -26,7 +26,7 @@ $  ../bin/boson_MCTDHB_ifort_MKLFFT
  # W(R=|r1-r2|&t)= Using Defaults from Get_InterParticle.F                                                             
 ......
 ```
-1.1) Compare the outputs with the reference:
+ 1.1) Compare the outputs with the reference:
 ```
 $ vimdiff  basic_info.out basic_info.out_GP_ref
 ```
@@ -51,13 +51,12 @@ The results are in DATA/getLR/MC_anlsplot.out:
       19        9.6761281452497272     0.1879931409817166E+02   1.0000000000000004   0.0000000000000000   0.0000000000000122   0.0000000000000192
 .....
 ```
-
-2.1) Compare the outputs with the reference:
+ 2.1) Compare the outputs with the reference:
 ```
 vimdiff DATA/getLR/MC_anlsplot.out  MC_anlsplot.out_GP_ref
 ```
 
-3.1) Run NEW Arnoldi lr-mctdhb (1.stage MATRIX CONSTRUCTION in __./lr_arnoldi.in__ ``` task=1  ```):
+3) Run NEW Arnoldi lr-mctdhb (1.stage MATRIX CONSTRUCTION in __./lr_arnoldi.in__ ``` task=1  ```):
 ```
 $  ../bin/lr_arnoldi_ifort_MKLFFT
 ```
@@ -72,8 +71,7 @@ On terminal you shoulod see:
 ...
 ```
 
-3.1) Before Runing NEW Arnoldi lr-mctdhb (2.stage MATRIX DIAGONALIZATION )
-in __./lr_arnoldi.in__ change the ``` task=1``` to ``` task=2```. Run it:
+ 3.1) Before Runing NEW Arnoldi lr-mctdhb (2.stage MATRIX DIAGONALIZATION ) in __./lr_arnoldi.in__ change the ``` task=1``` to ``` task=2```. Run it:
 
 ```
 $  ../bin/lr_arnoldi_ifort_MKLFFT
@@ -129,6 +127,6 @@ On terminal you will see:
 
 ```
 
-the reference screen out can be find in __./arnoldi_LR.out_ref_GP__
+this reference screen can be find in __./arnoldi_LR.out_ref_GP__
 
 
