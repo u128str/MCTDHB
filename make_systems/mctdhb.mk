@@ -157,7 +157,7 @@ include ./make_systems/properties.mk
 
 #ifeq ($(BLAS_LAPACK),intel)
 ifeq ($(ARNOLDI),PARPACK)
-$(info  "Incliding "  ./make_systems/lr_arnoldi.mk )
+$(info  "Including "  ./make_systems/lr_arnoldi.mk )
 #================= LR_ARNOLDI  =================
 include ./make_systems/lr_arnoldi.mk
 endif

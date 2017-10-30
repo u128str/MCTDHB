@@ -16,7 +16,7 @@ c=================== MPI
         character*4 :: rtype ! can be 'scan' or 'full'
        logical :: Restart
 c==========================================================
-       MCTDHB_V= "Current version 3.3.01 l Heidelberg/Kassel Apr (2017)"
+       MCTDHB_V= "Current version 3.3.03 l Heidelberg/Kassel Oct (2017)"
 c================ MPI ===================================
          call MPI_INIT(ierr)
          call MPI_COMM_RANK(MPI_COMM_WORLD,MYID,ierr)

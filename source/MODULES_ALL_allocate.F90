@@ -109,7 +109,7 @@
 &" #       for Bosons Package, http://mctdhb.org,                  # ",&
 &" #       A. I. Streltsov,  et al                                 # ",&
 &" #                                                               # ",&
-&" #         Major Version 3.2, Heidelberg, (2006-2015)            # ",&
+&" #         Major Version 3.3, Heidelberg, (2006-2015)            # ",&
 &" #===============================================================# "/)
 
          END MODULE SHARED_DIMS

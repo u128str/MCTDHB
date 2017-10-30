@@ -32,10 +32,14 @@ MAINTAINER  Alexej I. Streltsov  <u128str@gmail.com>
 RUN mkdir -p /mctdhb
 COPY .  /mctdhb
 WORKDIR /mctdhb
-RUN  make
+RUN  make 
+#RUN  make #mk_file=ARNOLDI_gcc_mkl.mk
 RUN mkdir -p /TEST
 ADD Templates/PRA_86_063606_Table_1 /TEST
 WORKDIR /TEST
 
 ##COPY ./MCTDHB_V3.3.01  /mctdhb
 #CMD  ["/mctdhb/bin/boson_MCTDHB_gnu_FFTW"]
+####### USAGE #############################
+#docker build -t lr-mctdhb .
+#docker run --rm -it -v $(pwd):/tmp lr-mctdhb

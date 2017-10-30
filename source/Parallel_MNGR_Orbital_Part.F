@@ -200,6 +200,26 @@ c============================ WLS manager p
           Proc_WSL_Finish(I)=nwork(I)+nfnl
           nfnl= Proc_WSL_Finish(I)
          ENDDO
+
+
+!===  added RAPHA
+       ELSE
+          FromN=1
+          TillN=njobs
+
+         Proc_WSL_Starts=1
+         Proc_WSL_Finish=1
+          Proc_WSL_Starts(1)=1
+          Proc_WSL_Finish(1)=njobs-1
+          Proc_WSL_Starts(nproc)=njobs
+          Proc_WSL_Finish(nproc)=njobs
+!         Do icntr=1,Nproc
+!       write(6,*)icntr,"ORB: WSL From",Proc_WSL_Starts(icntr), " Tl",
+!     . Proc_WSL_Finish(icntr),"out of ",M*(M+1)/2
+!         EnDDo
+!====
+
+
        ENDIF
          Do icntr=1,Nproc
        write(6,*)"ORB:",icntr,"WSL From",Proc_WSL_Starts(icntr), " Tl",

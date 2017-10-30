@@ -69,7 +69,7 @@ c        return
          
        WRITE(6,*)"CI MaxTrm",MaxTrm
 
-       IF(NPROC.GT.MaxTrm) stop "NPROC>MaxTrm: reduce nproc!!!"
+!       IF(NPROC.GT.MaxTrm) stop "NPROC>MaxTrm: reduce nproc!!!"
 
        DO MYID=0,Nproc-1
        Nterms=MaxTrm/(NPROC)
@@ -140,7 +140,8 @@ c
 c        stop
 c==================== Allocation of memory for Prefactors_1b,Prefactors_2b,Ind_CI_1b,Ind_CI_2b arrays =====================
 c==================== These arrays, different on each node will be used after CI_Production EQ TRUE =======================
-            IF(Morb.eq.1) CI_PRD=.FALSE. !For GP there is no need for parallelization
+            IF(Morb.eq.1) CI_PRD=.TRUE. !For GP there is no need for parallelization
+            CI_Prd=.TRUE.                                 
 
       write(6,*)"CI_Prd ",CI_Prd
            IF(CI_Prd.eqv..TRUE.) THEN

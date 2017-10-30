@@ -1,6 +1,8 @@
 # USAGE: make mk_file=MinGW_Win_fftw.mk
 platform=unix
-MCTDHB_V="V3.3.01" # ATTN!! Also correct files: source/ParaMain.F  and source/MODULES_ALL_allocate.F90
+MCTDHB_V="V3.3.03" # ATTN!! Also correct files:
+# source/ParaMain.F  
+# source/MODULES_ALL_allocate.F90
 #=================== Selector for already tuned configurations  PCI, K100, BwGrid, etc
 #mk=./make_systems/BwGriD_ifort.mk
 #mk=./make_systems/BwGriD_gnu_fftw.mk
@@ -22,11 +24,11 @@ MCTDHB_V="V3.3.01" # ATTN!! Also correct files: source/ParaMain.F  and source/MO
 
 #mk=./make_systems/Hydra_ifort_static.mk # On Hydra creation of the semi-static  boinaries with ifortmpi mkl etc..
 
-#mk=./make_systems/Ubuntu_gnu.mk
+mk=./make_systems/Ubuntu_gnu.mk
 #mk=./make_systems/SUSE_gnu_fftw.mk #standard for SUSE
 
 #mk=./make_systems/MacPCI_gnu_OpenMPI_static.mk #STATIC version for UNIX should work without any external libs
-mk=./make_systems/ARNOLDI_gcc_mkl.mk
+#mk=./make_systems/ARNOLDI_gcc_mkl.mk
 #=================== Selector for Compiler 
 
 ifneq ($(mk_file),)

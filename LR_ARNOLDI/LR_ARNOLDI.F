@@ -1677,9 +1677,18 @@ c
 
       if(exists.eqv..TRUE.) then
 
-
+      write(6,*)"CANNOT Continue STEP.1:  Matrix construction"
+      write(6,*)"File(s) LR_matrix_save.dat or LR_bin already EXIST!"
+      write(6,*)"To reconstruct the matrix remove them:"
+          write(6,*)"rm -f LR_matrix_save.dat"
+          write(6,*)"rm -f LR_bin"
+      write(6,*)"For STEP.2 Arnolri diagonalization change:"
+      write(6,*)"    task=2 in lr_arnoldi.in "
+       stop("Needs your action...stop")
        if(binary.eqv..FALSE.) open(unit=256, file='LR_matrix_save.dat', 
-     .        status='old', action='readwrite')
+     .   form='formatted', status='unknown')
+     !!.        status='unknown', action='readwrite')
+     !!.        status='old', action='readwrite')
 
        if(binary.eqv..TRUE.)Open (unit=260, File='LR_bin',
      .  Status='unknown', 
@@ -2287,8 +2296,8 @@ c
 
                if(abs(L_row_bottom(1,j)).ge.tol1) then
                  if(binary.eqv..FALSE.)
-     .              write(256,'(2I10,10x,2F20.10)') i+dimL_orb,j,
-     .                     Real(L_row_bottom(1,j)),
+     .              write(256,'(2I10,10x,2F22.16)') i+dimL_orb,j,
+     .                     Dreal(L_row_bottom(1,j)),
      .                     Dimag(L_row_bottom(1,j))
                  if(binary.eqv..TRUE.)
      .              write(260) i+dimL_orb,j,
@@ -2486,16 +2495,27 @@ c
 9000    continue
 
          if(myid.eq.0) then
-           call remove('Tkin_2D.dat')
-           call remove('left_Loc.dat')
-!           call remove('left_Loc_inter.dat')
-           call remove('left_Loo.dat')
-           call remove('left_Loo_inter.dat')
-           call remove('V_PrdCIJ.dat')
-           call remove('V_PrdCIJ2.dat')
-           call remove('KSL_mat.dat')
-           call remove('KSL_conjg_mat.dat')
-           call remove('proj.dat')
+             write(6,*)" Cleaning some intermediate files:"
+               file2='Tkin_2D.dat'
+           call remove(file2)
+               file2='left_Loc.dat'
+           call remove(file2)
+               file2='left_Loc_inter.dat'
+           call remove(file2)
+               file2='left_Loo.dat'
+           call remove(file2)
+               file2='left_Loo_inter.dat'
+           call remove(file2)
+               file2='V_PrdCIJ.dat'
+           call remove(file2)
+               file2='V_PrdCIJ2.dat'
+           call remove(file2)
+               file2='KSL_mat.dat'
+           call remove(file2)
+               file2='KSL_conjg_mat.dat'
+           call remove(file2)
+               file2='proj.dat'
+           call remove(file2)
          end if
 c      
       end subroutine LR_ARNOLDI

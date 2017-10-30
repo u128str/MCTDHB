@@ -53,7 +53,8 @@ c=====================
                            temp(I)=1.0d0
            call computewsl(wsl,psis,temp,w3xxFFT)
 c               KSL(I,J)=WSL(I)*psiL(i)
-               KSL(I)=WSL(pos)*psiL(pos)
+c               KSL(I)=WSL(pos)*psiL(pos)
+                KSL_temp(:,I)=WSL(:)
                ENDDO
 c=====================
             END SELECT WxxTYPE
