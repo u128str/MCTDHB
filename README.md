@@ -43,7 +43,7 @@ Now copy the templates files to /TEMP reproduce some data from [PRA 86 063606](h
  #      http://mctdhb.org    http://mctdhb-lab.com/              #
  #===============================================================#
  #   The Multiconfigurational Time-Dependent Hartree For Bosons  #
- #    Current version 3.3.01 l Heidelberg/Kassel Apr (2017)      #
+ #    Current version 3.3.03 l Heidelberg/Kassel Nov (2017)      #
  #===============  BBB: Be superB with the mctdhbB ==============#
  #                        Founders:                              #
  #                                                               #
@@ -78,7 +78,7 @@ Now copy the templates files to /TEMP reproduce some data from [PRA 86 063606](h
  #       for Bosons Package, http://mctdhb.org,                  #
  #       A. I. Streltsov,  et al                                 #
  #                                                               #
- #    Current version 3.3.01 l Heidelberg/Kassel Apr (2017)      #
+ #    Current version 3.3.03 l Heidelberg/Kassel Nov (2017)      #
  #===============================================================#
  ____    ____    ______  _________  ______    ____  ____ ______   
 |_   \  /   _|.'' ___  ||  _   _  ||_   _ `. |_   ||  _||_   _  \ 
@@ -90,7 +90,7 @@ Now copy the templates files to /TEMP reproduce some data from [PRA 86 063606](h
 ==================================================================
  #===============================================================#
  #   The Multiconfigurational Time-Dependent Hartree For Bosons  #
- #    Current version 3.3.01 l Heidelberg/Kassel Apr (2017)      #
+ #    Current version 3.3.03 l Heidelberg/Kassel Nov (2017)      #
  #===============  BBB: Be superB with the mctdhbB ==============#
 ```
 
