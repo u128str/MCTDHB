@@ -1,0 +1,55 @@
+# Start with Ubuntu base image
+FROM mctdhb/minunix:latest
+MAINTAINER  Alexej I. Streltsov  <u128str@gmail.com>
+
+ENV MKL_PATH=/opt/intel
+
+# Using yun-idc mirror
+# RUN sed -i 's/http:\/\/archive\.ubuntu\.com/http:\/\/mirrors\.yun-idc\.com/g' /etc/apt/sources.list
+
+# Install MKL dependency packages
+RUN apt-get update && \
+  apt-get install -y man tar wget cpio unzip autoconf
+
+# Download and Install MKL install package
+RUN cd /tmp && \
+  wget -q http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/12070/l_mkl_2018.0.128.tgz && \
+  tar -xzf l_mkl_2018.0.128.tgz  && cd l_mkl_2018.0.128  && \
+  sed -i 's/ACCEPT_EULA=decline/ACCEPT_EULA=accept/g' silent.cfg && \
+  ./install.sh -s silent.cfg && \
+  cd ..  
+# && rm -rf *
+
+# Add to path
+# ENV PATH ${CUDA_PATH}/bin:${PATH}
+# Configure dynamic link
+RUN echo "${MKL_PATH}/mkl/lib/intel64" >> /etc/ld.so.conf.d/intel.conf && ldconfig && \
+    echo ". /opt/intel/bin/compilervars.sh intel64" >> /etc/bash.bashrc
+
+# Installation  PARPACK /usr/local/lib
+RUN   wget https://github.com/opencollab/arpack-ng/archive/master.zip && \
+   unzip master.zip && \
+   cd arpack-ng-master &&\ 
+   sh bootstrap && \
+  ./configure  --enable-mpi && \
+   make &&\ 
+   make install &&\ 
+   cd ..  
+
+RUN dnf install -y sudo && \
+    adduser user && \
+    echo "user ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/user && \
+    chmod 0440 /etc/sudoers.d/user
+
+RUN su - user -c "touch mine"
+
+CMD ["su", "-", "user", "-c", "/bin/bash"]
+
+
+ENV MKLROOT ${MKL_PATH}/mkl
+RUN  cd . && \
+  wget --no-check-certificate --content-disposition https://github.com/u128str/MCTDHB/archive/MCTDHB_V3.3.02.zip && \
+  unzip MCTDHB-MCTDHB_V3.3.02.zip && \
+  cd  MCTDHB-MCTDHB_V3.3.02 a &&\
+  make mk=make_systems/ARNOLDI_gcc_mkl.mk
+

@@ -1,0 +1,29 @@
+&LR
+!###################   Arnoldi linear-response analysis
+
+          T_From=20.0d0        ! Time point (in binary files!!) at which Arnoldi LR-analysis should be done 
+          task=1               ! Flag for running mode, task = 1 =>> LR-matrix construction,
+                               !                        task = 2 =>> diagonalization)
+          binary=.T.           ! if .T. =>> contructs LR-matrix in binary file,
+                               ! if .F. =>> LR-matrix in text file
+
+!======= PARAMETERS for construction mode (task = 1)
+
+          tol1=1e-11         ! tolerance for matrix elements upon construction, 
+                             ! values smaller than tol1 count as zero 
+
+
+!======= PARAMETERS for diagonalization mode (task = 2)
+
+          ncv=200              ! # of Krylov vectors 
+          nev=100              ! # of wanted eigenvectors per Arnoldi iteration (nev <= ncv-2) 
+          min_conv=6         ! # of lowest positive eigenvalues to be found 
+          tol2=1e-10           ! tolerance for convergence of positive roots, i.e.,
+                               ! residual <= tol2 ->> root converged
+          upperlimit=3.3e0       ! range in which eigenvalues are searched [0.0,upperlimit]
+          maxn=50000            ! 500000 maximal dimension of LR-matrix
+          maxncv=200            ! maximal dimension of Krylov subspace
+          maxnev=100            ! maximal number of wanted eigenvalues
+          maxnonzero=10000000            !  500000000 maximal number of nonzeroes in LR-matrix
+/
+

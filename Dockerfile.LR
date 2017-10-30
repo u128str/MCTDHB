@@ -1,0 +1,59 @@
+# This Docker file builds the image with Arnoldi LR-MCTDHB
+# CAREFUL!!! it downloads and installs MKL, PARPACK from official sites
+# 4.5 GB is the size of the final image: 3.9 GB - MKL...
+# Start with Ubuntu base image
+#==============Usage ===================================
+# Build image from sctatch takes about 14min
+#  time docker build --no-cache -f Dockerfile.LR -t lr-mctdhb . 
+# 
+
+FROM mctdhb/minunix:latest
+MAINTAINER  Alexej I. Streltsov  <u128str@gmail.com>
+
+ENV MKL_PATH=/opt/intel
+
+# Using yun-idc mirror
+# RUN sed -i 's/http:\/\/archive\.ubuntu\.com/http:\/\/mirrors\.yun-idc\.com/g' /etc/apt/sources.list
+
+# Install MKL dependency packages
+RUN apt-get update && \
+  apt-get install -y man tar wget cpio unzip autoconf
+
+# Install MKL
+RUN cd /tmp && \
+# Download MKL install package
+  wget -q http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/12070/l_mkl_2018.0.128.tgz && \
+# Install MKL
+  tar -xzf l_mkl_2018.0.128.tgz  && cd l_mkl_2018.0.128  && \
+  sed -i 's/ACCEPT_EULA=decline/ACCEPT_EULA=accept/g' silent.cfg && \
+  ./install.sh -s silent.cfg && \
+# Clean up
+  cd ..  
+# && rm -rf *
+
+RUN   wget https://github.com/opencollab/arpack-ng/archive/master.zip && \
+   unzip master.zip && \
+   cd arpack-ng-master &&\ 
+   sh bootstrap && \
+  ./configure  --enable-mpi && \
+   make &&\ 
+   make install
+
+
+# Add to path
+# ENV PATH ${CUDA_PATH}/bin:${PATH}
+# Configure dynamic link
+RUN echo "${MKL_PATH}/mkl/lib/intel64" >> /etc/ld.so.conf.d/intel.conf && ldconfig && \
+    echo ". /opt/intel/bin/compilervars.sh intel64" >> /etc/bash.bashrc
+
+ENV MKLROOT ${MKL_PATH}/mkl
+
+##COPY ./MCTDHB_V3.3.03  /mctdhb
+RUN mkdir -p /mctdhb
+COPY .  /mctdhb
+#WORKDIR /mctdhb
+RUN  cd /mctdhb && make mk_file=ARNOLDI_gcc_mkl.mk
+RUN mkdir -p /TEST
+ADD Templates/LR-arnoldi-1D-him /TEST/LR-arnoldi-1D-him
+ADD Templates/LR-arnoldi-1D-contact /TEST/LR-arnoldi-1D-contact
+#WORKDIR /TEST
