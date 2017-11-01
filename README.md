@@ -1,10 +1,10 @@
 # MCTDHB
-1) To clone master MCTDHB: ```$ git clone https://github.com/u128str/MCTDHB.git```
-2) To clone LR MCTDHB:```$ git clone -b MCTDHB_V3.3.03 https://github.com/u128str/MCTDHB.git```
-3) To download zip-archive LR-MCTDHB via ```wget``` or ```curl```:
+## How2 Get?
+a) Clone master MCTDHB: ```$ git clone https://github.com/u128str/MCTDHB.git```
+b) Download zip-archive ```wget``` or ```curl```:
 ```
-wget --no-check-certificate --content-disposition https://github.com/u128str/MCTDHB/archive/MCTDHB_V3.3.03.zip
-curl -LJO https://github.com/u128str/MCTDHB/archive/MCTDHB_V3.3.03.zip
+wget --no-check-certificate --content-disposition https://github.com/u128str/MCTDHB/archive/master.zip
+curl -LJO https://github.com/u128str/MCTDHB/archive/master.zip
 ```
 ## [Arnoldi LR MCTDHB how2 install/test etc](https://github.com/u128str/MCTDHB/blob/MCTDHB_V3.3.03/LR-ARNOLDI.md)
 
