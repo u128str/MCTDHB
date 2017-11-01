@@ -7,7 +7,8 @@
 ```$ git clone https://github.com/u128str/MCTDHB.git MCTDHB-master```
 
 ### b) Download zip-archive __MCTDHB-master.zip__ with
-```wget --no-check-certificate --content-disposition https://github.com/u128str/MCTDHB/archive/master.zip
+```
+wget --no-check-certificate --content-disposition https://github.com/u128str/MCTDHB/archive/master.zip
 ```
 or
 ```
