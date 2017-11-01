@@ -20,7 +20,7 @@ __input.in__ and __V_W_Psi_string.in__ files in it. To reproduce some data from 
 root@97f61e1389e7:/TEST```$ vimdiff basic_info.out basic_info.out_Reference ```
 
 
-## C. MCTDHB LR Arnold - How2 recompile on Ubuntu 16.04
+## C. MCTDHB LR Arnoldi - How2 recompile on Ubuntu 16.04
 1) ```$ sudo apt-get update && apt-get install -y man tar wget cpio unzip autoconf vim make openmpi-bin libopenmpi-dev fftw3 fftw3-dev libblas-dev liblapack-dev ``` 
 2) ```$ mkdir $HOME/tmp && cd $HOME/tmp ```  you are at your $HOME/tmp
 3) ```$ wget -q http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/12070/l_mkl_2018.0.128.tgz  ``` Download MKL install package l_mkl_2018.0.128.tgz
@@ -35,10 +35,19 @@ root@97f61e1389e7:/TEST```$ vimdiff basic_info.out basic_info.out_Reference ```
 12) ```$ unzip MCTDHB-MCTDHB_V3.3.03.zip ```
 13) ```$ cd MCTDHB-MCTDHB_V3.3.03```
 14) ```$ make mk_file=ARNOLDI_gcc_mkl.mk``` Compilation of the Arnoldi LR MCTDHB
-Congrads! At this point the LR-Arnoldi-MCTDHB paclage is installed in your Ubuntu system at $HOME/MCTDHB-MCTDHB_V3.3.03
+__Congrads!__
+At this point the LR-Arnoldi-MCTDHB package is installed in your Ubuntu system at $HOME/MCTDHB-MCTDHB_V3.3.03:
+
+```
+~/MCTDHB-MCTDHB_V3.3.03/bin# ls -ltrh
+total 7.4M
+-rwxr-xr-x 1 root root 2.3M Nov  1 12:04 boson_MCTDHB_ifort_MKLFFT
+-rwxr-xr-x 1 root root 2.6M Nov  1 12:04 properties_LR_ifort_MKLFFT
+-rwxr-xr-x 1 root root 2.7M Nov  1 12:04 lr_arnoldi_ifort_MKLFFT
+```
 
 
-## D. MCTDHB LR Arnold - How2 verify/test 
+## D. MCTDHB LR Arnoldi - How2 verify/test 
 Next stage is to verify/check correctness of the installation. For this copy the LR templates files from $HOME/MCTDHB-MCTDHB_V3.3.03/Templates to $HOME/tmp  to test Arnoldi-LR
 Let say you have installed the Arnoldi LR MCTDHB to: _``` HOME/MCTDHB-MCTDHB_V3.3.03 ```.
 Copy both lr-templates to ~/tmp:
