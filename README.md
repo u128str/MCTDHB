@@ -83,8 +83,9 @@ Lower part constructed in    2.8000000000000247E-002  seconds
 LR-MATRIX constructed in   1.1000000000000001      seconds
  It is stored in 'LR_bin'.
 ```
-For second stage you have to open __./lr_arnoldi.in__ and _replace in line5:  __task=1__ to __task=2__ and run again:
-19) ```$ $HOME/MCTDHB-MCTDHB_V3.3.03/bin/lr_arnoldi_ifort_MKLFFT``` 3 Stage- Diagonalize LR-Matrix:
+For second stage you have to open __./lr_arnoldi.in__ and _replace in line5:  __task=1__ to __task=2__ and run again
+
+19) ```$ $HOME/MCTDHB-MCTDHB_V3.3.03/bin/lr_arnoldi_ifort_MKLFFT``` 3 Stage- Diagonalize LR-Matrix
 ```
 Time elapsed:   102.92000000000000      seconds
  =======================================
