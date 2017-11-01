@@ -1,6 +1,9 @@
 # MCTDHB
 ## How2 Get?
-a) Clone master MCTDHB: ```$ git clone https://github.com/u128str/MCTDHB.git```
+
+a) Clone master MCTDHB: 
+```$ git clone https://github.com/u128str/MCTDHB.git```
+
 b) Download zip-archive ```wget``` or ```curl```:
 ```
 wget --no-check-certificate --content-disposition https://github.com/u128str/MCTDHB/archive/master.zip
