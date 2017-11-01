@@ -7,7 +7,6 @@ wget --no-check-certificate --content-disposition https://github.com/u128str/MCT
 curl -LJO https://github.com/u128str/MCTDHB/archive/MCTDHB_V3.3.03.zip
 ```
 
-
 ## A. MCTDHB usage with MCTDHB-Lab 
 __Free__ cross-platform (Mac/Unix/Windows) with GUI: http://www.mctdhb-lab.com
 
@@ -35,23 +34,17 @@ Now copy the templates files to /TEMP reproduce some data from [PRA 86 063606](h
 10) __ENJOY__
 
 ## D. MCTDHB LR Arnold - How2 recompile on Ubuntu 16.04
-1) ```$ sudo apt-get update && apt-get install -y man tar wget cpio unzip autoconf vim make openmpi-bin libopenmpi-dev fftw3 fftw3-dev libblas-dev liblapack-dev  ``` 
-2) ```$ mkdir $HOME/tmp && cd $HOME/tmp   ```  you are at your $HOME/tmp
+1) ```$ sudo apt-get update && apt-get install -y man tar wget cpio unzip autoconf vim make openmpi-bin libopenmpi-dev fftw3 fftw3-dev libblas-dev liblapack-dev ``` 
+2) ```$ mkdir $HOME/tmp && cd $HOME/tmp ```  you are at your $HOME/tmp
 3) ```$ wget -q http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/12070/l_mkl_2018.0.128.tgz  ``` Download MKL install package l_mkl_2018.0.128.tgz
 4) ```$ tar -xzf l_mkl_2018.0.128.tgz  && cd l_mkl_2018.0.128 && sed -i 's/ACCEPT_EULA=decline/ACCEPT_EULA=accept/g' silent.cfg ``` 
 5) ```$ sudo ./install.sh -s silent.cfg```
-6) ```$ wget https://github.com/opencollab/arpack-ng/archive/master.zip && \
-   unzip master.zip && \
-   cd arpack-ng-master &&\
-   sh bootstrap && \
-  ./configure  --enable-mpi && \
-   make &&\
-   sudo make install
-```  Installing arpack libs globally to: /usr/local/lib
+6) ```$ wget https://github.com/opencollab/arpack-ng/archive/master.zip && unzip master.zip && cd arpack-ng-master && sh bootstrap && ./configure  --enable-mpi && make ```
+6.1) ```$ sudo make install ```  Installing arpack libs globally to: /usr/local/lib
 7) ```$ sudo echo "${MKL_PATH}/mkl/lib/intel64" >> /etc/ld.so.conf.d/intel.conf && ldconfig && \
     echo ". /opt/intel/bin/compilervars.sh intel64" >> /etc/bash.bashrc
 ``` 
-8) ```. /opt/intel/bin/compilervars.sh intel64``` Defining MKL-related variables
+8) ```$ . /opt/intel/bin/compilervars.sh intel64``` Defining MKL-related variables
 9) ```$ cd ```
 10) ```$ wget --no-check-certificate --content-disposition https://github.com/u128str/MCTDHB/archive/MCTDHB_V3.3.03.zip```
 11) ```$ unzip MCTDHB-MCTDHB_V3.3.03.zip ```
@@ -63,6 +56,7 @@ Next stage is to verify/check correctness of the installation. For this copy the
 15) ```$ cd $HOME/tmp/LR-arnoldi-1D-contact```
 Now you need 3-stages to get LR spectrum: 1- MCTDHB ground state; 2- constraction of the LR-matrix on-top; 3- Diagonalization of the LR-matrix
 16) ```$ $HOME/MCTDHB-MCTDHB_V3.3.03/bin/boson_MCTDHB_gnu_FFTW ``` 1 Stage- get GS
+
 ```
 ====================================================================================================
  Job->Relax. Forward     Iteration:     400     Time: [      0.000000 ->     19.950000 +       0.050000 ->     20.000000  ]
@@ -82,8 +76,8 @@ Now you need 3-stages to get LR spectrum: 1- MCTDHB ground state; 2- constractio
  # V(x_y_z&t)= x^2
  # W(R=|r1-r2|&t)= Using Defaults from Get_InterParticle.F
  # Kind of W== 0 [if ==0 W=delta(R) else W=f(R) see Get_InterParticle.F]  lambda_0=     0.100000 Time-dependent? (T/F):F
-
 ```
+
 17) ```$ $HOME/MCTDHB-MCTDHB_V3.3.03/bin/lr_arnoldi_ifort_MKLFFT``` 2 Stage- Construct LR-Matrix
 ```
 wer part constructed in    2.8000000000000247E-002  seconds
