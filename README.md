@@ -40,23 +40,20 @@ Now copy the templates files to /TEMP reproduce some data from [PRA 86 063606](h
 4) ```$ tar -xzf l_mkl_2018.0.128.tgz  && cd l_mkl_2018.0.128 && sed -i 's/ACCEPT_EULA=decline/ACCEPT_EULA=accept/g' silent.cfg ``` 
 5) ```$ sudo ./install.sh -s silent.cfg```
 6) ```$ wget https://github.com/opencollab/arpack-ng/archive/master.zip && unzip master.zip && cd arpack-ng-master && sh bootstrap && ./configure  --enable-mpi && make ```
-6.1) ```$ sudo make install ```  Installing arpack libs globally to: /usr/local/lib
-7) ```$ sudo echo "${MKL_PATH}/mkl/lib/intel64" >> /etc/ld.so.conf.d/intel.conf && ldconfig && \
-    echo ". /opt/intel/bin/compilervars.sh intel64" >> /etc/bash.bashrc
-``` 
-8) ```$ . /opt/intel/bin/compilervars.sh intel64``` Defining MKL-related variables
-9) ```$ cd ```
-10) ```$ wget --no-check-certificate --content-disposition https://github.com/u128str/MCTDHB/archive/MCTDHB_V3.3.03.zip```
-11) ```$ unzip MCTDHB-MCTDHB_V3.3.03.zip ```
-12) ```$ cd MCTDHB-MCTDHB_V3.3.03```
-13) ```$ make mk_file=ARNOLDI_gcc_mkl.mk``` Compilation of the Arnoldi LR MCTDHB
+7) ```$ sudo make install ```  Installing arpack libs globally to: /usr/local/lib
+8) ```$ sudo echo "${MKL_PATH}/mkl/lib/intel64" >> /etc/ld.so.conf.d/intel.conf && ldconfig && echo ". /opt/intel/bin/compilervars.sh intel64" >> /etc/bash.bashrc``` 
+9) ```$ . /opt/intel/bin/compilervars.sh intel64``` Defining MKL-related variables
+10) ```$ cd ```
+11) ```$ wget --no-check-certificate --content-disposition https://github.com/u128str/MCTDHB/archive/MCTDHB_V3.3.03.zip```
+12) ```$ unzip MCTDHB-MCTDHB_V3.3.03.zip ```
+13) ```$ cd MCTDHB-MCTDHB_V3.3.03```
+14) ```$ make mk_file=ARNOLDI_gcc_mkl.mk``` Compilation of the Arnoldi LR MCTDHB
 Congrads! At this point the LR-Arnoldi-MCTDHB paclage is installed in your Ubuntu system at $HOME/MCTDHB-MCTDHB_V3.3.03
 Next stage is to verify/check correctness of the installation. For this copy the LR templates files from $HOME/MCTDHB-MCTDHB_V3.3.03/Templates to $HOME/tmp  to test Arnoldi-LR
-14) ```$ cp -r $HOME/MCTDHB-MCTDHB_V3.3.03/Templates/LR-arnoldi-1D-* $HOME/tmp/.```
-15) ```$ cd $HOME/tmp/LR-arnoldi-1D-contact```
+15) ```$ cp -r $HOME/MCTDHB-MCTDHB_V3.3.03/Templates/LR-arnoldi-1D-* $HOME/tmp/.```
+16) ```$ cd $HOME/tmp/LR-arnoldi-1D-contact```
 Now you need 3-stages to get LR spectrum: 1- MCTDHB ground state; 2- constraction of the LR-matrix on-top; 3- Diagonalization of the LR-matrix
-16) ```$ $HOME/MCTDHB-MCTDHB_V3.3.03/bin/boson_MCTDHB_gnu_FFTW ``` 1 Stage- get GS
-
+17) ```$ $HOME/MCTDHB-MCTDHB_V3.3.03/bin/boson_MCTDHB_gnu_FFTW ``` 1 Stage- get GS
 ```
 ====================================================================================================
  Job->Relax. Forward     Iteration:     400     Time: [      0.000000 ->     19.950000 +       0.050000 ->     20.000000  ]
@@ -77,10 +74,9 @@ Now you need 3-stages to get LR spectrum: 1- MCTDHB ground state; 2- constractio
  # W(R=|r1-r2|&t)= Using Defaults from Get_InterParticle.F
  # Kind of W== 0 [if ==0 W=delta(R) else W=f(R) see Get_InterParticle.F]  lambda_0=     0.100000 Time-dependent? (T/F):F
 ```
-
-17) ```$ $HOME/MCTDHB-MCTDHB_V3.3.03/bin/lr_arnoldi_ifort_MKLFFT``` 2 Stage- Construct LR-Matrix
+18) ```$ $HOME/MCTDHB-MCTDHB_V3.3.03/bin/lr_arnoldi_ifort_MKLFFT``` 2 Stage- Construct LR-Matrix
 ```
-wer part constructed in    2.8000000000000247E-002  seconds
+Lower part constructed in    2.8000000000000247E-002  seconds
 
  LR-MATRIX constructed in   1.1000000000000001      seconds
                                                                                                                                                                 91,1          32%
@@ -89,7 +85,7 @@ LR-MATRIX constructed in   1.1000000000000001      seconds
 ```
 
 For second stage you have to open __./lr_arnoldi.in__ and _replace in line5:  __task=1__ to __task=2__ and run again:
-18) ```$ $HOME/MCTDHB-MCTDHB_V3.3.03/bin/lr_arnoldi_ifort_MKLFFT``` 3 Stage- Diagonalize LR-Matrix:
+19) ```$ $HOME/MCTDHB-MCTDHB_V3.3.03/bin/lr_arnoldi_ifort_MKLFFT``` 3 Stage- Diagonalize LR-Matrix:
 ```
 Time elapsed:   102.92000000000000      seconds
  =======================================
