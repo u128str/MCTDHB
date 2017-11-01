@@ -6,6 +6,7 @@
 wget --no-check-certificate --content-disposition https://github.com/u128str/MCTDHB/archive/MCTDHB_V3.3.03.zip
 curl -LJO https://github.com/u128str/MCTDHB/archive/MCTDHB_V3.3.03.zip
 ```
+## [Arnoldi LR MCTDHB how2 install/test etc](https://github.com/u128str/MCTDHB/blob/MCTDHB_V3.3.03/LR-ARNOLDI.md)
 
 ## A. MCTDHB usage with MCTDHB-Lab 
 __Free__ cross-platform (Mac/Unix/Windows) with GUI: http://www.mctdhb-lab.com
