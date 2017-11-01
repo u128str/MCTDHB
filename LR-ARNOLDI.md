@@ -1,7 +1,8 @@
-# LR Arnoldi MCTDHB
-
-1) To clone LR MCTDHB:```$ git clone -b MCTDHB_V3.3.03 https://github.com/u128str/MCTDHB.git```
-2) To download zip-archive LR-MCTDHB via ```wget``` or ```curl```:
+# LR Arnoldi MCTDHB:
+How2 get it?
+a. clone LR MCTDHB:
+```$ git clone -b MCTDHB_V3.3.03 https://github.com/u128str/MCTDHB.git```
+b. OR download zip-archive LR-MCTDHB via ```wget``` or ```curl```:
 ```
 wget --no-check-certificate --content-disposition https://github.com/u128str/MCTDHB/archive/MCTDHB_V3.3.03.zip
 curl -LJO https://github.com/u128str/MCTDHB/archive/MCTDHB_V3.3.03.zip
@@ -18,7 +19,7 @@ __input.in__ and __V_W_Psi_string.in__ files in it. To reproduce some data from 
 root@97f61e1389e7:/TEST```$ vimdiff basic_info.out basic_info.out_Reference ```
 
 
-## D. MCTDHB LR Arnold - How2 recompile on Ubuntu 16.04
+## C. MCTDHB LR Arnold - How2 recompile on Ubuntu 16.04
 1) ```$ sudo apt-get update && apt-get install -y man tar wget cpio unzip autoconf vim make openmpi-bin libopenmpi-dev fftw3 fftw3-dev libblas-dev liblapack-dev ``` 
 2) ```$ mkdir $HOME/tmp && cd $HOME/tmp ```  you are at your $HOME/tmp
 3) ```$ wget -q http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/12070/l_mkl_2018.0.128.tgz  ``` Download MKL install package l_mkl_2018.0.128.tgz
