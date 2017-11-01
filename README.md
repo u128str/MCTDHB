@@ -1,14 +1,15 @@
 # MCTDHB
-## How2 Get?
+## How2 Get MCTDHB?
 
-a) Clone master MCTDHB: 
+### a) Clone master MCTDHB: 
 ```$ git clone https://github.com/u128str/MCTDHB.git```
 
-b) Download zip-archive ```wget``` or ```curl```:
+### b) Download zip-archive ```wget``` or ```curl```:
 ```
 wget --no-check-certificate --content-disposition https://github.com/u128str/MCTDHB/archive/master.zip
 curl -LJO https://github.com/u128str/MCTDHB/archive/master.zip
 ```
+
 ## [Arnoldi LR MCTDHB how2 install/test etc](https://github.com/u128str/MCTDHB/blob/MCTDHB_V3.3.03/LR-ARNOLDI.md)
 
 ## A. MCTDHB usage with MCTDHB-Lab 
