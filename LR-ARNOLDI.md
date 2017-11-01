@@ -1,9 +1,9 @@
 # LR Arnoldi MCTDHB:
-How2 get it?
+## A. How2 get it?
 
- a. clone LR MCTDHB:
+### a) clone Arnoldi LR MCTDHB:
 ```$ git clone -b MCTDHB_V3.3.03 https://github.com/u128str/MCTDHB.git```
- b. OR download zip-archive LR-MCTDHB via ```wget``` or ```curl```:
+### b) OR download zip-archive LR-MCTDHB via ```wget``` or ```curl```:
 ```
 wget --no-check-certificate --content-disposition https://github.com/u128str/MCTDHB/archive/MCTDHB_V3.3.03.zip
 curl -LJO https://github.com/u128str/MCTDHB/archive/MCTDHB_V3.3.03.zip
