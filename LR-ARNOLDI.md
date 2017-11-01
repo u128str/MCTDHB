@@ -9,7 +9,7 @@ wget --no-check-certificate --content-disposition https://github.com/u128str/MCT
 curl -LJO https://github.com/u128str/MCTDHB/archive/MCTDHB_V3.3.03.zip
 ```
 
-## B. MCTDHB usage with docker (5-steps)
+## B. Arnoldi LR MCTDHB usage with docker (5-steps) (has to be updated ... SKEEP IT)
 1)   install docker (see e.g. https://www.docker.com/community-edition )
 2)  ````$ docker pull mctdhb/auto-build````
 3)  ````$ docker run --rm -it  mctdhb/auto-build````
@@ -40,13 +40,18 @@ Congrads! At this point the LR-Arnoldi-MCTDHB paclage is installed in your Ubunt
 
 ## D. MCTDHB LR Arnold - How2 verify/test 
 Next stage is to verify/check correctness of the installation. For this copy the LR templates files from $HOME/MCTDHB-MCTDHB_V3.3.03/Templates to $HOME/tmp  to test Arnoldi-LR
-Let say you have installed the Arnoldi LR MCTDHB to: ```$ cp -r $HOME/MCTDHB-MCTDHB_V3.3.03 ```.
-Copy templates to ~/tmp:
+Let say you have installed the Arnoldi LR MCTDHB to: _``` HOME/MCTDHB-MCTDHB_V3.3.03 ```.
+Copy both lr-templates to ~/tmp:
 
 1) ```$ cp -r $HOME/MCTDHB-MCTDHB_V3.3.03/Templates/LR-arnoldi-1D-* $HOME/tmp/.```
 2) ```$ cd $HOME/tmp/LR-arnoldi-1D-contact```
-Now you need 3-stages to get LR spectrum: 1- MCTDHB ground state; 2- constraction of the LR-matrix on-top; 3- Diagonalization of the LR-matrix
-3) ```$ $HOME/MCTDHB-MCTDHB_V3.3.03/bin/boson_MCTDHB_gnu_FFTW ``` 1 Stage- get GS
+
+Now you need 3-stages to get LR spectrum: 
+#### 1- MCTDHB ground state; 
+#### 2- constraction of the LR-matrix on-top; 
+#### 3- Diagonalization of the LR-matrix
+
+3) ```$ $HOME/MCTDHB-MCTDHB_V3.3.03/bin/boson_MCTDHB_gnu_FFTW ``` #### 1- Stage get Ground MCTDHB(2) State
 ```
 ====================================================================================================
  Job->Relax. Forward     Iteration:     400     Time: [      0.000000 ->     19.950000 +       0.050000 ->     20.000000  ]
@@ -67,7 +72,9 @@ Now you need 3-stages to get LR spectrum: 1- MCTDHB ground state; 2- constractio
  # W(R=|r1-r2|&t)= Using Defaults from Get_InterParticle.F
  # Kind of W== 0 [if ==0 W=delta(R) else W=f(R) see Get_InterParticle.F]  lambda_0=     0.100000 Time-dependent? (T/F):F
 ```
-4) ```$ $HOME/MCTDHB-MCTDHB_V3.3.03/bin/lr_arnoldi_ifort_MKLFFT``` 2 Stage- Construct LR-Matrix
+
+4) ```$ $HOME/MCTDHB-MCTDHB_V3.3.03/bin/lr_arnoldi_ifort_MKLFFT``` #### 2 Stage- Construct LR-Matrix
+
 ```
 Lower part constructed in    2.8000000000000247E-002  seconds
 
@@ -76,9 +83,9 @@ Lower part constructed in    2.8000000000000247E-002  seconds
 LR-MATRIX constructed in   1.1000000000000001      seconds
  It is stored in 'LR_bin'.
 ```
-For second stage you have to open __./lr_arnoldi.in__ and _replace in line5:  __task=1__ to __task=2__ and run again
+For the third stage (diagonalization) you have to open __./lr_arnoldi.in__ and _replace in line 5:  __task=1__ to __task=2__ and run again_
 
-5) ```$ $HOME/MCTDHB-MCTDHB_V3.3.03/bin/lr_arnoldi_ifort_MKLFFT``` 3 Stage- Diagonalize LR-Matrix
+5) ```$ $HOME/MCTDHB-MCTDHB_V3.3.03/bin/lr_arnoldi_ifort_MKLFFT``` #### 3 Stage- Diagonalization of the LR-Matrix
 ```
 Time elapsed:   102.92000000000000      seconds
  =======================================
