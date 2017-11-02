@@ -53,7 +53,7 @@ mctdhb/minunix      latest              ff5670deb65e        13 days ago         
 <pre><code>
 $ docker run --hostname mctdhb-user --rm -it -v $(pwd):/tmp mctdhb/auto-build
 </code></pre>
-At this point the MCTDHB package is installed in your Docker-Ubuntu system at $HOME/MCTDHB-master:
+At this point you are inside your Docker-Ubuntu system with the MCTDHB package installed in $HOME/MCTDHB-master:
 <pre><code>
 user@mctdhb-user:~/MCTDHB-master/bin$ ls -ltr
 total 2668
