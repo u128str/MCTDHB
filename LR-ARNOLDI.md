@@ -129,8 +129,9 @@ Now you need 3-steps to get the LR spectrum:
 #### 2- constraction of the LR-matrix on-top the above GS
 #### 3- Diagonalization of the just constructed LR-matrix
 
-1) ```$ $HOME/MCTDHB-MCTDHB_V3.3.03/bin/boson_MCTDHB_gnu_FFTW ``` 1- Step getting the GS with MCTDHB(2)
+* 1.Step ) ```$ $HOME/MCTDHB-master/bin/boson_MCTDHB_gnu_FFTW ``` 1- Step getting the GS with MCTDHB(2)
 ```
+.....
 ====================================================================================================
  Job->Relax. Forward     Iteration:     400     Time: [      0.000000 ->     19.950000 +       0.050000 ->     20.000000  ]
        Input orbital energy E(t+0):        9.1090785966024903( CI Dim:        11)(ORB Dim:  2*       256=       512)
@@ -151,7 +152,7 @@ Now you need 3-steps to get the LR spectrum:
  # Kind of W== 0 [if ==0 W=delta(R) else W=f(R) see Get_InterParticle.F]  lambda_0=     0.100000 Time-dependent? (T/F):F
 ```
 
-2) ```$ $HOME/MCTDHB-MCTDHB_V3.3.03/bin/lr_arnoldi_ifort_MKLFFT``` 2 Step- Construction of the LR-Matrix
+* 2.Step ) ```$ $HOME/MCTDHB-master/bin/lr_arnoldi_ifort_MKLFFT``` 2 Step- Construction of the LR-Matrix
 ```
 .....
 Lower part constructed in    2.8000000000000247E-002  seconds
@@ -163,7 +164,7 @@ LR-MATRIX constructed in   1.1000000000000001      seconds
 ```
 For the third step (diagonalization) you have to open __./lr_arnoldi.in__ and _replace_ in line 5:  __task=1__ to __task=2__ and run lr-exe again:
 
-3) ```$ $HOME/MCTDHB-MCTDHB_V3.3.03/bin/lr_arnoldi_ifort_MKLFFT``` 3 Step- Diagonalization of the LR-Matrix
+* 3.Step ) ```$ $HOME/MCTDHB-master/bin/lr_arnoldi_ifort_MKLFFT``` 3 Step- Diagonalization of the LR-Matrix
 ```
 ....
 Time elapsed:   102.92000000000000      seconds
