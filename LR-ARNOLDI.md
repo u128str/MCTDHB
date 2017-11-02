@@ -70,14 +70,17 @@ mctdhb/minunix      latest              ff5670deb65e        13 days ago         
 <pre><code>
 $ docker run --hostname lr-mctdhb-user --rm -it lr-mctdhb-user
 </code></pre>
-and you will be inside the docker container in the TEST directory
+and you will be inside the docker container in the with the tests already copied to the $HOME/TEST directory
 <pre><code> 
-user@lr-mctdhb-users:~$ ls -ltr
-total 11680
--rw-rw-r--  1 user user 11950772 Nov  2 16:53 MCTDHB-MCTDHB_V3.3.03.zip
-drwxrwxr-x 17 user user     4096 Nov  2 16:54 MCTDHB-MCTDHB_V3.3.03
-drwxrwxr-x  4 user user     4096 Nov  2 16:54 TEST
-
+user@lr-mctdhb-user:~$ ls -ltr
+total 11664
+-rw-rw-r--  1 user user 11934007 Nov  2 17:21 MCTDHB-master.zip
+drwxrwxr-x 17 user user     4096 Nov  2 17:21 MCTDHB-master
+drwxrwxr-x  4 user user     4096 Nov  2 17:21 TEST
+user@lr-mctdhb-user:~$ ls -ltr TEST 
+total 8
+drwxrwxr-x 2 user user 4096 Nov  2 17:21 LR-arnoldi-1D-him
+drwxrwxr-x 2 user user 4096 Nov  2 17:21 LR-arnoldi-1D-contact
 </code></pre>
 </details>
 
