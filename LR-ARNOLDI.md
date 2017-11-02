@@ -1,20 +1,30 @@
 # LR Arnoldi MCTDHB:
 ## A. How2 get it?
-
-### a) clone Arnoldi LR MCTDHB:
-```$ git clone -b MCTDHB_V3.3.03 https://github.com/u128str/MCTDHB.git```
-### b) OR download zip-archive LR-MCTDHB via ```wget``` or ```curl```:
+### a) clone Arnoldi LR MCTDHB to the directory MCTDHB-MCTDHB_V3.3.03:
+```$ git clone -b MCTDHB_V3.3.03 https://github.com/u128str/MCTDHB.git MCTDHB-MCTDHB_V3.3.03```
+### b) OR download zip-archive MCTDHB-MCTDHB_V3.3.03.zip:
 ```
 wget --no-check-certificate --content-disposition https://github.com/u128str/MCTDHB/archive/MCTDHB_V3.3.03.zip
+```
+```
 curl -LJO https://github.com/u128str/MCTDHB/archive/MCTDHB_V3.3.03.zip
+```
+Unzip the downloaded archive to the directory MCTDHB-MCTDHB_V3.3.03
+```
+unzip MCTDHB-MCTDHB_V3.3.03.zip
 ```
 
 ## B. Arnoldi LR MCTDHB usage with docker (5-steps):
+<details>
+<summary>## B. Arnoldi LR MCTDHB usage with docker (5-steps):</summary>
+These details will remain hidden until expanded.
+
 1)  Install docker (see e.g. https://www.docker.com/community-edition )
 2)  Download latest MCTDHB docker image:
 ```
 $ docker pull mctdhb/auto-build
 ```
+3) cd to the 
 3)  Build (~14 mins) the __lr-mctdhb__ Docker-image from available Dokerfile.LR (Why rebuild locally? Because it  installs/rebuilds MKL+parpack+... final image size is about of ~4.5GB)
 ```
 docker build --no-cache -f Dockerfile.LR -t lr-mctdhb . 
@@ -28,6 +38,11 @@ __input.in__ and __V_W_Psi_string.in__ files in it. To reproduce some data from 
 4) ````$ /mctdhb/bin/boson_MCTDHB_gnu_FFTW````
 5) Wait ... and compare with reference:
 root@97f61e1389e7:/TEST```$ vimdiff basic_info.out basic_info.out_Reference ```
+
+<pre><code>PASTE LOGS HERE</code></pre>
+</details>
+
+
 
 
 ## C. MCTDHB LR Arnoldi - How2 recompile on Ubuntu 16.04
