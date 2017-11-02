@@ -44,8 +44,6 @@ __input.in__ and __V_W_Psi_string.in__ files in it. To reproduce some data from 
 4) ````$ /mctdhb/bin/boson_MCTDHB_gnu_FFTW````
 5) Wait ... and compare with reference:
 root@97f61e1389e7:/TEST```$ vimdiff basic_info.out basic_info.out_Reference ```
-
-<pre><code>PASTE LOGS HERE</code></pre>
 </details>
 
 
