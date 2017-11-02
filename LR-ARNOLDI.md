@@ -19,7 +19,7 @@ unzip MCTDHB-master.zip
 </code></pre>
 </details>
 
-### I. Arnoldi LR MCTDHB usage with Docker technology (5-steps):
+### I. Arnoldi LR MCTDHB usage with Docker technology:
 #### [How2 install docker] (https://www.docker.com/community-edition)
 <details>
 <summary> click here to see the steps needed to build lr-mctdhb-user Docker-image (you do it once to use afterwards):</summary>
