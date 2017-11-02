@@ -1,23 +1,27 @@
 # MCTDHB  
+
 #### [Arnoldi LR MCTDHB how2 get/install/test etc](https://github.com/u128str/MCTDHB/blob/MCTDHB_V3.3.03/LR-ARNOLDI.md)
 
 ## A. How2 Get MCTDHB?
-
-### a) Clone project to MCTDHB-master: 
-```$ git clone https://github.com/u128str/MCTDHB.git MCTDHB-master```
-
-### b) Download zip-archive __MCTDHB-master.zip__ with
-```
+<details>
+<summary> Click here to see how to get ./MCTDHB-master with git, wget or curl:</summary>
+a)  Clone latest iversion of the MCTDHB package to the directory MCTDHB-master:
+<pre><code>
+git clone https://github.com/u128str/MCTDHB.git MCTDHB-master
+</code></pre>
+b)  OR download zip-archive MCTDHB-master.zip:
+<pre><code>
 wget --no-check-certificate --content-disposition https://github.com/u128str/MCTDHB/archive/master.zip
-```
-or
-```
+</code></pre>
+<pre><code>
 curl -LJO https://github.com/u128str/MCTDHB/archive/master.zip
-```
-and unzip it:
-```
-unzip ./MCTDHB-master.zip
-```
+</code></pre>
+Unzip the downloaded archive to the directory MCTDHB-master
+<pre><code>
+unzip MCTDHB-master.zip
+</code></pre>
+</details>
+
 
 ## B. MCTDHB usage with MCTDHB-Lab 
 __Free__ cross-platform (Mac/Unix/Windows) with GUI: http://www.mctdhb-lab.com
