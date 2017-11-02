@@ -23,7 +23,7 @@ unzip MCTDHB-master.zip
 </details>
 
 
-## B. MCTDHB usage
+## B. MCTDHB usages
 There are __three__ ways to do simulations with the MCTDHB package.
 The standard and the hardest one is to download on your local computer sources -> recompile -> run.
 Second way is to use the popular Docker technology - install docker -> download the mctdhb docker-image -> run it... 
@@ -36,7 +36,7 @@ The third and the easiest way is to use the MCTDHB-Laboratory with GUI (installe
 [Windows](http://www.mctdhb-lab.com/images/how2-figs/Win_appearence.jpg)
 [Linux](http://www.mctdhb-lab.com/images/how2-figs/launch_linux.jpg)
 
-### II. MCTDHB with docker
+### II. MCTDHB with Docker technology
 #### [How2 install docker] (https://www.docker.com/community-edition)
 <details>
 <summary> click here to see the steps needed to download and run the mctdhb docker image (you do it once to use afterwards):</summary>
@@ -85,7 +85,7 @@ $ docker run --hostname mctdhb-user --rm -it -v $(pwd):/tmp mctdhb-user
 </details>
 </details>
 
-###  III. MCTDHB with Ubuntu - How2 recompile on Ubuntu 16.04
+###  III. MCTDHB with Ubuntu - _How2 recompile on Ubuntu 16.04_
 <details>
 <summary> click here to see how recompile the LR-MCTDHB code on your Ubuntu</summary>
 
