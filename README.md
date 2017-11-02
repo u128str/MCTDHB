@@ -48,19 +48,31 @@ $ docker pull mctdhb/auto-build
 <pre><code>
 $ docker run --hostname mctdhb-user --rm -it -v $(pwd):/tmp mctdhb/auto-build
 </code></pre>
+At this point the MCTDHB package is installed in your Docker-Ubuntu system at $HOME/MCTDHB-master:
+<pre><code>
+user@mctdhb-user:~/MCTDHB-master/bin$ ls -ltr
+total 2668
+-rwxrwxr-x 1 user user 1306232 Nov  2 13:10 boson_MCTDHB_gnu_FFTW
+-rwxrwxr-x 1 user user 1423048 Nov  2 13:10 properties_LR_gnu_FFTW
+</code></pre>
 <details>
-
 <summary> click here to see the steps needed to build the mctdhb docker image (you do it once to use afterwards):</summary>
 a)  Get ./MCTDHB-master with the above step A and cd to it:
 <pre><code>
 $ cd $HOME/MCTDHB-master
 </code></pre>
-b)  Build (~4 mins) the mctdh Docker-image from available Dokerfile (final image size is about of ~450MB)
+b)  Build (~4 mins) the mctdhb-user Docker-image from available Dokerfile (final image size is about of ~450MB)
 <pre><code>
 $ docker build --no-cache -f Dockerfile -t mctdhb-user .
-
+....
+Successfully tagged mctdhb-user:latest
+$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+mctdhb-user         latest              266f4b3c721e        33 seconds ago      532MB
+mctdhb/auto-build   latest              8dad46489fd3        8 minutes ago       532MB
+mctdhb/minunix      latest              ff5670deb65e        13 days ago         434MB
 </code></pre>
-c)  Run mctdhb/aouto-build docker:
+c)  Run just built mctdhb-user Docker-image:
 <pre><code>
 $ docker run --hostname mctdhb-user --rm -it -v $(pwd):/tmp mctdhb-user
 </code></pre>
