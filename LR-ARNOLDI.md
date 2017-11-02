@@ -23,8 +23,10 @@ unzip MCTDHB-MCTDHB_V3.3.03.zip
 ## B. Arnoldi LR MCTDHB usage with docker (5-steps ):
 <details>
 <summary> click here to see the steps needed to build lr-mctdhb docker image (you do it once to use afterwards):</summary>
-1)  Install docker (see e.g. https://www.docker.com/community-edition)
- 
+1)  Install docker: 
+ <pre>
+ (see e.g. https://www.docker.com/community-edition)
+</pre>
 2)  Download ithe latest MCTDHB docker image (450Mb):
 <pre><code>
 $ docker pull mctdhb/auto-build
@@ -37,6 +39,17 @@ $ cd $HOME/MCTDHB-MCTDHB_V3.3.03
 <pre><code>
 docker build --no-cache -f Dockerfile.LR -t lr-mctdhb . 
 </code></pre>
+To check available dockers type <code> docker images</code>:
+<pre><code>
+$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+lr-mctdhb           latest              1d443e21ed87        26 minutes ago      4.29GB
+mctdhb/auto-build   latest              3fda7813d1a6        12 days ago         463MB
+mctdhb/minunix      latest              ff5670deb65e        12 days ago         434MB
+ubuntu              16.04               747cb2d60bbe        3 weeks ago         122MB
+ubuntu              latest              747cb2d60bbe        3 weeks ago         122MB
+</code></pre>
+
 </details>
 
 <details>
