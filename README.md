@@ -5,7 +5,7 @@
 ## A. How2 Get the sources of the MCTDHB package?
 <details>
 <summary> Click here to see how to get ./MCTDHB-master with git, wget or curl:</summary>
-a)  Clone latest iversion of the MCTDHB package to the directory MCTDHB-master:
+a)  Clone the latest version of the MCTDHB package to the directory MCTDHB-master:
 <pre><code>
 git clone https://github.com/u128str/MCTDHB.git MCTDHB-master
 </code></pre>
@@ -25,9 +25,9 @@ unzip MCTDHB-master.zip
 
 ## B. MCTDHB usage
 There are __three__ ways to do simulations with the MCTDHB package.
-The standard and hardest one is to download the sources, recompile, run.
-Second way is to use the popular Docker technology - install docker -> douwnload the mctdhb dockar-image and run it... 
-The third and easyest way is to try the MCTDHB-Laboratory (installers avalable for Win/Unix/Mac). 
+The standard and the hardest one is to download sources -> recompile -> run.
+Second way is to use the popular Docker technology - install docker -> download the mctdhb docker-image -> run it... 
+The third and the easiest way is to try the MCTDHB-Laboratory (installers are avalable for Win/Unix/Mac). 
 
 ### I. MCTDHB-Laboratory
 [__Free__ cross-platform (Mac/Unix/Windows) GUI](http://www.mctdhb-lab.com)
