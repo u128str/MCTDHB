@@ -38,11 +38,9 @@ The third and easyest way is to try the MCTDHB-Laboratory (installers avalable f
 
 ### II. MCTDHB with docker
 <details>
-<summary> click here to see the steps needed to build mctdhb docker image (you do it once to use afterwards):</summary>
-1)  Install docker: 
- <pre>
- (see e.g. https://www.docker.com/community-edition)
-</pre>
+<summary> click here to see the steps needed to download/build/run the mctdhb docker image (you do it once to use afterwards):</summary>
+1)  [Install docker] (https://www.docker.com/community-edition)
+ 
 2)  Download the latest MCTDHB docker image (450Mb):
 <pre><code>
 $ docker pull mctdhb/auto-build
