@@ -1,7 +1,7 @@
 # LR Arnoldi MCTDHB:
 ## A. How2 get it?
 <details>
-<summary> Click here to see how to get to ./MCTDHB-MCTDHB_V3.3.03 with git, wget or curl:</summary>
+<summary> Click here to see how to get ./MCTDHB-MCTDHB_V3.3.03 with git, wget or curl:</summary>
 a)  Clone Arnoldi LR MCTDHB to the directory MCTDHB-MCTDHB_V3.3.03:
 <pre><code>
 git clone -b MCTDHB_V3.3.03 https://github.com/u128str/MCTDHB.git MCTDHB-MCTDHB_V3.3.03
@@ -20,10 +20,9 @@ unzip MCTDHB-MCTDHB_V3.3.03.zip
 </details>
 
 
-## B. Arnoldi LR MCTDHB usage with docker (5-steps):
+## B. Arnoldi LR MCTDHB usage with docker (5-steps ):
 <details>
-<summary> click here to see the steps:</summary>
-These details will remain hidden until expanded.
+<summary> click here to see the steps (you do it once to use afterwards):</summary>
 
 1)  Install docker (see e.g. https://www.docker.com/community-edition )
 2)  Download latest MCTDHB docker image:
@@ -38,7 +37,11 @@ $ cd $HOME/MCTDHB-MCTDHB_V3.3.03
 ```
 docker build --no-cache -f Dockerfile.LR -t lr-mctdhb . 
 ```
-5)  Run docker:
+</details>
+
+<details>
+<summary> click here to see how to run the builded above Docker image:</summary>
+1)  Run docker:
 ```
 $ docker run --rm -it lr-mctdhb 
 ```
@@ -48,8 +51,6 @@ __input.in__ and __V_W_Psi_string.in__ files in it. To reproduce some data from 
 5) Wait ... and compare with reference:
 root@97f61e1389e7:/TEST```$ vimdiff basic_info.out basic_info.out_Reference ```
 </details>
-
-
 
 
 ## C. MCTDHB LR Arnoldi - How2 recompile on Ubuntu 16.04
