@@ -1,5 +1,7 @@
 # LR Arnoldi MCTDHB:
 ## A. How2 get it?
+<details>
+<summary> click here to see how to get with ```git``` :</summary>
 ### a) clone Arnoldi LR MCTDHB to the directory MCTDHB-MCTDHB_V3.3.03:
 ```$ git clone -b MCTDHB_V3.3.03 https://github.com/u128str/MCTDHB.git MCTDHB-MCTDHB_V3.3.03```
 ### b) OR download zip-archive MCTDHB-MCTDHB_V3.3.03.zip:
@@ -13,10 +15,12 @@ Unzip the downloaded archive to the directory MCTDHB-MCTDHB_V3.3.03
 ```
 unzip MCTDHB-MCTDHB_V3.3.03.zip
 ```
+</details>
+
 
 ## B. Arnoldi LR MCTDHB usage with docker (5-steps):
 <details>
-<summary>## B. Arnoldi LR MCTDHB usage with docker (5-steps):</summary>
+<summary> click here to see the steps:</summary>
 These details will remain hidden until expanded.
 
 1)  Install docker (see e.g. https://www.docker.com/community-edition )
