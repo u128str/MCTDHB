@@ -1,12 +1,11 @@
 # LR Arnoldi MCTDHB:
 ## A. How2 get it?
 <details>
-<summary> click here to see how to get with ```git``` :</summary>
+<summary> Click here to see how to get with git, wget or curl:</summary>
 a) clone Arnoldi LR MCTDHB to the directory MCTDHB-MCTDHB_V3.3.03:
 <pre><code>
 git clone -b MCTDHB_V3.3.03 https://github.com/u128str/MCTDHB.git MCTDHB-MCTDHB_V3.3.03
 </code></pre>
-
 b) OR download zip-archive MCTDHB-MCTDHB_V3.3.03.zip:
 <pre><code>
 wget --no-check-certificate --content-disposition https://github.com/u128str/MCTDHB/archive/MCTDHB_V3.3.03.zip
@@ -14,12 +13,10 @@ wget --no-check-certificate --content-disposition https://github.com/u128str/MCT
 <pre><code>
 curl -LJO https://github.com/u128str/MCTDHB/archive/MCTDHB_V3.3.03.zip
 </code></pre>
-
 Unzip the downloaded archive to the directory MCTDHB-MCTDHB_V3.3.03
 <pre><code>
 unzip MCTDHB-MCTDHB_V3.3.03.zip
 </code></pre>
-<pre><code>PASTE LOGS HERE</code></pre>
 </details>
 
 
