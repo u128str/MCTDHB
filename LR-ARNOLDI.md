@@ -1,5 +1,5 @@
 # LR Arnoldi MCTDHB:
-## A. How2 get it? It is already in your $HOME/MCTDHB-master
+## How2 get it? It is already in your $HOME/MCTDHB-master
 <details>
 <summary> Click here to see how to get ./MCTDHB-master with git, wget or curl:</summary>
  a)  Clone the latest version of the MCTDHB package to the directory MCTDHB-master:
@@ -19,7 +19,7 @@ unzip MCTDHB-master.zip
 </code></pre>
 </details>
 
-## B. Arnoldi LR MCTDHB usage with docker technology (5-steps):
+### I. Arnoldi LR MCTDHB usage with Docker technology (5-steps):
 #### [How2 install docker] (https://www.docker.com/community-edition)
 <details>
 <summary> click here to see the steps needed to build lr-mctdhb-user Docker-image (you do it once to use afterwards):</summary>
@@ -85,7 +85,7 @@ drwxrwxr-x 2 user user 4096 Nov  2 17:21 LR-arnoldi-1D-contact
 </details>
 
 
-## C. MCTDHB LR Arnoldi - How2 recompile on Ubuntu 16.04
+### II. Arnoldi LR MCTDHB with Ubuntu  - _How2 recompile on Ubuntu 16.04_
 
 <details>
 <summary> click here to see how recompile the LR-MCTDHB code on your Ubuntu</summary>
@@ -116,7 +116,7 @@ total 7.4M
 ```
 </details>
 
-## D. MCTDHB LR Arnoldi - How2 verify/test 
+## B.  Arnoldi LR MCTDHB run - __How2 verify/test__
 Next stage is to verify/check correctness of the installation. For this copy the LR templates files from $HOME/MCTDHB-master/Templates to $HOME/TEST  to test Arnoldi-LR
 Let say you have installed the Arnoldi LR MCTDHB to: ``` HOME/MCTDHB-master ```.
 Copy both lr-templates to ~/TEST:
