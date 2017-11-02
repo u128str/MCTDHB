@@ -2,7 +2,7 @@
 
 #### [Arnoldi LR MCTDHB how2 get/install/test etc](https://github.com/u128str/MCTDHB/blob/MCTDHB_V3.3.03/LR-ARNOLDI.md)
 
-## A. How2 Get MCTDHB?
+## A. How2 Get the sources of the MCTDHB package?
 <details>
 <summary> Click here to see how to get ./MCTDHB-master with git, wget or curl:</summary>
 a)  Clone latest iversion of the MCTDHB package to the directory MCTDHB-master:
@@ -20,11 +20,55 @@ Unzip the downloaded archive to the directory MCTDHB-master
 <pre><code>
 unzip MCTDHB-master.zip
 </code></pre>
+
+
+
+## B. MCTDHB usage
+There are __three__ ways to do simulations with the MCTDHB package.
+The standard and hardest one is to download the sources, recompile, run.
+Second way is to use the popular Docker technology - install docker -> douwnload the mctdhb dockar-image and run it... 
+The third and easyest way is to try the MCTDHB-Laboratory (installers avalable for Win/Unix/Mac). 
+
+### MCTDHB-Laboratory
+<details>
+<summary> click here to see how use the MCTDHB-Laboratory </summary>
+ <pre>
+ ( __Free__ cross-platform (Mac/Unix/Windows) with GUI: http://www.mctdhb-lab.com )
+</pre>
+</details>
+
+### MCTDHB with docker
+<details>
+<summary> click here to see the steps needed to build mctdhb docker image (you do it once to use afterwards):</summary>
+1)  Install docker: 
+ <pre>
+ (see e.g. https://www.docker.com/community-edition)
+</pre>
+2)  Download the latest MCTDHB docker image (450Mb):
+<pre><code>
+$ docker pull mctdhb/auto-build
+</code></pre>
+3)  Run mctdhb/aouto-build docker:
+<pre><code>
+$ docker run --hostname mctdhb-user --rm -it -v $(pwd):/tmp mctdhb/aouto-build
+</code></pre>
+
+<details>
+<summary> click here to see the steps needed to build the mctdhb docker image (you do it once to use afterwards):</summary>
+3)  Get ./MCTDHB-master with the above step A and cd to it:
+<pre><code>
+$ cd $HOME/MCTDHB-master
+</code></pre>
+4)  Build (~4 mins) the mctdh Docker-image from available Dokerfile (final image size is about of ~450MB)
+<pre><code>
+ docker build --no-cache -f Dockerfile.LR -t lr-mctdhb . 
+</code></pre>
+
+
+</details>
 </details>
 
 
-## B. MCTDHB usage with MCTDHB-Lab 
-__Free__ cross-platform (Mac/Unix/Windows) with GUI: http://www.mctdhb-lab.com
 
 ## C. MCTDHB usage with docker (5-steps)
 1)   install docker (see e.g. https://www.docker.com/community-edition )
