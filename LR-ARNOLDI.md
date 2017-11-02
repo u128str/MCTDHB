@@ -2,7 +2,7 @@
 ## A. How2 get it? It is already in your $HOME/MCTDHB-master
 <details>
 <summary> Click here to see how to get ./MCTDHB-master with git, wget or curl:</summary>
-a)  Clone the latest version of the MCTDHB package to the directory MCTDHB-master:
+ a)  Clone the latest version of the MCTDHB package to the directory MCTDHB-master:
 <pre><code>
 git clone https://github.com/u128str/MCTDHB.git MCTDHB-master
 </code></pre>
@@ -27,7 +27,7 @@ unzip MCTDHB-master.zip
 <pre><code>
 $ cd $HOME/MCTDHB-master
 </code></pre>
-4)  Build (~14 mins) the lr-mctdhb-user Docker-image from available Dokerfile.LR.user (Why rebuild locally? Because it  installs/rebuilds MKL+parpack+... final image size is about of ~4.5GB)
+2)  Build (~14 mins) the lr-mctdhb-user Docker-image from available Dokerfile.LR.user (Why rebuild locally? Because it  installs/rebuilds MKL+parpack+... final image size is about of ~4.5GB)
 <pre><code>
 $ docker build --no-cache -f Dockerfile.LR.user -t lr-mctdhb-user .
 </code></pre>
@@ -66,7 +66,7 @@ mctdhb/minunix      latest              ff5670deb65e        13 days ago         
 
 <details>
 <summary> click here to see how to run/use the builded above Docker image lr-mctdhb-user</summary>
-1)  Run docker:
+Run docker:
 <pre><code>
 $ docker run --hostname lr-mctdhb-user --rm -it lr-mctdhb-user
 </code></pre>
@@ -120,9 +120,10 @@ total 7.4M
 Next stage is to verify/check correctness of the installation. For this copy the LR templates files from $HOME/MCTDHB-master/Templates to $HOME/TEST  to test Arnoldi-LR
 Let say you have installed the Arnoldi LR MCTDHB to: ``` HOME/MCTDHB-master ```.
 Copy both lr-templates to ~/TEST:
-
-a) ```$ cp -r $HOME/MCTDHB-master/Templates/LR-arnoldi-1D-* $HOME/TEST/.```
-b) ```$ cd $HOME/tmp/LR-arnoldi-1D-contact```
+```
+cp -r $HOME/MCTDHB-master/Templates/LR-arnoldi-1D-* $HOME/TEST/.
+cd $HOME/tmp/LR-arnoldi-1D-contact
+```
 
 Now you need 3-steps to get the LR spectrum: 
 #### 1- get MCTDHB ground state
