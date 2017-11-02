@@ -52,7 +52,7 @@ ENV MKLROOT ${MKL_PATH}/mkl
 RUN su - user  -c "cd  && \
   . /opt/intel/bin/compilervars.sh intel64 && \
   echo $MKLROOT &&\
-  wget --no-check-certificate --content-disposition https://github.com/u128str/MCTDHB/archive/master.zip && 
+  wget --no-check-certificate --content-disposition https://github.com/u128str/MCTDHB/archive/master.zip && \
   unzip MCTDHB-master.zip && \
   cd  MCTDHB-master &&\
   ls -ltr &&\
