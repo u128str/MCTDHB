@@ -43,6 +43,11 @@ The third and the easiest way is to try the MCTDHB-Laboratory (installers are av
 1) Download the latest MCTDHB docker image (450Mb)
 <pre><code>
 $ docker pull mctdhb/auto-build
+....
+$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+mctdhb/auto-build   latest              8dad46489fd3        16 minutes ago      532MB
+mctdhb/minunix      latest              ff5670deb65e        13 days ago         434MB
 </code></pre>
 2)  Run mctdhb/auto-build docker:
 <pre><code>
