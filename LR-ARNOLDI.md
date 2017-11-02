@@ -1,12 +1,12 @@
 # LR Arnoldi MCTDHB:
 ## A. How2 get it?
 <details>
-<summary> Click here to see how to get with git, wget or curl:</summary>
-a) clone Arnoldi LR MCTDHB to the directory MCTDHB-MCTDHB_V3.3.03:
+<summary> Click here to see how to get to ./MCTDHB-MCTDHB_V3.3.03 with git, wget or curl:</summary>
+a)  Clone Arnoldi LR MCTDHB to the directory MCTDHB-MCTDHB_V3.3.03:
 <pre><code>
 git clone -b MCTDHB_V3.3.03 https://github.com/u128str/MCTDHB.git MCTDHB-MCTDHB_V3.3.03
 </code></pre>
-b) OR download zip-archive MCTDHB-MCTDHB_V3.3.03.zip:
+b)  OR download zip-archive MCTDHB-MCTDHB_V3.3.03.zip:
 <pre><code>
 wget --no-check-certificate --content-disposition https://github.com/u128str/MCTDHB/archive/MCTDHB_V3.3.03.zip
 </code></pre>
@@ -30,12 +30,15 @@ These details will remain hidden until expanded.
 ```
 $ docker pull mctdhb/auto-build
 ```
-3) cd to the 
-3)  Build (~14 mins) the __lr-mctdhb__ Docker-image from available Dokerfile.LR (Why rebuild locally? Because it  installs/rebuilds MKL+parpack+... final image size is about of ~4.5GB)
+3) Get ./MCTDHB-MCTDHB_V3.3.03 with above step A and cd to it:
+```
+$ cd $HOME/MCTDHB-MCTDHB_V3.3.03
+```
+4)  Build (~14 mins) the __lr-mctdhb__ Docker-image from available Dokerfile.LR (Why rebuild locally? Because it  installs/rebuilds MKL+parpack+... final image size is about of ~4.5GB)
 ```
 docker build --no-cache -f Dockerfile.LR -t lr-mctdhb . 
 ```
-4)  Run docker:
+5)  Run docker:
 ```
 $ docker run --rm -it lr-mctdhb 
 ```
