@@ -97,15 +97,15 @@ drwxrwxr-x  4 user user     4096 Nov  2 16:54 TEST
 8) ```$ sudo echo "${MKL_PATH}/mkl/lib/intel64" >> /etc/ld.so.conf.d/intel.conf && ldconfig && echo ". /opt/intel/bin/compilervars.sh intel64" >> /etc/bash.bashrc``` 
 9) ```$ . /opt/intel/bin/compilervars.sh intel64``` Defining MKL-related variables
 10) ```$ cd ```
-11) ```$ wget --no-check-certificate --content-disposition https://github.com/u128str/MCTDHB/archive/MCTDHB_V3.3.03.zip```
-12) ```$ unzip MCTDHB-MCTDHB_V3.3.03.zip ```
-13) ```$ cd MCTDHB-MCTDHB_V3.3.03```
+11) ```$ wget --no-check-certificate --content-disposition https://github.com/u128str/MCTDHB/archive/master.zip```
+12) ```$ unzip MCTDHB-master.zip ```
+13) ```$ cd MCTDHB-master```
 14) ```$ make mk_file=ARNOLDI_gcc_mkl.mk``` Compilation of the Arnoldi LR MCTDHB
 __Congrads!__
-At this point the LR-Arnoldi-MCTDHB package is installed in your Ubuntu system at $HOME/MCTDHB-MCTDHB_V3.3.03:
+At this point the LR-Arnoldi-MCTDHB package is installed in your Ubuntu system at $HOME/MCTDHB-master:
 
 ```
-~/MCTDHB-MCTDHB_V3.3.03/bin# ls -ltrh
+~/MCTDHB-master/bin# ls -ltrh
 total 7.4M
 -rwxr-xr-x 1 root root 2.3M Nov  1 12:04 boson_MCTDHB_ifort_MKLFFT
 -rwxr-xr-x 1 root root 2.6M Nov  1 12:04 properties_LR_ifort_MKLFFT
@@ -114,8 +114,8 @@ total 7.4M
 </details>
 
 ## D. MCTDHB LR Arnoldi - How2 verify/test 
-Next stage is to verify/check correctness of the installation. For this copy the LR templates files from $HOME/MCTDHB-MCTDHB_V3.3.03/Templates to $HOME/tmp  to test Arnoldi-LR
-Let say you have installed the Arnoldi LR MCTDHB to: _``` HOME/MCTDHB-MCTDHB_V3.3.03 ```.
+Next stage is to verify/check correctness of the installation. For this copy the LR templates files from $HOME/MCTDHB-master/Templates to $HOME/tmp  to test Arnoldi-LR
+Let say you have installed the Arnoldi LR MCTDHB to: _```$HOME/MCTDHB-MCTDHB_V3.3.03 ```.
 Copy both lr-templates to ~/tmp:
 
 1) ```$ cp -r $HOME/MCTDHB-MCTDHB_V3.3.03/Templates/LR-arnoldi-1D-* $HOME/tmp/.```
