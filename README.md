@@ -65,12 +65,12 @@ $ docker run --hostname mctdhb-user --rm -it -v $(pwd):/tmp mctdhb-user
 </code></pre>
 </details>
 At this point the MCTDHB package is installed in your Docker-Ubuntu system at $HOME/MCTDHB-master:
-```
+<pre><code>
 user@mctdhb-user:~/MCTDHB-master/bin$ ls -ltr
 total 2668
 -rwxrwxr-x 1 user user 1306232 Nov  2 13:10 boson_MCTDHB_gnu_FFTW
 -rwxrwxr-x 1 user user 1423048 Nov  2 13:10 properties_LR_gnu_FFTW
-```
+</code></pre>
 </details>
 
 
