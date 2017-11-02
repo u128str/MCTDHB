@@ -25,11 +25,11 @@ unzip MCTDHB-master.zip
 
 ## B. MCTDHB usage
 There are __three__ ways to do simulations with the MCTDHB package.
-The standard and the hardest one is to download sources -> recompile -> run.
+The standard and the hardest one is to download on your local computer sources -> recompile -> run.
 Second way is to use the popular Docker technology - install docker -> download the mctdhb docker-image -> run it... 
-The third and the easiest way is to try the MCTDHB-Laboratory (installers are available for Win/Unix/Mac). 
+The third and the easiest way is to use the MCTDHB-Laboratory with GUI (installers are available for Win/Unix/Mac). 
 
-### I. MCTDHB-Laboratory
+### I. MCTDHB with MCTDHB-Laboratory
 [__Free__ cross-platform (Mac/Unix/Windows) GUI](http://www.mctdhb-lab.com)
 
 [Mac](http://www.mctdhb-lab.com/images/how2-figs/launch_mac.jpg)
@@ -40,7 +40,7 @@ The third and the easiest way is to try the MCTDHB-Laboratory (installers are av
 #### [How2 install docker] (https://www.docker.com/community-edition)
 <details>
 <summary> click here to see the steps needed to download and run the mctdhb docker image (you do it once to use afterwards):</summary>
-1) Download the latest MCTDHB docker image (450Mb)
+1) Download the latest MCTDHB docker image (532MB)
 <pre><code>
 $ docker pull mctdhb/auto-build
 ....
@@ -67,7 +67,7 @@ a)  Get ./MCTDHB-master with the above step A and cd to it:
 <pre><code>
 $ cd $HOME/MCTDHB-master
 </code></pre>
-b)  Build (~4 mins) the mctdhb-user Docker-image from available Dokerfile (final image size is about of ~450MB)
+b)  Build (~4 mins) the mctdhb-user Docker-image from available Dockerfile (final image size is about of ~532MB)
 <pre><code>
 $ docker build --no-cache -f Dockerfile -t mctdhb-user .
 ....
@@ -85,9 +85,7 @@ $ docker run --hostname mctdhb-user --rm -it -v $(pwd):/tmp mctdhb-user
 </details>
 </details>
 
-
-
-###  III MCTDHB - How2 recompile on Ubuntu 16.04
+###  III. MCTDHB with Ubuntu - How2 recompile on Ubuntu 16.04
 <details>
 <summary> click here to see how recompile the LR-MCTDHB code on your Ubuntu</summary>
 
