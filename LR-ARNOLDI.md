@@ -1,90 +1,84 @@
 # LR Arnoldi MCTDHB:
-## A. How2 get it?
+## A. How2 get it? It is already in your $HOME/MCTDHB-master!
 <details>
-<summary> Click here to see how to get ./MCTDHB-MCTDHB_V3.3.03 with git, wget or curl:</summary>
-a)  Clone Arnoldi LR MCTDHB to the directory MCTDHB-MCTDHB_V3.3.03:
+<summary> Click here to see how to get ./MCTDHB-master with git, wget or curl:</summary>
+a)  Clone the latest version of the MCTDHB package to the directory MCTDHB-master:
 <pre><code>
-git clone -b MCTDHB_V3.3.03 https://github.com/u128str/MCTDHB.git MCTDHB-MCTDHB_V3.3.03
+git clone https://github.com/u128str/MCTDHB.git MCTDHB-master
 </code></pre>
-b)  OR download zip-archive MCTDHB-MCTDHB_V3.3.03.zip:
+b)  OR download zip-archive MCTDHB-master.zip:
 <pre><code>
-wget --no-check-certificate --content-disposition https://github.com/u128str/MCTDHB/archive/MCTDHB_V3.3.03.zip
+wget --no-check-certificate --content-disposition https://github.com/u128str/MCTDHB/archive/master.zip
 </code></pre>
 <pre><code>
-curl -LJO https://github.com/u128str/MCTDHB/archive/MCTDHB_V3.3.03.zip
+curl -LJO https://github.com/u128str/MCTDHB/archive/master.zip
 </code></pre>
-Unzip the downloaded archive to the directory MCTDHB-MCTDHB_V3.3.03
+Unzip the downloaded archive to the directory MCTDHB-master
 <pre><code>
-unzip MCTDHB-MCTDHB_V3.3.03.zip
+unzip MCTDHB-master.zip
 </code></pre>
 </details>
 
-
-## B. Arnoldi LR MCTDHB usage with docker (5-steps ):
+## B. Arnoldi LR MCTDHB usage with docker technology (5-steps):
+#### [How2 install docker] (https://www.docker.com/community-edition)
 <details>
-<summary> click here to see the steps needed to build lr-mctdhb docker image (you do it once to use afterwards):</summary>
-1)  Install docker: 
- <pre>
- (see e.g. https://www.docker.com/community-edition)
-</pre>
-2)  Download ithe latest MCTDHB docker image (450Mb):
+<summary> click here to see the steps needed to build lr-mctdhb-user Docker-image (you do it once to use afterwards):</summary>
+1)  Get ./MCTDHB-master with the above A. step and cd to it:
 <pre><code>
-$ docker pull mctdhb/auto-build
+$ cd $HOME/MCTDHB-master
 </code></pre>
-3)  Get ./MCTDHB-MCTDHB_V3.3.03 with above step A and cd to it:
+4)  Build (~14 mins) the __lr-mctdhb-user__ Docker-image from available Dokerfile.LR.user (Why rebuild locally? Because it  installs/rebuilds MKL+parpack+... final image size is about of ~4.5GB)
 <pre><code>
-$ cd $HOME/MCTDHB-MCTDHB_V3.3.03
-</code></pre>
-4)  Build (~14 mins) the __lr-mctdhb__ Docker-image from available Dokerfile.LR (Why rebuild locally? Because it  installs/rebuilds MKL+parpack+... final image size is about of ~4.5GB)
-<pre><code>
- docker build --no-cache -f Dockerfile.LR -t lr-mctdhb . 
+$ docker build --no-cache -f Dockerfile.LR.user -t lr-mctdhb-user .
 </code></pre>
 You will see:
 <pre><code>
-MCTDHB-MCTDHB_V3.3.03$ docker build --no-cache -f Dockerfile.LR -t lr-mctdhb . 
-Sending build context to Docker daemon  22.25MB
-Step 1/14 : FROM mctdhb/minunix:latest
+MCTDHB-master$ docker build --no-cache -f Dockerfile.LR.user -t lr-mctdhb-user .
+Sending build context to Docker daemon  22.44MB
+Step 1/11 : FROM mctdhb/minunix:latest
  ---> ff5670deb65e
-Step 2/14 : MAINTAINER Alexej I. Streltsov  <u128str@gmail.com>
- ---> Running in 610c2374c7fc
- ---> 445dbdf90370
-Removing intermediate container 610c2374c7fc
-Step 3/14 : ENV MKL_PATH /opt/intel
- ---> Running in 7eb4ba78b688
- ---> 0648d525d496
-Removing intermediate container 7eb4ba78b688
-Step 4/14 : RUN apt-get update &&   apt-get install -y man tar wget cpio unzip autoconf
- ---> Running in 8dccf6115378
+Step 2/11 : MAINTAINER Alexej I. Streltsov  <u128str@gmail.com>
+ ---> Running in 095ef9d2fc04
+ ---> 65ebf30fa94a
+Removing intermediate container 095ef9d2fc04
+Step 3/11 : ENV MKL_PATH /opt/intel
+ ---> Running in 6e13ff131f83
+ ---> 233ca4ea1ed5
+Removing intermediate container 6e13ff131f83
+Step 4/11 : RUN apt-get update &&   apt-get install -y man tar wget cpio unzip autoconf sudo
+ ---> Running in 53f710f63281
 Get:1 http://security.ubuntu.com/ubuntu xenial-security InRelease [102 kB]
 Hit:2 http://archive.ubuntu.com/ubuntu xenial InRelease
 Get:3 http://archive.ubuntu.com/ubuntu xenial-updates InRelease [102 kB]
 .....
-Successfully tagged lr-mctdhb:latest
+Successfully tagged lr-mctdhb-user:latest
 </code></pre>
 To check the available dockers, type <code> docker images</code>:
 <pre><code>
 $ docker images
-REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-lr-mctdhb           latest              1d443e21ed87        26 minutes ago      4.29GB
-mctdhb/auto-build   latest              3fda7813d1a6        12 days ago         463MB
-mctdhb/minunix      latest              ff5670deb65e        12 days ago         434MB
-ubuntu              16.04               747cb2d60bbe        3 weeks ago         122MB
-ubuntu              latest              747cb2d60bbe        3 weeks ago         122MB
+~/MCTDHB-master$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED              SIZE
+lr-mctdhb-user      latest              7284eda37179        About a minute ago   4.3GB
+mctdhb/auto-build   latest              8dad46489fd3        44 minutes ago       532MB
+mctdhb/minunix      latest              ff5670deb65e        13 days ago          434MB
 </code></pre>
-
 </details>
 
 <details>
-<summary> click here to see how to run/use the builded above Docker image lr-mctdhb</summary>
+<summary> click here to see how to run/use the builded above Docker image lr-mctdhb-user</summary>
 1)  Run docker:
 <pre><code>
-$ docker run --rm -it lr-mctdhb 
+$ docker run --hostname lr-mctdhb-user --rm -it lr-mctdhb-user
 </code></pre>
-and you will be inside the docker container in the TEST directory <code>root@97f61e1389e7:/TEST#</code> with
-__input.in__ and __V_W_Psi_string.in__ files in it. To reproduce some data from [PRA 86 063606](https://journals.aps.org/pra/abstract/10.1103/PhysRevA.86.063606) [ArXiV:1207.5128
-4) ````$ /mctdhb/bin/boson_MCTDHB_gnu_FFTW````
-5) Wait ... and compare with reference:
-root@97f61e1389e7:/TEST```$ vimdiff basic_info.out basic_info.out_Reference ```
+and you will be inside the docker container in the TEST directory
+<pre><code> 
+user@lr-mctdhb-users:~$ ls -ltr
+total 11680
+-rw-rw-r--  1 user user 11950772 Nov  2 16:53 MCTDHB-MCTDHB_V3.3.03.zip
+drwxrwxr-x 17 user user     4096 Nov  2 16:54 MCTDHB-MCTDHB_V3.3.03
+drwxrwxr-x  4 user user     4096 Nov  2 16:54 TEST
+
+</code></pre>
 </details>
 
 
