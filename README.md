@@ -1,6 +1,6 @@
 # MCTDHB  
 
-#### [Arnoldi LR MCTDHB how2 get/install/test etc](https://github.com/u128str/MCTDHB/blob/MCTDHB_V3.3.03/LR-ARNOLDI.md)
+#### [Arnoldi LR MCTDHB how2 get/install/test etc](https://github.com/u128str/MCTDHB/blob/master/LR-ARNOLDI.md)
 
 ## A. How2 Get the sources of the MCTDHB package?
 <details>
