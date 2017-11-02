@@ -96,10 +96,49 @@ total 2668
 </details>
 
 
-Now copy the templates files to /TEMP reproduce some data from [PRA 86 063606](https://journals.aps.org/pra/abstract/10.1103/PhysRevA.86.063606) [ArXiV:1207.5128](https://arxiv.o
-6) ```$ cp Templates/PRA_86_063606_Table_1/* /TEMP```
-7) ```$ cd /TEMP ```
-8)  ```$ $HOME/MCTDHB-master/bin/boson_MCTDHB_gnu_FFTW ```
+## B. MCTDHB first run/test
+The primary goal now is to verify/check correctness of the installation. 
+The secondary goal is to reproduce some data from [PRA 86 063606](https://journals.aps.org/pra/abstract/10.1103/PhysRevA.86.063606) [ArXiV:1207.5128](https://arxiv.org/abs/1207.5128).
+
+For this copy the __PRA_86_063606_Table_1__ templates files from $HOME/MCTDHB-master/Templates to $HOME/TEST.
+Let say you have installed the MCTDHB package to: ```HOME/MCTDHB-master```:
+0) ```cd && mkdir TEST``` make TEST directory in your $HOME. In the case of usage the MCTDHB with Docker ./TEST is already exists!
+1) ```$ cp -r $HOME/MCTDHB-test/Templates/PRA_86_063606_Table_1 $HOME/TEST/.```
+2) ```$ cd $HOME/TEST/PRA_86_063606_Table_1``` All nessesary input files, i.e, __input.in__ and __V_W_Psi_string.in__ should be in this directory:
+```
+user@mctdhb-user:~/TEST/PRA_86_063606_Table_1$ ls -ltrh *.in
+-rwxr-xr-x 1 user user 4.9K Nov  2 13:10 input.in
+-rwxr-xr-x 1 user user 1.4K Nov  2 13:10 V_W_Psi_string.in
+```
+3)  ```$ $HOME/MCTDHB-master/bin/boson_MCTDHB_gnu_FFTW ``` run MCTDHB simulation
+```
+....
+====================================================================================================
+ Job->Relax. Forward     Iteration:     200     Time: [      0.000000 ->      9.950000 +       0.050000 ->     10.000000  ]
+       Input orbital energy E(t+0):        7.0383484153111748( CI Dim:      3003)(ORB Dim:  6*       128=       768)
+          OUT  CI  energy E(t+tau):        7.0383484153111668     N =         10   l0*(N-1)= 0.5000000000     kind of W(x-x'):4
+                  Delta E     : +/-       -0.0000000000000053                  Error due to  dE:                       NaN
+                  Error E     : +/-        0.0000010000000000
+      New NO's:   9.968427     |  0.3147304E-01 |  0.9936897E-04 |  0.3137349E-06 |  0.9905159E-09 |  0.3105116E-11 | 
+ !!!====== Last Point arroaching Tmax=   10.000000000000000     
+ !!!====== Time-Step is reduced to   =  -8.8817841970012523E-015
+      Itr Time:    0.2723159790     execution time:   62.0533051491
+ # This computation has been done in
+ # /home/user/TEST/PRA_86_063606_Table_1
+ # Date 02/11/2017; time 14:43:56
+ #    Current version 3.3.01 l Heidelberg/Kassel Apr (2017)      # 
+ # Morb=  6  Npar=      10   Job= Job->Relax. Forward
+ # V(x_y_z&t)= 0.5d0*x^2                                                                                           
+ # W(R=|r1-r2|&t)= r^2                                                                                                 
+ # Kind of W== 4 [if ==0 W=delta(R) else W=f(R) see Get_InterParticle.F]  lambda_0=     0.055556 Time-dependent? (T/F):F
+======================================================================================================================
+====================     basic_info.out file (with PATH, time, E, etc) has been written            ===================
+======================================================================================================================
+  Master               0  is DONE after   64.159628868103027     
+
+```
+
+
 9)  ```$ vimdiff basic_info.out basic_info.out_Reference ```
 10) __ENJOY__
 
