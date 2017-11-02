@@ -52,12 +52,12 @@ ENV MKLROOT ${MKL_PATH}/mkl
 RUN su - user  -c "cd  && \
   . /opt/intel/bin/compilervars.sh intel64 && \
   echo $MKLROOT &&\
-  wget --no-check-certificate --content-disposition https://github.com/u128str/MCTDHB/archive/MCTDHB_V3.3.03.zip && \
-  unzip MCTDHB-MCTDHB_V3.3.03.zip && \
-  cd  MCTDHB-MCTDHB_V3.3.03 &&\
+  wget --no-check-certificate --content-disposition https://github.com/u128str/MCTDHB/archive/master.zip && 
+  unzip MCTDHB-master.zip && \
+  cd  MCTDHB-master &&\
   ls -ltr &&\
   make mk_file=ARNOLDI_gcc_mkl.mk &&\ 
-  mkdir ..//TEST &&\
+  mkdir ../TEST &&\
   cp -rf Templates/LR-arnoldi-* ../TEST/. "
 
 #  make mk=ARNOLDI_gcc_mkl.mk
