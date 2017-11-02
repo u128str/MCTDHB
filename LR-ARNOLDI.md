@@ -31,13 +31,17 @@ unzip MCTDHB-MCTDHB_V3.3.03.zip
 <pre><code>
 $ docker pull mctdhb/auto-build
 </code></pre>
-3) Get ./MCTDHB-MCTDHB_V3.3.03 with above step A and cd to it:
+3)  Get ./MCTDHB-MCTDHB_V3.3.03 with above step A and cd to it:
 <pre><code>
 $ cd $HOME/MCTDHB-MCTDHB_V3.3.03
 </code></pre>
 4)  Build (~14 mins) the __lr-mctdhb__ Docker-image from available Dokerfile.LR (Why rebuild locally? Because it  installs/rebuilds MKL+parpack+... final image size is about of ~4.5GB)
 <pre><code>
-docker build --no-cache -f Dockerfile.LR -t lr-mctdhb . 
+ docker build --no-cache -f Dockerfile.LR -t lr-mctdhb . 
+</code></pre>
+You will see:
+<pre><code>
+MCTDHB-MCTDHB_V3.3.03$ docker build --no-cache -f Dockerfile.LR -t lr-mctdhb . 
 Sending build context to Docker daemon  22.25MB
 Step 1/14 : FROM mctdhb/minunix:latest
  ---> ff5670deb65e
@@ -57,7 +61,7 @@ Get:3 http://archive.ubuntu.com/ubuntu xenial-updates InRelease [102 kB]
 .....
 Successfully tagged lr-mctdhb:latest
 </code></pre>
-To check available dockers type <code> docker images</code>:
+To check the available dockers, type <code> docker images</code>:
 <pre><code>
 $ docker images
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
@@ -85,6 +89,10 @@ root@97f61e1389e7:/TEST```$ vimdiff basic_info.out basic_info.out_Reference ```
 
 
 ## C. MCTDHB LR Arnoldi - How2 recompile on Ubuntu 16.04
+
+<details>
+<summary> click here to see how recompile the LR-MCTDHB code on your Ubuntu</summary>
+
 1) ```$ sudo apt-get update && apt-get install -y man tar wget cpio unzip autoconf vim make openmpi-bin libopenmpi-dev fftw3 fftw3-dev libblas-dev liblapack-dev ``` 
 2) ```$ mkdir $HOME/tmp && cd $HOME/tmp ```  you are at your $HOME/tmp
 3) ```$ wget -q http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/12070/l_mkl_2018.0.128.tgz  ``` Download MKL install package l_mkl_2018.0.128.tgz
@@ -109,7 +117,7 @@ total 7.4M
 -rwxr-xr-x 1 root root 2.6M Nov  1 12:04 properties_LR_ifort_MKLFFT
 -rwxr-xr-x 1 root root 2.7M Nov  1 12:04 lr_arnoldi_ifort_MKLFFT
 ```
-
+</details>
 
 ## D. MCTDHB LR Arnoldi - How2 verify/test 
 Next stage is to verify/check correctness of the installation. For this copy the LR templates files from $HOME/MCTDHB-MCTDHB_V3.3.03/Templates to $HOME/tmp  to test Arnoldi-LR
