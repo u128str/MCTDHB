@@ -96,7 +96,7 @@ total 2668
 </details>
 
 
-## B. MCTDHB first run/test
+## C. MCTDHB first run/test
 The primary goal now is to verify/check correctness of the installation. 
 The secondary goal is to reproduce some data from [PRA 86 063606](https://journals.aps.org/pra/abstract/10.1103/PhysRevA.86.063606) [ArXiV:1207.5128](https://arxiv.org/abs/1207.5128).
 
@@ -141,12 +141,7 @@ user@mctdhb-user:~/TEST/PRA_86_063606_Table_1$ ls -ltrh *.in
 
 ```
 4)  ```$ vimdiff basic_info.out basic_info.out_Reference ``` - to compare with the Reference numbers 
-infinity) __ENJOY__
-
-
-
-
-
+5)  __ENJOY__ MCTDHB:
 ```
  #===============================================================#
  #               __  __  ___ _____ ___  _  _ ___                 #
