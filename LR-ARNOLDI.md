@@ -15,6 +15,7 @@ Unzip the downloaded archive to the directory MCTDHB-MCTDHB_V3.3.03
 ```
 unzip MCTDHB-MCTDHB_V3.3.03.zip
 ```
+<pre><code>PASTE LOGS HERE</code></pre>
 </details>
 
 
