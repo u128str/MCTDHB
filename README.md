@@ -30,7 +30,9 @@ Second way is to use the popular Docker technology - install docker -> douwnload
 The third and easyest way is to try the MCTDHB-Laboratory (installers avalable for Win/Unix/Mac). 
 
 ### I. MCTDHB-Laboratory
-[__Free__ cross-platform (Mac/Unix/Windows) with GUI](http://www.mctdhb-lab.com )
+[__Free__ cross-platform (Mac/Unix/Windows) GUI](http://www.mctdhb-lab.com )
+
+http://www.mctdhb-lab.com/images/how2-figs/launch_mac.jpg
 
 ### II. MCTDHB with docker
 <details>
