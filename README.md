@@ -48,18 +48,19 @@ $ docker pull mctdhb/auto-build
 <pre><code>
 $ docker run --hostname mctdhb-user --rm -it -v $(pwd):/tmp mctdhb/auto-build
 </code></pre>
-
 <details>
+
 <summary> click here to see the steps needed to build the mctdhb docker image (you do it once to use afterwards):</summary>
-1)  Get ./MCTDHB-master with the above step A and cd to it:
+a)  Get ./MCTDHB-master with the above step A and cd to it:
 <pre><code>
 $ cd $HOME/MCTDHB-master
 </code></pre>
-2)  Build (~4 mins) the mctdh Docker-image from available Dokerfile (final image size is about of ~450MB)
+b)  Build (~4 mins) the mctdh Docker-image from available Dokerfile (final image size is about of ~450MB)
 <pre><code>
 $ docker build --no-cache -f Dockerfile -t mctdhb-user .
+
 </code></pre>
-2)  Run mctdhb/aouto-build docker:
+c)  Run mctdhb/aouto-build docker:
 <pre><code>
 $ docker run --hostname mctdhb-user --rm -it -v $(pwd):/tmp mctdhb-user
 </code></pre>
