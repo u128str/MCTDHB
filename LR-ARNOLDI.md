@@ -38,6 +38,24 @@ $ cd $HOME/MCTDHB-MCTDHB_V3.3.03
 4)  Build (~14 mins) the __lr-mctdhb__ Docker-image from available Dokerfile.LR (Why rebuild locally? Because it  installs/rebuilds MKL+parpack+... final image size is about of ~4.5GB)
 <pre><code>
 docker build --no-cache -f Dockerfile.LR -t lr-mctdhb . 
+Sending build context to Docker daemon  22.25MB
+Step 1/14 : FROM mctdhb/minunix:latest
+ ---> ff5670deb65e
+Step 2/14 : MAINTAINER Alexej I. Streltsov  <u128str@gmail.com>
+ ---> Running in 610c2374c7fc
+ ---> 445dbdf90370
+Removing intermediate container 610c2374c7fc
+Step 3/14 : ENV MKL_PATH /opt/intel
+ ---> Running in 7eb4ba78b688
+ ---> 0648d525d496
+Removing intermediate container 7eb4ba78b688
+Step 4/14 : RUN apt-get update &&   apt-get install -y man tar wget cpio unzip autoconf
+ ---> Running in 8dccf6115378
+Get:1 http://security.ubuntu.com/ubuntu xenial-security InRelease [102 kB]
+Hit:2 http://archive.ubuntu.com/ubuntu xenial InRelease
+Get:3 http://archive.ubuntu.com/ubuntu xenial-updates InRelease [102 kB]
+.....
+Successfully tagged lr-mctdhb:latest
 </code></pre>
 To check available dockers type <code> docker images</code>:
 <pre><code>
