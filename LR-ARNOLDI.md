@@ -22,29 +22,28 @@ unzip MCTDHB-MCTDHB_V3.3.03.zip
 
 ## B. Arnoldi LR MCTDHB usage with docker (5-steps ):
 <details>
-<summary> click here to see the steps (you do it once to use afterwards):</summary>
-
+<summary> click here to see the steps needed to build lr-mctdhb docker image (you do it once to use afterwards):</summary>
 1)  Install docker (see e.g. https://www.docker.com/community-edition )
-2)  Download latest MCTDHB docker image:
-```
+2)  Download ithe latest MCTDHB docker image (450Mb):
+<pre><code>
 $ docker pull mctdhb/auto-build
-```
+</code></pre>
 3) Get ./MCTDHB-MCTDHB_V3.3.03 with above step A and cd to it:
-```
+<pre><code>
 $ cd $HOME/MCTDHB-MCTDHB_V3.3.03
-```
+</code></pre>
 4)  Build (~14 mins) the __lr-mctdhb__ Docker-image from available Dokerfile.LR (Why rebuild locally? Because it  installs/rebuilds MKL+parpack+... final image size is about of ~4.5GB)
-```
+<pre><code>
 docker build --no-cache -f Dockerfile.LR -t lr-mctdhb . 
-```
+</code></pre>
 </details>
 
 <details>
-<summary> click here to see how to run the builded above Docker image:</summary>
+<summary> click here to see how to run/use the builded above Docker image lr-mctdhb:</summary>
 1)  Run docker:
-```
+<pre><code>
 $ docker run --rm -it lr-mctdhb 
-```
+</code></pre>
 and you will be inside the docker container in the TEST directory ```root@97f61e1389e7:/TEST#``` with
 __input.in__ and __V_W_Psi_string.in__ files in it. To reproduce some data from [PRA 86 063606](https://journals.aps.org/pra/abstract/10.1103/PhysRevA.86.063606) [ArXiV:1207.5128
 4) ````$ /mctdhb/bin/boson_MCTDHB_gnu_FFTW````
