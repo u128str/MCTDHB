@@ -68,30 +68,37 @@ $ docker run --hostname mctdhb-user --rm -it -v $(pwd):/tmp mctdhb-user
 
 
 
+###  III MCTDHB - How2 recompile on Ubuntu 16.04
+<details>
+<summary> click here to see how recompile the LR-MCTDHB code on your Ubuntu</summary>
 
-
-## C. MCTDHB usage with docker (5-steps)
-1)   install docker (see e.g. https://www.docker.com/community-edition )
-2)  ````$ docker pull mctdhb/auto-build````
-3)  ````$ docker run --rm -it  mctdhb/auto-build````
-and you will be inside the docker container in the TEST directory ```root@97f61e1389e7:/TEST#``` with
-__input.in__ and __V_W_Psi_string.in__ files in it. To reproduce some data from [PRA 86 063606](https://journals.aps.org/pra/abstract/10.1103/PhysRevA.86.063606) [ArXiV:1207.5128
-4) ````$ /mctdhb/bin/boson_MCTDHB_gnu_FFTW````
-5) Wait ... and compare with reference:
-root@97f61e1389e7:/TEST```$ vimdiff basic_info.out basic_info.out_Reference ```
-
-## D. MCTDHB usage - How2 recompile on Ubuntu 16.04
 1) ```$ sudo apt-get update && apt-get install -y vim make openmpi-bin libopenmpi-dev fftw3 fftw3-dev libblas-dev liblapack-dev ``` 
 2) ```$ cd ```  you are at your $HOME
 3) ```$ git clone https://github.com/u128str/MCTDHB.git MCTDHB-master```
 4) ```$ cd MCTDHB-master```
 5) ```$ make```
+
+At this point the MCTDHB package is installed in your Ubuntu system at $HOME/MCTDHB-master:
+
+```
+MCTDHB-master/bin$ ls -ltrh
+total 2.7M
+-rwxrwxr-x 1 u128str u128str 1.3M Nov  2 15:17 boson_MCTDHB_gnu_FFTW
+-rwxrwxr-x 1 u128str u128str 1.4M Nov  2 15:17 properties_LR_gnu_FFTW
+```
+</details>
+
+
 Now copy the templates files to /TEMP reproduce some data from [PRA 86 063606](https://journals.aps.org/pra/abstract/10.1103/PhysRevA.86.063606) [ArXiV:1207.5128](https://arxiv.o
 6) ```$ cp Templates/PRA_86_063606_Table_1/* /TEMP```
 7) ```$ cd /TEMP ```
 8)  ```$ $HOME/MCTDHB-master/bin/boson_MCTDHB_gnu_FFTW ```
 9)  ```$ vimdiff basic_info.out basic_info.out_Reference ```
 10) __ENJOY__
+
+
+
+
 
 ```
  #===============================================================#
