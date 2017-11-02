@@ -108,7 +108,7 @@ drwxrwxr-x 2 user user 4096 Nov  2 17:21 LR-arnoldi-1D-contact
 __Congrads!__
 At this point the LR-Arnoldi-MCTDHB package is installed in your local Ubuntu system at $HOME/MCTDHB-master:
 ```
-~/MCTDHB-MCTDHB_V3.3.03/bin# ls -ltrh
+~/MCTDHB-master/bin# ls -ltrh
 total 7.4M
 -rwxr-xr-x 1 root root 2.3M Nov  1 12:04 boson_MCTDHB_ifort_MKLFFT
 -rwxr-xr-x 1 root root 2.6M Nov  1 12:04 properties_LR_ifort_MKLFFT
@@ -129,7 +129,7 @@ Now you need 3-steps to get the LR spectrum:
 #### 2- constraction of the LR-matrix on-top the above GS
 #### 3- Diagonalization of the just constructed LR-matrix
 
-* 1.Step ) ```$ $HOME/MCTDHB-master/bin/boson_MCTDHB_gnu_FFTW ``` 1- Step getting the GS with MCTDHB(2)
+* 1.Step: ```$ $HOME/MCTDHB-master/bin/boson_MCTDHB_gnu_FFTW ``` to get the GS with MCTDHB(2)
 ```
 .....
 ====================================================================================================
@@ -152,7 +152,7 @@ Now you need 3-steps to get the LR spectrum:
  # Kind of W== 0 [if ==0 W=delta(R) else W=f(R) see Get_InterParticle.F]  lambda_0=     0.100000 Time-dependent? (T/F):F
 ```
 
-* 2.Step ) ```$ $HOME/MCTDHB-master/bin/lr_arnoldi_ifort_MKLFFT``` 2 Step- Construction of the LR-Matrix
+* 2.Step: ```$ $HOME/MCTDHB-master/bin/lr_arnoldi_ifort_MKLFFT``` to construct the LR-Matrix
 ```
 .....
 Lower part constructed in    2.8000000000000247E-002  seconds
@@ -164,7 +164,7 @@ LR-MATRIX constructed in   1.1000000000000001      seconds
 ```
 For the third step (diagonalization) you have to open __./lr_arnoldi.in__ and _replace_ in line 5:  __task=1__ to __task=2__ and run lr-exe again:
 
-* 3.Step ) ```$ $HOME/MCTDHB-master/bin/lr_arnoldi_ifort_MKLFFT``` 3 Step- Diagonalization of the LR-Matrix
+* 3.Step: ```$ $HOME/MCTDHB-master/bin/lr_arnoldi_ifort_MKLFFT``` to diagonalize the LR-Matrix
 ```
 ....
 Time elapsed:   102.92000000000000      seconds
