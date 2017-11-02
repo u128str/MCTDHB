@@ -20,7 +20,7 @@ Unzip the downloaded archive to the directory MCTDHB-master
 <pre><code>
 unzip MCTDHB-master.zip
 </code></pre>
-
+</details>
 
 
 ## B. MCTDHB usage
@@ -29,7 +29,7 @@ The standard and hardest one is to download the sources, recompile, run.
 Second way is to use the popular Docker technology - install docker -> douwnload the mctdhb dockar-image and run it... 
 The third and easyest way is to try the MCTDHB-Laboratory (installers avalable for Win/Unix/Mac). 
 
-### MCTDHB-Laboratory
+### I. MCTDHB-Laboratory
 <details>
 <summary> click here to see how use the MCTDHB-Laboratory </summary>
  <pre>
@@ -37,7 +37,7 @@ The third and easyest way is to try the MCTDHB-Laboratory (installers avalable f
 </pre>
 </details>
 
-### MCTDHB with docker
+### II. MCTDHB with docker
 <details>
 <summary> click here to see the steps needed to build mctdhb docker image (you do it once to use afterwards):</summary>
 1)  Install docker: 
@@ -67,6 +67,8 @@ $ cd $HOME/MCTDHB-master
 
 </details>
 </details>
+
+
 
 
 
