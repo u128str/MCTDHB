@@ -37,31 +37,32 @@ The third and easyest way is to try the MCTDHB-Laboratory (installers avalable f
 [Linux](http://www.mctdhb-lab.com/images/how2-figs/launch_linux.jpg)
 
 ### II. MCTDHB with docker
+[Wot2 install docker] (https://www.docker.com/community-edition)
 <details>
-<summary> click here to see the steps needed to download/build/run the mctdhb docker image (you do it once to use afterwards):</summary>
-1)  [Install docker] (https://www.docker.com/community-edition)
- 
-2)  Download the latest MCTDHB docker image (450Mb):
+<summary> click here to see the steps needed to download and run the mctdhb docker image (you do it once to use afterwards):</summary>
+1) Download the latest MCTDHB docker image (450Mb)
 <pre><code>
 $ docker pull mctdhb/auto-build
 </code></pre>
-3)  Run mctdhb/aouto-build docker:
+2)  Run mctdhb/auto-build docker:
 <pre><code>
-$ docker run --hostname mctdhb-user --rm -it -v $(pwd):/tmp mctdhb/aouto-build
+$ docker run --hostname mctdhb-user --rm -it -v $(pwd):/tmp mctdhb/auto-build
 </code></pre>
 
 <details>
 <summary> click here to see the steps needed to build the mctdhb docker image (you do it once to use afterwards):</summary>
-3)  Get ./MCTDHB-master with the above step A and cd to it:
+1)  Get ./MCTDHB-master with the above step A and cd to it:
 <pre><code>
 $ cd $HOME/MCTDHB-master
 </code></pre>
-4)  Build (~4 mins) the mctdh Docker-image from available Dokerfile (final image size is about of ~450MB)
+2)  Build (~4 mins) the mctdh Docker-image from available Dokerfile (final image size is about of ~450MB)
 <pre><code>
- docker build --no-cache -f Dockerfile.LR -t lr-mctdhb . 
+$ docker build --no-cache -f Dockerfile -t mctdhb-user .
 </code></pre>
-
-
+2)  Run mctdhb/aouto-build docker:
+<pre><code>
+$ docker run --hostname mctdhb-user --rm -it -v $(pwd):/tmp mctdhb-user
+</code></pre>
 </details>
 </details>
 
