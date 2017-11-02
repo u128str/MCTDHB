@@ -1,3 +1,6 @@
+# RUN:   docker run --hostname lr-mctdhb-user --rm -it lr-mctdhb-user
+# RUN with your current dir mounted to /tmp:   docker run --hostname lr-mctdhb-user --rm -it -v $(pwd):/tmp lr-mctdhb-user
+# BUILD:  docker build --no-cache -f Dockerfile.LR.user -t lr-mctdhb-user .  
 # Start with Ubuntu base image
 FROM mctdhb/minunix:latest
 MAINTAINER  Alexej I. Streltsov  <u128str@gmail.com>
@@ -9,7 +12,7 @@ ENV MKL_PATH=/opt/intel
 
 # Install MKL dependency packages
 RUN apt-get update && \
-  apt-get install -y man tar wget cpio unzip autoconf
+  apt-get install -y man tar wget cpio unzip autoconf sudo
 
 # Download and Install MKL install package
 RUN cd /tmp && \
@@ -36,20 +39,27 @@ RUN   wget https://github.com/opencollab/arpack-ng/archive/master.zip && \
    make install &&\ 
    cd ..  
 
-RUN dnf install -y sudo && \
-    adduser user && \
+RUN adduser user && \
     echo "user ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/user && \
     chmod 0440 /etc/sudoers.d/user
 
-RUN su - user -c "touch mine"
+#RUN su - user -c "touch mine"
 
 CMD ["su", "-", "user", "-c", "/bin/bash"]
 
 
 ENV MKLROOT ${MKL_PATH}/mkl
-RUN  cd . && \
-  wget --no-check-certificate --content-disposition https://github.com/u128str/MCTDHB/archive/MCTDHB_V3.3.02.zip && \
-  unzip MCTDHB-MCTDHB_V3.3.02.zip && \
-  cd  MCTDHB-MCTDHB_V3.3.02 a &&\
-  make mk=make_systems/ARNOLDI_gcc_mkl.mk
+RUN su - user  -c "cd  && \
+  . /opt/intel/bin/compilervars.sh intel64 && \
+  echo $MKLROOT &&\
+  wget --no-check-certificate --content-disposition https://github.com/u128str/MCTDHB/archive/MCTDHB_V3.3.03.zip && \
+  unzip MCTDHB-MCTDHB_V3.3.03.zip && \
+  cd  MCTDHB-MCTDHB_V3.3.03 &&\
+  ls -ltr &&\
+  make mk_file=ARNOLDI_gcc_mkl.mk &&\ 
+  mkdir ..//TEST &&\
+  cp -rf Templates/LR-arnoldi-* ../TEST/. "
 
+#  make mk=ARNOLDI_gcc_mkl.mk
+
+#CMD ["su", "-", "user", "-c", "/bin/bash"]
