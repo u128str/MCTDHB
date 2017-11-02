@@ -10,13 +10,17 @@ curl -LJO https://github.com/u128str/MCTDHB/archive/MCTDHB_V3.3.03.zip
 ```
 
 ## B. Arnoldi LR MCTDHB usage with docker (5-steps):
-1)   install docker (see e.g. https://www.docker.com/community-edition )
+1)  Install docker (see e.g. https://www.docker.com/community-edition )
 2)  Download latest MCTDHB docker image:
-```$ docker pull mctdhb/auto-build```
+```
+$ docker pull mctdhb/auto-build
+```
 3)  Build (~14 mins) the __lr-mctdhb__ Docker-image from available Dokerfile.LR (Why rebuild locally? Because it  installs/rebuilds MKL+parpack+... final image size is about of ~4.5GB)
-```docker build --no-cache -f Dockerfile.LR -t lr-mctdhb . ```
+```
+docker build --no-cache -f Dockerfile.LR -t lr-mctdhb . ```
 4)  Run docker:
-```$ docker run --rm -it lr-mctdhb ```
+```
+$ docker run --rm -it lr-mctdhb ```
 and you will be inside the docker container in the TEST directory ```root@97f61e1389e7:/TEST#``` with
 __input.in__ and __V_W_Psi_string.in__ files in it. To reproduce some data from [PRA 86 063606](https://journals.aps.org/pra/abstract/10.1103/PhysRevA.86.063606) [ArXiV:1207.5128
 4) ````$ /mctdhb/bin/boson_MCTDHB_gnu_FFTW````
