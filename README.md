@@ -27,7 +27,7 @@ unzip MCTDHB-master.zip
 There are __three__ ways to do simulations with the MCTDHB package.
 The standard and the hardest one is to download sources -> recompile -> run.
 Second way is to use the popular Docker technology - install docker -> download the mctdhb docker-image -> run it... 
-The third and the easiest way is to try the MCTDHB-Laboratory (installers are avalable for Win/Unix/Mac). 
+The third and the easiest way is to try the MCTDHB-Laboratory (installers are available for Win/Unix/Mac). 
 
 ### I. MCTDHB-Laboratory
 [__Free__ cross-platform (Mac/Unix/Windows) GUI](http://www.mctdhb-lab.com)
@@ -112,14 +112,13 @@ total 2668
 The primary goal now is to verify/check correctness of the installation. 
 The secondary goal is to reproduce some data from [PRA 86 063606](https://journals.aps.org/pra/abstract/10.1103/PhysRevA.86.063606) [ArXiV:1207.5128](https://arxiv.org/abs/1207.5128).
 
-#### [Here you can see how this example works with the MCTDHB-Lab](https://github.com/u128str/MCTDHB/blob/master/Templates/PRA_86_063606_Table_1/README.md)
+##### ([Here you can see how this example works with the MCTDHB-Lab](https://github.com/u128str/MCTDHB/blob/master/Templates/PRA_86_063606_Table_1/README.md))
 
 
-For this copy the __PRA_86_063606_Table_1__ templates files from $HOME/MCTDHB-master/Templates to $HOME/TEST.
-Let say you have installed the MCTDHB package to: ```HOME/MCTDHB-master```:
-0) ```cd && mkdir TEST``` make TEST directory in your $HOME. In the case of usage the MCTDHB with Docker ./TEST is already exists!
+To run/test your local or Docker installation copy the __PRA_86_063606_Table_1__ templates files from $HOME/MCTDHB-master/Templates to $HOME/TEST. Here we assume that you have installed the MCTDHB package to  ```$HOME/MCTDHB-master```:
+0) ```cd && mkdir TEST``` make TEST directory in your $HOME. In the case of usage of the MCTDHB with Docker ./TEST is already exists!
 1) ```$ cp -r $HOME/MCTDHB-test/Templates/PRA_86_063606_Table_1 $HOME/TEST/.```
-2) ```$ cd $HOME/TEST/PRA_86_063606_Table_1``` All nessesary input files, i.e, __input.in__ and __V_W_Psi_string.in__ should be in this directory:
+2) ```$ cd $HOME/TEST/PRA_86_063606_Table_1``` All necessary input files, i.e, __input.in__ and __V_W_Psi_string.in__ should be in this directory:
 ```
 user@mctdhb-user:~/TEST/PRA_86_063606_Table_1$ ls -ltrh *.in
 -rwxr-xr-x 1 user user 4.9K Nov  2 13:10 input.in
