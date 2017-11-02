@@ -100,7 +100,7 @@ total 2668
 The primary goal now is to verify/check correctness of the installation. 
 The secondary goal is to reproduce some data from [PRA 86 063606](https://journals.aps.org/pra/abstract/10.1103/PhysRevA.86.063606) [ArXiV:1207.5128](https://arxiv.org/abs/1207.5128).
 
-#### [Here you can see how this example works with the MCTDHB-Lab](https://github.com/u128str/MCTDHB/blob/MCTDHB_V3.3.03/LR-ARNOLDI.md)
+#### [Here you can see how this example works with the MCTDHB-Lab](https://github.com/u128str/MCTDHB/blob/master/Templates/PRA_86_063606_Table_1/README.md)
 
 
 For this copy the __PRA_86_063606_Table_1__ templates files from $HOME/MCTDHB-master/Templates to $HOME/TEST.
