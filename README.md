@@ -37,7 +37,7 @@ The third and easyest way is to try the MCTDHB-Laboratory (installers avalable f
 [Linux](http://www.mctdhb-lab.com/images/how2-figs/launch_linux.jpg)
 
 ### II. MCTDHB with docker
-[Wot2 install docker] (https://www.docker.com/community-edition)
+#### [How2 install docker] (https://www.docker.com/community-edition)
 <details>
 <summary> click here to see the steps needed to download and run the mctdhb docker image (you do it once to use afterwards):</summary>
 1) Download the latest MCTDHB docker image (450Mb)
@@ -64,6 +64,13 @@ $ docker build --no-cache -f Dockerfile -t mctdhb-user .
 $ docker run --hostname mctdhb-user --rm -it -v $(pwd):/tmp mctdhb-user
 </code></pre>
 </details>
+At this point the MCTDHB package is installed in your Docker-Ubuntu system at $HOME/MCTDHB-master:
+```
+user@mctdhb-user:~/MCTDHB-master/bin$ ls -ltr
+total 2668
+-rwxrwxr-x 1 user user 1306232 Nov  2 13:10 boson_MCTDHB_gnu_FFTW
+-rwxrwxr-x 1 user user 1423048 Nov  2 13:10 properties_LR_gnu_FFTW
+```
 </details>
 
 
@@ -78,13 +85,13 @@ $ docker run --hostname mctdhb-user --rm -it -v $(pwd):/tmp mctdhb-user
 4) ```$ cd MCTDHB-master```
 5) ```$ make```
 
-At this point the MCTDHB package is installed in your Ubuntu system at $HOME/MCTDHB-master:
+At this point the MCTDHB package is installed in your local Ubuntu system at $HOME/MCTDHB-master:
 
 ```
-MCTDHB-master/bin$ ls -ltrh
-total 2.7M
--rwxrwxr-x 1 u128str u128str 1.3M Nov  2 15:17 boson_MCTDHB_gnu_FFTW
--rwxrwxr-x 1 u128str u128str 1.4M Nov  2 15:17 properties_LR_gnu_FFTW
+MCTDHB-master/bin$ ls -ltr
+total 2668
+-rwxrwxr-x 1 user user 1306232 Nov  2 13:10 boson_MCTDHB_gnu_FFTW
+-rwxrwxr-x 1 user user 1423048 Nov  2 13:10 properties_LR_gnu_FFTW
 ```
 </details>
 
