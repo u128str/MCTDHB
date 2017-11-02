@@ -100,13 +100,13 @@ drwxrwxr-x 2 user user 4096 Nov  2 17:21 LR-arnoldi-1D-contact
 8) ```$ sudo echo "${MKL_PATH}/mkl/lib/intel64" >> /etc/ld.so.conf.d/intel.conf && ldconfig && echo ". /opt/intel/bin/compilervars.sh intel64" >> /etc/bash.bashrc``` 
 9) ```$ . /opt/intel/bin/compilervars.sh intel64``` Defining MKL-related variables
 10) ```$ cd ```
-11) ```$ wget --no-check-certificate --content-disposition https://github.com/u128str/MCTDHB/archive/MCTDHB_V3.3.03.zip```
-12) ```$ unzip MCTDHB-MCTDHB_V3.3.03.zip ```
-13) ```$ cd MCTDHB-MCTDHB_V3.3.03```
-14) ```$ make mk_file=ARNOLDI_gcc_mkl.mk``` Compilation of the Arnoldi LR MCTDHB
-__Congrads!__
-At this point the LR-Arnoldi-MCTDHB package is installed in your Ubuntu system at $HOME/MCTDHB-MCTDHB_V3.3.03:
+11) ```$ wget --no-check-certificate --content-disposition https://github.com/u128str/MCTDHB/archive/master.zip```
+12) ```$ unzip MCTDHB-master.zip ```
+13) ```$ cd MCTDHB-master```
+14) ```$ make mk_file=ARNOLDI_gcc_mkl.mk``` to compile the Arnoldi LR MCTDHB
 
+__Congrads!__
+At this point the LR-Arnoldi-MCTDHB package is installed in your local Ubuntu system at $HOME/MCTDHB-master:
 ```
 ~/MCTDHB-MCTDHB_V3.3.03/bin# ls -ltrh
 total 7.4M
@@ -117,19 +117,19 @@ total 7.4M
 </details>
 
 ## D. MCTDHB LR Arnoldi - How2 verify/test 
-Next stage is to verify/check correctness of the installation. For this copy the LR templates files from $HOME/MCTDHB-MCTDHB_V3.3.03/Templates to $HOME/tmp  to test Arnoldi-LR
-Let say you have installed the Arnoldi LR MCTDHB to: _``` HOME/MCTDHB-MCTDHB_V3.3.03 ```.
-Copy both lr-templates to ~/tmp:
+Next stage is to verify/check correctness of the installation. For this copy the LR templates files from $HOME/MCTDHB-master/Templates to $HOME/TEST  to test Arnoldi-LR
+Let say you have installed the Arnoldi LR MCTDHB to: ``` HOME/MCTDHB-master ```.
+Copy both lr-templates to ~/TEST:
 
-1) ```$ cp -r $HOME/MCTDHB-MCTDHB_V3.3.03/Templates/LR-arnoldi-1D-* $HOME/tmp/.```
-2) ```$ cd $HOME/tmp/LR-arnoldi-1D-contact```
+a) ```$ cp -r $HOME/MCTDHB-master/Templates/LR-arnoldi-1D-* $HOME/TEST/.```
+b) ```$ cd $HOME/tmp/LR-arnoldi-1D-contact```
 
-Now you need 3-stages to get LR spectrum: 
-#### 1- MCTDHB ground state; 
-#### 2- constraction of the LR-matrix on-top; 
-#### 3- Diagonalization of the LR-matrix
+Now you need 3-steps to get the LR spectrum: 
+#### 1- get MCTDHB ground state
+#### 2- constraction of the LR-matrix on-top the above GS
+#### 3- Diagonalization of the just constructed LR-matrix
 
-3) ```$ $HOME/MCTDHB-MCTDHB_V3.3.03/bin/boson_MCTDHB_gnu_FFTW ``` #### 1- Stage get Ground MCTDHB(2) State
+1) ```$ $HOME/MCTDHB-MCTDHB_V3.3.03/bin/boson_MCTDHB_gnu_FFTW ``` 1- Step getting the GS with MCTDHB(2)
 ```
 ====================================================================================================
  Job->Relax. Forward     Iteration:     400     Time: [      0.000000 ->     19.950000 +       0.050000 ->     20.000000  ]
@@ -151,9 +151,9 @@ Now you need 3-stages to get LR spectrum:
  # Kind of W== 0 [if ==0 W=delta(R) else W=f(R) see Get_InterParticle.F]  lambda_0=     0.100000 Time-dependent? (T/F):F
 ```
 
-4) ```$ $HOME/MCTDHB-MCTDHB_V3.3.03/bin/lr_arnoldi_ifort_MKLFFT``` #### 2 Stage- Construct LR-Matrix
-
+2) ```$ $HOME/MCTDHB-MCTDHB_V3.3.03/bin/lr_arnoldi_ifort_MKLFFT``` 2 Step- Construction of the LR-Matrix
 ```
+.....
 Lower part constructed in    2.8000000000000247E-002  seconds
 
  LR-MATRIX constructed in   1.1000000000000001      seconds
@@ -161,10 +161,11 @@ Lower part constructed in    2.8000000000000247E-002  seconds
 LR-MATRIX constructed in   1.1000000000000001      seconds
  It is stored in 'LR_bin'.
 ```
-For the third stage (diagonalization) you have to open __./lr_arnoldi.in__ and _replace in line 5:  __task=1__ to __task=2__ and run again_
+For the third step (diagonalization) you have to open __./lr_arnoldi.in__ and _replace_ in line 5:  __task=1__ to __task=2__ and run lr-exe again:
 
-5) ```$ $HOME/MCTDHB-MCTDHB_V3.3.03/bin/lr_arnoldi_ifort_MKLFFT``` #### 3 Stage- Diagonalization of the LR-Matrix
+3) ```$ $HOME/MCTDHB-MCTDHB_V3.3.03/bin/lr_arnoldi_ifort_MKLFFT``` 3 Step- Diagonalization of the LR-Matrix
 ```
+....
 Time elapsed:   102.92000000000000      seconds
  =======================================
  %-----------------------------------------------%
