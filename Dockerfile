@@ -46,7 +46,7 @@ RUN su - user  -c "cd  && \
   unzip MCTDHB-master.zip  && \
   cd  MCTDHB-master &&\ 
   ls -ltr &&\ 
-  make mk_file=Ubuntu.mk &&\ 
+  make mk_file=Ubuntu_gnu.mk &&\ 
   mkdir ../TEST &&\ 
   cp -rf Templates/PRA_86_063606_Table_1 ../TEST/. "
 
