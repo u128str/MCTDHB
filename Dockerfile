@@ -1,14 +1,16 @@
-## RUN MCTDHB through docker: docker run --rm -it -v $(pwd):/tmp mctdhb
+## BUILD:                     docker build --no-cache -f Dockerfile -t mctdhb-user .
+## RUN MCTDHB through docker: docker run --hostname mctdhb-user --rm -it -v $(pwd):/tmp mctdhb-user
+
 ## RESTART: sudo service docker restart
 ## ADD DNS to sudo vim /etc/default/docker
-##  DOCKER_OPTS="--dns 141.51.8.4 --dns 8.8.8.8 --dns 8.8.4.4"
+## DOCKER_OPTS="--dns 141.xx.x.x --dns 8.8.8.8 --dns 8.8.4.4"
 
 ##rm all images ..
 ## sudo docker ps -a | awk '{print $1}' | grep -v CONTAINER | xargs sudo docker rm
 ## sudo docker images | grep "<none>" | awk '{print $3}' | xargs sudo docker rmi
 
 ## sudo vim /etc/resolv.conf  and put: 
-## nameserver 141.51.8.4
+## nameserver 141.xx.x.x
 ## nameserver 8.8.8.8
 ## nameserver 8.8.4.4
 
@@ -28,18 +30,23 @@
 ## RUN MCTDHB through docker: docker run --rm -it -v $(pwd):/tmp mctdhb
 FROM mctdhb/minunix:latest
 MAINTAINER  Alexej I. Streltsov  <u128str@gmail.com>
-##COPY ./MCTDHB_V3.3.01  /mctdhb
-RUN mkdir -p /mctdhb
-COPY .  /mctdhb
-WORKDIR /mctdhb
-RUN  make 
-#RUN  make #mk_file=ARNOLDI_gcc_mkl.mk
-RUN mkdir -p /TEST
-ADD Templates/PRA_86_063606_Table_1 /TEST
-WORKDIR /TEST
 
-##COPY ./MCTDHB_V3.3.01  /mctdhb
-#CMD  ["/mctdhb/bin/boson_MCTDHB_gnu_FFTW"]
-####### USAGE #############################
-#docker build -t lr-mctdhb .
-#docker run --rm -it -v $(pwd):/tmp lr-mctdhb
+RUN apt-get update && \
+  apt-get install -y wget  unzip autoconf sudo
+
+RUN adduser user && \
+    echo "user ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/user && \
+    chmod 0440 /etc/sudoers.d/user
+
+CMD ["su", "-", "user", "-c", "/bin/bash"]
+
+
+RUN su - user  -c "cd  && \
+  wget --no-check-certificate --content-disposition https://github.com/u128str/MCTDHB/archive/master.zip  && \
+  unzip MCTDHB-master.zip  && \
+  cd  MCTDHB-master &&\ 
+  ls -ltr &&\ 
+  make mk_file=ARNOLDI_gcc_mkl.mk &&\ 
+  mkdir ../TEST &&\ 
+  cp -rf Templates/PRA_86_063606_Table_1 ../TEST/. "
+
