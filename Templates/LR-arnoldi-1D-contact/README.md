@@ -1,15 +1,24 @@
 # Arnoldi LR MCTDHB template
 
+#### How to download only specific directory, say  _LR-arnoldi-1D-contact_:
+```
+curl  https://codeload.github.com/u128str/MCTDHB/tar.gz/master  | \
+tar -xz --strip=2 MCTDHB-master/Templates/LR-arnoldi-1D-contact
+```
+
+
 ## A. How2 get/install/test etc [Arnoldi LR MCTDHB](https://github.com/u128str/MCTDHB/blob/master/LR-ARNOLDI.md)
 
 ## B.  Arnoldi LR MCTDHB run - __How2 verify/test__
 Our goal is to verify/check a correctness of the Arnoldi LR installation. For this copy the LR templates files from $HOME/MCTDHB-master/Templates to $HOME/TEST.
 Let say you have installed the Arnoldi LR MCTDHB to: ``` HOME/MCTDHB-master ```.
-Copy both lr-templates to ~/TEST:
+Copy LR-arnoldi-1D-contact template to ~/TEST:
 ```
-cp -r $HOME/MCTDHB-master/Templates/LR-arnoldi-1D-* $HOME/TEST/.
-cd $HOME/tmp/LR-arnoldi-1D-contact
+cp -r $HOME/MCTDHB-master/Templates/LR-arnoldi-1D-contact $HOME/TEST/.
+cd $HOME/TEST/LR-arnoldi-1D-contact
 ```
+
+
 
 Now you need 3-steps to get the LR spectrum: 
 #### 1- get MCTDHB ground state
