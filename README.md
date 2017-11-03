@@ -150,8 +150,12 @@ user@mctdhb-user:~/TEST/PRA_86_063606_Table_1$ ls -ltrh *.in
   Master               0  is DONE after   64.159628868103027     
 
 ```
-5)  ```$ vimdiff basic_info.out basic_info.out_Reference ``` - to compare with the Reference numbers 
-6)  __ENJOY__ MCTDHB:
+5)  - to compare with the Reference numbers 
+```
+$ vimdiff basic_info.out basic_info.out_Reference 
+```
+6)  __ENJOY__ MCTDHB with more [templates](https://github.com/u128str/MCTDHB/blob/master/Templates/README.md)
+
 ```
  #===============================================================#
  #               __  __  ___ _____ ___  _  _ ___                 #
