@@ -21,7 +21,9 @@ from the computations published in different journals.
 | LR-MCTDHB         | input.in, V_W_Psi_string.in, properties.in | 1. standard MCTDHB  -> 2. LR Analysys|
 | Arnoldi LR-MCTDHB | input.in, V_W_Psi_string.in, lr_arnoldi.in | 1. standard MCTDHB  -> 2. Arnoldi LR-Matrix construction -> 3. LR-Matrix diagonalization |
 
-For example, let say you would like to reproduce the results from  __PRA_86_063606_Table_1__
+For example, let say you would like to reproduce the results from  __PRA_86_063606_Table_1__.
+This is a simple 1.Step MCTDHB computation. 
+
 1) create a working directory TEST and cd to it:
 ```
 mkdir $HOME/TEST \
@@ -41,7 +43,7 @@ and cd to the just copied directory:
 cd PRA_86_063606_Table_1
 ```
 
-3) Execute the MCDTHB job: 
+3) Execute the MCTDHB job: 
  ```
  $ mpirun -n 2 $HOME/MCTDHB-master/bin/boson_MCTDHB_gnu_FFTW 
  ``` 
