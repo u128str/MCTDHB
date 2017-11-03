@@ -216,6 +216,6 @@ $ vimdiff basic_info.out basic_info.out_Reference
  #===============================================================#
  #   The Multiconfigurational Time-Dependent Hartree For Bosons  #
  #    Current version 3.3.03 l Heidelberg/Kassel Nov (2017)      #
- #===============  BBB: Be superB with the mctdhbB ==============#
+ #===============  BBB: Be superB with the mctdhB  ==============#
 ```
 
