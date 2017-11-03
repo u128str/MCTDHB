@@ -1,5 +1,8 @@
 # Arnoldi LR MCTDHB template
 
+## A. How2 get/install/test etc 
+[Arnoldi LR MCTDHB](https://github.com/u128str/MCTDHB/blob/master/LR-ARNOLDI.md)
+
 ## B.  Arnoldi LR MCTDHB run - __How2 verify/test__
 Next stage is to verify/check correctness of the installation. For this copy the LR templates files from $HOME/MCTDHB-master/Templates to $HOME/TEST  to test Arnoldi-LR
 Let say you have installed the Arnoldi LR MCTDHB to: ``` HOME/MCTDHB-master ```.
