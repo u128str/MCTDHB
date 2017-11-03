@@ -1,5 +1,5 @@
 # Prerequisites
-MCTDHB and/or Arnildi LR MCTDHB packages installed loccaly or with Docker:
+MCTDHB and/or Arnoldi LR MCTDHB packages installed loccaly or with Docker:
 #### [MCTDHB how2 get/install/test etc](https://github.com/u128str/MCTDHB/blob/master/README.md)
 #### [Arnoldi LR MCTDHB how2 get/install/test etc](https://github.com/u128str/MCTDHB/blob/master/LR-ARNOLDI.md)
 
