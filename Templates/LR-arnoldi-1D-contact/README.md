@@ -1,6 +1,6 @@
 # Arnoldi LR MCTDHB template
 
-#### How to download only specific directory, say  _LR-arnoldi-1D-contact_:
+#### How to download only specific directory with template, say _LR-arnoldi-1D-contact_:
 ```
 curl  https://codeload.github.com/u128str/MCTDHB/tar.gz/master  | \
 tar -xz --strip=2 MCTDHB-master/Templates/LR-arnoldi-1D-contact
