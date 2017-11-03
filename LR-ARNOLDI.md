@@ -1,4 +1,4 @@
-# Arnoldi LR-MCTDHB:
+# Arnoldi LR-MCTDHB
 
 ## A. How2 get sources? They are already in your ___$HOME/MCTDHB-master___
 <details>
