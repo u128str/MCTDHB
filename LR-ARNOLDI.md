@@ -116,7 +116,10 @@ total 7.4M
 ```
 </details>
 
-## B.  Arnoldi LR MCTDHB run - __How2 verify/test__
+## B.  Arnoldi LR MCTDHB first run/test with  __LR-arnoldi-1D-contact__ template
+
+[More templates/tests are here](https://github.com/u128str/MCTDHB/blob/master/Templates)
+
 Next stage is to verify/check correctness of the installation. For this copy the LR templates files from $HOME/MCTDHB-master/Templates to $HOME/TEST  to test Arnoldi-LR
 Let say you have installed the Arnoldi LR MCTDHB to: ``` HOME/MCTDHB-master ```.
 Copy both lr-templates to ~/TEST:
