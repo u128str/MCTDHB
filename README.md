@@ -150,7 +150,7 @@ user@mctdhb-user:~/TEST/PRA_86_063606_Table_1$ ls -ltrh *.in
   Master               0  is DONE after   64.159628868103027     
 
 ```
-5)  - to compare with the Reference numbers 
+5) to compare with the Reference numbers use vimdiff: 
 ```
 $ vimdiff basic_info.out basic_info.out_Reference 
 ```
