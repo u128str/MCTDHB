@@ -106,7 +106,7 @@ total 2668
 </details>
 
 
-## C. MCTDHB first run/test with a template
+## C. MCTDHB first run/test with ___PRA_86_063606_Table_1___ template
 
 [More templates/tests are here](https://github.com/u128str/MCTDHB/blob/master/Templates)
 
