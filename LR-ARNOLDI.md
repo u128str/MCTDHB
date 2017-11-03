@@ -1,5 +1,6 @@
-# LR Arnoldi MCTDHB:
-## How2 get it? It is already in your $HOME/MCTDHB-master
+# Arnoldi LR-MCTDHB:
+
+## A. How2 get sources? It is already in your $HOME/MCTDHB-master
 <details>
 <summary> Click here to see how to get ./MCTDHB-master with git, wget or curl:</summary>
  a)  Clone the latest version of the MCTDHB package to the directory MCTDHB-master:
@@ -19,7 +20,7 @@ unzip MCTDHB-master.zip
 </code></pre>
 </details>
 
-### I. Arnoldi LR MCTDHB usage with Docker technology:
+### I. Arnoldi LR-MCTDHB usage with Docker technology:
 #### [How2 install docker] (https://www.docker.com/community-edition)
 <details>
 <summary> click here to see the steps needed to build lr-mctdhb-user Docker-image (you do it once to use afterwards):</summary>
@@ -85,7 +86,7 @@ drwxrwxr-x 2 user user 4096 Nov  2 17:21 LR-arnoldi-1D-contact
 </details>
 
 
-### II. Arnoldi LR MCTDHB with Ubuntu  - _How2 recompile on Ubuntu 16.04_
+### II. Arnoldi LR-MCTDHB with Ubuntu  - _How2 recompile on Ubuntu 16.04_
 
 <details>
 <summary> click here to see how recompile the LR-MCTDHB code on your Ubuntu</summary>
