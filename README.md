@@ -1,8 +1,8 @@
 # MCTDHB  
 
-#### [Arnoldi LR MCTDHB how2 get/install/test etc](https://github.com/u128str/MCTDHB/blob/master/LR-ARNOLDI.md)
+#### [Arnoldi LR-MCTDHB how2 get/install/test etc](https://github.com/u128str/MCTDHB/blob/master/LR-ARNOLDI.md)
 
-## A. How2 Get the sources of the MCTDHB package?
+## A. How2 get the sources of the MCTDHB package?
 <details>
 <summary> Click here to see how to get ./MCTDHB-master with git, wget or curl:</summary>
 a)  Clone the latest version of the MCTDHB package to the directory MCTDHB-master:
