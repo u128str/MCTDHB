@@ -40,7 +40,7 @@ The third and the easiest way is to use the MCTDHB-Laboratory with GUI (installe
 #### [How2 install docker] (https://www.docker.com/community-edition)
 <details>
 <summary> click here to see the steps needed to download and run the mctdhb docker image (you do it once to use afterwards):</summary>
-1) Download the latest MCTDHB docker image (532MB)
+1) To download the latest MCTDHB docker image (532MB) [mctdhb/auto-build](https://hub.docker.com/r/mctdhb/auto-build/) type:
 <pre><code>
 $ docker pull mctdhb/auto-build
 ....
