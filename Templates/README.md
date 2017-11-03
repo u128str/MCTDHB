@@ -31,4 +31,4 @@ vimdiff basic_info.out basic_info.out_Reference
  ```
 5) To get other numbers please change M, Npar in input.in  and restart the job
 
-####!!!!  Each directory contains induvidual READ-ME file with more instructions and details
+#### Each directory contains individual README(.md) files with more instructions and output details...
