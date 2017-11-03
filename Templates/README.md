@@ -3,31 +3,44 @@ MCTDHB and/or Arnoldi LR MCTDHB packages installed loccaly or with Docker:
 #### [MCTDHB how2 get/install/test etc](https://github.com/u128str/MCTDHB/blob/master/README.md)
 #### [Arnoldi LR MCTDHB how2 get/install/test etc](https://github.com/u128str/MCTDHB/blob/master/LR-ARNOLDI.md)
 
+#### How to download only specific directory, say  _LR-arnoldi-1D-contact_:
+```
+curl  https://codeload.github.com/u128str/MCTDHB/tar.gz/master  | \
+tar -xz --strip=2 MCTDHB-master/Templates/LR-arnoldi-1D-contact
+```
+
 #  Templates
 Here are the templates of the input.in and V_W_Psi_string.in files needed to reproduce different data or figures 
 from the computations published in different journals. 
 
 For example:
-1) create a working directory:  
+1) create a working directory TEST and cd to it:
 ```
-$ mkdir $HOME/TEST 
+mkdir $HOME/TEST \
+cd $HOME/TEST 
 ```
 2) Let say you would like to reproduce the tresults from  __PRA_86_063606_Table_1__,
 copy the corresponding directory files from the MCTDHB-master/Templates/__PRA_86_063606_Table_1__ to your TEST:
 ``` 
 $ cp -r $HOME/MCTDHB-test/Templates/PRA_86_063606_Table_1 $HOME/TEST/.
 ```
-3) cd to TEST
+or with curl:
 ```
-$ cd  $HOME/TEST 
+curl  https://codeload.github.com/u128str/MCTDHB/tar.gz/master  | \
+tar -xz --strip=2 MCTDHB-master/Templates/PRA_86_063606_Table_1
 ```
-3) execute the job, typically: 
+and cd to it: 
+```
+cd PRA_86_063606_Table_1
+```
+
+3) to execute the job do: 
  ```
  $ mpirun -n 2 $HOME/MCTDHB-master/bin/boson_MCTDHB_gnu_FFTW 
  ``` 
-the name of the exe file depends on a compiler used...
+the name of the exefile depends on a compiler used here it is gnu and FFTW ...
 
-4) After successfully done computation compare with reference: 
+4) After successfully done computation compare your result with the reference one: 
  ```
 vimdiff basic_info.out basic_info.out_Reference
  ```
