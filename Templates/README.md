@@ -14,9 +14,11 @@ Every directory contains template files needed to reproduce different data or fi
 from the computations published in different journals.
 Typically, for
 
-* MCTDHB:            input.in, V_W_Psi_string.in 
-* MCTDHB-LR:         input.in, V_W_Psi_string.in, properties.in
-* Arnoldi LR MCTDHB: input.in, V_W_Psi_string.in, lr_adnoldi.in
+| Type computartion       | Input files needed |
+| ------------- |:-------------:|
+| MCTDHB:            | input.in, V_W_Psi_string.in  |
+| MCTDHB-LR:         | input.in, V_W_Psi_string.in, properties.in |
+| Arnoldi LR MCTDHB: | input.in, V_W_Psi_string.in, lr_arnoldi.in |
 
 For example, let say you would like to reproduce the tresults from  __PRA_86_063606_Table_1__
 1) create a working directory TEST and cd to it:
