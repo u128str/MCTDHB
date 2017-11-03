@@ -1,6 +1,6 @@
 # Arnoldi LR-MCTDHB:
 
-## A. How2 get sources? It is already in your $HOME/MCTDHB-master
+## A. How2 get sources? They are already in your ___$HOME/MCTDHB-master___
 <details>
 <summary> Click here to see how to get ./MCTDHB-master with git, wget or curl:</summary>
  a)  Clone the latest version of the MCTDHB package to the directory MCTDHB-master:
