@@ -12,11 +12,12 @@ For example:
 ```
 $ mkdir $HOME/TEST 
 ```
-2) copy files from the MCTDHB-master/Templates/PRA_86_063606_Table_1 to HIM_Table_1:
+2) Let say you would like to reproduce the tresults from  __PRA_86_063606_Table_1__,
+copy the corresponding directory files from the MCTDHB-master/Templates/__PRA_86_063606_Table_1__ to your TEST:
 ``` 
 $ cp -r $HOME/MCTDHB-test/Templates/PRA_86_063606_Table_1 $HOME/TEST/.
 ```
-3) cd to HIM_Table_1
+3) cd to TEST
 ```
 $ cd  $HOME/TEST 
 ```
@@ -25,6 +26,7 @@ $ cd  $HOME/TEST
  $ mpirun -n 2 $HOME/MCTDHB-master/bin/boson_MCTDHB_gnu_FFTW 
  ``` 
 the name of the exe file depends on a compiler used...
+
 4) After successfully done computation compare with reference: 
  ```
 vimdiff basic_info.out basic_info.out_Reference
