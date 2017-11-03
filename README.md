@@ -121,7 +121,8 @@ To run/test your local or Docker installation copy the __PRA_86_063606_Table_1__
 1) make TEST directory in your $HOME. In the case of usage of the MCTDHB with Docker ./TEST is already exists!
 ```
 cd && mkdir TEST
-cp -r $HOME/MCTDHB-test/Templates/PRA_86_063606_Table_1 $HOME/TEST/.```
+cp -r $HOME/MCTDHB-test/Templates/PRA_86_063606_Table_1 $HOME/TEST/.
+```
 2) All necessary input files, i.e, __input.in__ and __V_W_Psi_string.in__ should be in this directory:
 ```
 cd $HOME/TEST/PRA_86_063606_Table_1
@@ -160,11 +161,11 @@ mpirun -n 2 $HOME/MCTDHB-master/bin/boson_MCTDHB_gnu_FFTW ```
   Master               0  is DONE after   64.159628868103027     
 
 ```
-5) to compare with the Reference numbers use vimdiff: 
+4) to compare with the Reference numbers use vimdiff: 
 ```
 $ vimdiff basic_info.out basic_info.out_Reference 
 ```
-6)  __ENJOY__ MCTDHB with more [templates e.g. PRA_86_063606, PRA_88_023606, PRL_106_240401, PRL_99_030402 and others ](https://github.com/u128str/MCTDHB/tree/master/Templates)
+5)  __ENJOY__ MCTDHB with more [templates e.g. PRA_86_063606, PRA_88_023606, PRL_106_240401, PRL_99_030402 and others ](https://github.com/u128str/MCTDHB/tree/master/Templates)
 
 ```
  #===============================================================#
