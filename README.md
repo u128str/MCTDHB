@@ -154,7 +154,7 @@ user@mctdhb-user:~/TEST/PRA_86_063606_Table_1$ ls -ltrh *.in
 ```
 $ vimdiff basic_info.out basic_info.out_Reference 
 ```
-6)  __ENJOY__ MCTDHB with more [templates](https://github.com/u128str/MCTDHB/blob/master/Templates/README.md)
+6)  __ENJOY__ MCTDHB with more [templates e.g. PRA_86_063606, PRA_88_023606, PRL_106_240401, PRL_99_030402 and others ](https://github.com/u128str/MCTDHB/tree/master/Templates)
 
 ```
  #===============================================================#
