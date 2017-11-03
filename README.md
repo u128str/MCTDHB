@@ -118,7 +118,10 @@ The secondary goal is to reproduce some data from [PRA 86 063606](https://journa
 
 To run/test your local or Docker installation copy the __PRA_86_063606_Table_1__ templates files from $HOME/MCTDHB-master/Templates to $HOME/TEST. Here we assume that you have installed the MCTDHB package to  ```$HOME/MCTDHB-master```:
 
-1) ```cd && mkdir TEST``` make TEST directory in your $HOME. In the case of usage of the MCTDHB with Docker ./TEST is already exists!
+1) make TEST directory in your $HOME. In the case of usage of the MCTDHB with Docker ./TEST is already exists!
+```
+cd && mkdir TEST
+``` 
 2) ```$ cp -r $HOME/MCTDHB-test/Templates/PRA_86_063606_Table_1 $HOME/TEST/.```
 3) ```$ cd $HOME/TEST/PRA_86_063606_Table_1``` All necessary input files, i.e, __input.in__ and __V_W_Psi_string.in__ should be in this directory:
 ```
