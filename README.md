@@ -106,9 +106,9 @@ total 2668
 </details>
 
 
-## C. MCTDHB first run/test
+## C. MCTDHB first run/test with a template
 
-[More templates/tests are here] (https://github.com/u128str/MCTDHB/blob/master/Templates)
+[More templates/tests are here](https://github.com/u128str/MCTDHB/blob/master/Templates)
 
 The primary goal now is to verify/check correctness of the installation. 
 The secondary goal is to reproduce some data from [PRA 86 063606](https://journals.aps.org/pra/abstract/10.1103/PhysRevA.86.063606) [ArXiV:1207.5128](https://arxiv.org/abs/1207.5128).
