@@ -13,7 +13,7 @@ tar -xz --strip=2 MCTDHB-master/Templates/LR-arnoldi-1D-contact
 Every directory contains template files needed to reproduce different data or figures 
 from the computations published in different journals.
 
-### There are three kinds of computation available: 
+### There are three basic kinds of computations available within MCTDHB technology: 
 
 | Type of computation       | Input files needed |  Number of steps needed |
 | ------------- |:-------------:| :-------------: |
