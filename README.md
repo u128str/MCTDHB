@@ -62,7 +62,7 @@ total 2668
 </code></pre>
 
 <details>
-<summary> click here to see the steps needed to build the mctdhb docker image (you do it once to use afterwards):</summary>
+<summary> click here to see the steps needed to build the mctdhb docker image (actually you don't need it, but in the case...):</summary>
 a)  Get ./MCTDHB-master with the above step A and cd to it:
 <pre><code>
 $ cd $HOME/MCTDHB-master
