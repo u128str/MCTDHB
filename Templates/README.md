@@ -10,7 +10,7 @@ tar -xz --strip=2 MCTDHB-master/Templates/LR-arnoldi-1D-contact
 ```
 
 #  Templates
-Every diretory contains template files needed to reproduce different data or figures 
+Every directory contains template files needed to reproduce different data or figures 
 from the computations published in different journals.
 Typically, for
 
@@ -24,11 +24,11 @@ For example, let say you would like to reproduce the tresults from  __PRA_86_063
 mkdir $HOME/TEST \
 cd $HOME/TEST 
 ```
-2) Copy the corresponding directory with all files from the MCTDHB-master/Templates/__PRA_86_063606_Table_1__ to your TEST:
+2) Copy the corresponding template directory with all files from the MCTDHB-master/Templates/__PRA_86_063606_Table_1__ to your TEST:
 ``` 
 $ cp -r $HOME/MCTDHB-test/Templates/PRA_86_063606_Table_1 $HOME/TEST/.
 ```
-or from web with curl:
+or download __PRA_86_063606_Table_1__ from web with ___curl___:
 ```
 curl  https://codeload.github.com/u128str/MCTDHB/tar.gz/master  | \
 tar -xz --strip=2 MCTDHB-master/Templates/PRA_86_063606_Table_1
