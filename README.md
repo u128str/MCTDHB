@@ -121,15 +121,19 @@ To run/test your local or Docker installation copy the __PRA_86_063606_Table_1__
 1) make TEST directory in your $HOME. In the case of usage of the MCTDHB with Docker ./TEST is already exists!
 ```
 cd && mkdir TEST
+cp -r $HOME/MCTDHB-test/Templates/PRA_86_063606_Table_1 $HOME/TEST/.```
+2) All necessary input files, i.e, __input.in__ and __V_W_Psi_string.in__ should be in this directory:
+```
+cd $HOME/TEST/PRA_86_063606_Table_1
 ``` 
-2) ```$ cp -r $HOME/MCTDHB-test/Templates/PRA_86_063606_Table_1 $HOME/TEST/.```
-3) ```$ cd $HOME/TEST/PRA_86_063606_Table_1``` All necessary input files, i.e, __input.in__ and __V_W_Psi_string.in__ should be in this directory:
 ```
 user@mctdhb-user:~/TEST/PRA_86_063606_Table_1$ ls -ltrh *.in
 -rwxr-xr-x 1 user user 4.9K Nov  2 13:10 input.in
 -rwxr-xr-x 1 user user 1.4K Nov  2 13:10 V_W_Psi_string.in
 ```
-4)  ```$ mpirun -n 2 $HOME/MCTDHB-master/bin/boson_MCTDHB_gnu_FFTW ``` run MCTDHB simulation
+3) run MCTDHB simulation
+```
+mpirun -n 2 $HOME/MCTDHB-master/bin/boson_MCTDHB_gnu_FFTW ``` 
 ```
 ....
 ====================================================================================================
