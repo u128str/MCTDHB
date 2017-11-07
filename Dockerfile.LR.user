@@ -1,7 +1,7 @@
 # BUILD: docker build --no-cache -f Dockerfile.LR.user -t lr-mctdhb-user .  
 # RUN:   docker run --hostname lr-mctdhb-user --rm -it lr-mctdhb-user
 # RUN with your current local dir mounted to /base:   docker run --hostname lr-mctdhb-user --rm -it -v $(pwd):/base lr-mctdhb-user
-#
+# 
 #
 # Start with my min linux image
 FROM mctdhb/minunix:latest

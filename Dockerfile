@@ -1,6 +1,6 @@
 ## BUILD:                     docker build --no-cache -f Dockerfile -t mctdhb-user .
 ## RUN MCTDHB through docker: docker run --hostname mctdhb-user --rm -it -v $(pwd):/base mctdhb-user
-
+  
 ## RESTART: sudo service docker restart
 ## ADD DNS to sudo vim /etc/default/docker
 ## DOCKER_OPTS="--dns 141.xx.x.x --dns 8.8.8.8 --dns 8.8.4.4"

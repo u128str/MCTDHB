@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash 
 printf "       Welcome to docker part of MCTDHB enviroment\n\n" 
 printf "Help:              https://github.com/u128str/MCTDHB\n\n"
 printf "Template projects: https://github.com/u128str/MCTDHB/tree/master/Templates\n\n" 
