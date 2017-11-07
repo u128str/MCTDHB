@@ -1,18 +1,17 @@
+# BUILD: docker build --no-cache -f Dockerfile.LR.user -t lr-mctdhb-user .  
 # RUN:   docker run --hostname lr-mctdhb-user --rm -it lr-mctdhb-user
-# RUN with your current dir mounted to /tmp:   docker run --hostname lr-mctdhb-user --rm -it -v $(pwd):/tmp lr-mctdhb-user
-# BUILD:  docker build --no-cache -f Dockerfile.LR.user -t lr-mctdhb-user .  
-# Start with Ubuntu base image
+# RUN with your current local dir mounted to /base:   docker run --hostname lr-mctdhb-user --rm -it -v $(pwd):/base lr-mctdhb-user
+#
+#
+# Start with my min linux image
 FROM mctdhb/minunix:latest
 MAINTAINER  Alexej I. Streltsov  <u128str@gmail.com>
 
 ENV MKL_PATH=/opt/intel
 
-# Using yun-idc mirror
-# RUN sed -i 's/http:\/\/archive\.ubuntu\.com/http:\/\/mirrors\.yun-idc\.com/g' /etc/apt/sources.list
-
 # Install MKL dependency packages
 RUN apt-get update && \
-  apt-get install -y man tar wget cpio unzip autoconf sudo
+  apt-get install -y man tar wget cpio unzip autoconf sudo curl
 
 # Download and Install MKL install package
 RUN cd /tmp && \
@@ -39,13 +38,14 @@ RUN   wget https://github.com/opencollab/arpack-ng/archive/master.zip && \
    make install &&\ 
    cd ..  
 
-RUN adduser user && \
-    echo "user ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/user && \
-    chmod 0440 /etc/sudoers.d/user
+# Add user
+RUN useradd --create-home --shell /bin/bash user
 
-#RUN su - user -c "touch mine"
-
-CMD ["su", "-", "user", "-c", "/bin/bash"]
+#Here I copy hi-script printing basic help for user
+COPY ./inst_run_bash/hi /tmp/hi
+RUN su - user  -c "cd  && \
+cp /tmp/hi . &&\
+chmod +x ./hi"
 
 
 ENV MKLROOT ${MKL_PATH}/mkl
@@ -60,6 +60,7 @@ RUN su - user  -c "cd  && \
   mkdir ../TEST &&\
   cp -rf Templates/LR-arnoldi-* ../TEST/. "
 
-#  make mk=ARNOLDI_gcc_mkl.mk
-
-#CMD ["su", "-", "user", "-c", "/bin/bash"]
+ENV HOME /home/user
+ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/usr/local/lib
+USER  user
+ENTRYPOINT cd; /home/user/hi; /bin/bash

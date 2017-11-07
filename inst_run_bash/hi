@@ -1,0 +1,23 @@
+#!/bin/bash
+printf "       Welcome to docker part of MCTDHB enviroment\n\n" 
+printf "Help:              https://github.com/u128str/MCTDHB\n\n"
+printf "Template projects: https://github.com/u128str/MCTDHB/tree/master/Templates\n\n" 
+
+printf "       LR-arnoldi-1D-contact\n"
+printf "       LR-arnoldi-1D-him\n"      
+printf "       PRA_86_063606_Table_1\n"
+printf "       PRA_86_063606_Fig_4\n"
+printf "       PRL_106_240401_Fig2-3\n" 
+printf "       mctdh-MCTDHB_td_ramp-up\n"
+printf "       PRA_86_063606_Fig_5\n"  
+printf "       PRA_88_023606_LR_Table_1\n"
+printf "       PRL_99_030402_Fig2a\n\n"   
+
+printf "To copy, say, LR-arnoldi-1D-contact project type:\n"
+
+printf "curl  https://codeload.github.com/u128str/MCTDHB/tar.gz/master  | tar -xz --strip=2 MCTDHB-master/Templates/LR-arnoldi-1D-contact\n\n"
+
+printf "Your exefiles are:\n"
+echo "$(ls $HOME/MCTDHB-master/bin/*)"
+
+printf "\nTo mpi-run MCTDHB, cd to your PROJECT and type: mpirun -n 2 $HOME/MCTDHB-master/bin/boson_<exefile> \n"
