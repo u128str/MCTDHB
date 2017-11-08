@@ -31,14 +31,17 @@ The third and the easiest way is to use the MCTDHB-Laboratory with GUI (installe
 
 ### I. MCTDHB with MCTDHB-Laboratory
 [__Free__ cross-platform (Mac/Unix/Windows) GUI](http://www.mctdhb-lab.com)
+Here you have to install MCTDHB-Lab, Java, Gnuplot on your computer by yourself.
 
 [Mac](http://www.mctdhb-lab.com/images/how2-figs/launch_mac.jpg)
 [Windows](http://www.mctdhb-lab.com/images/how2-figs/Win_appearence.jpg)
 [Linux](http://www.mctdhb-lab.com/images/how2-figs/launch_linux.jpg)
 
 <details>
-<summary> click here to see run MCTDHB-Lab with Docker</summary>
-Here we assume that docker is already installed in your system
+<summary> Alternative: is to run the MCTDHB-Lab with Docker </summary>
+Here you have to install docker and build the image once (one command) and 
+Ubuntu, Java, Gnuplot, vim, Firefox and MCTDHB-Lab etc will be installed automatically in a Dockerimage
+which you can use afterwards: 
  
 1) Make a directory where you want to store your Lab projects:
 ```
@@ -47,9 +50,13 @@ cd Labs
 ```
 2) Download __Dockerfile.MCTDHB-Laboratory.ubuntu__ file:
 ```
-wget --no-check-certificate --content-disposition https://github.com/u128str/MCTDHB/archive/
+wget https://github.com/u128str/MCTDHB/blob/master/Dockerfile.MCTDHB-Laboratory.ubuntu
 ```
-3) Build mctdhb-lab Docker image (it has Ubuntu, Java, Gnuplot, vim, Firefox and MCTDHB-Lab):
+or 
+```
+curl -LJO  https://github.com/u128str/MCTDHB/blob/master/Dockerfile.MCTDHB-Laboratory.ubuntu
+```
+3) Build the mctdhb-lab Docker image (it has Ubuntu, Java, Gnuplot, vim, Firefox and MCTDHB-Lab):
 ```
 $ docker build --no-cache -f Dockerfile.MCTDHB-Laboratory.ubuntu -t mctdhb-lab  .
 ```
@@ -59,7 +66,7 @@ $ docker images
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 mctdhb-lab          latest              12fbb27c096d        About an hour ago   1.63GB
 ```
-4) Run it in graphic mode:
+4) Run it in graphic mode (on linux):
 ```
 docker run -ti --rm  -v $(pwd):/work  -e DISPLAY=$DISPLAY    -v /tmp/.X11-unix:/tmp/.X11-unix  mctdhb-lab
 ```
