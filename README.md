@@ -71,7 +71,7 @@ mctdhb-lab          latest              12fbb27c096d        About an hour ago   
 docker run -ti --rm  -v $(pwd):/work  -e DISPLAY=$DISPLAY    -v /tmp/.X11-unix:/tmp/.X11-unix  mctdhb-lab
 ```
 
-5) In the docker Ubintu all your projects are located in /work directory. On your base machine it is in the Labs directory. Enjoy the Lab.
+5) In the docker-Ubuntu all your projects are located in /work directory. On your base machine they are in the __./Labs__ directory. Enjoy the Lab.
 </details>
 
 ### II. MCTDHB with Docker technology
