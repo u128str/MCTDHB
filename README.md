@@ -36,6 +36,37 @@ The third and the easiest way is to use the MCTDHB-Laboratory with GUI (installe
 [Windows](http://www.mctdhb-lab.com/images/how2-figs/Win_appearence.jpg)
 [Linux](http://www.mctdhb-lab.com/images/how2-figs/launch_linux.jpg)
 
+<details>
+<summary> click here to see run MCTDHB-Lab with Docker</summary>
+Here we assume that docker is already installed in your system
+ 
+1) Make a directory where you want to store your Lab projects:
+```
+mkdir Labs
+cd Labs
+```
+2) Download __Dockerfile.MCTDHB-Laboratory.ubuntu__ file:
+```
+wget --no-check-certificate --content-disposition https://github.com/u128str/MCTDHB/archive/
+```
+3) Build mctdhb-lab Docker image (it has Ubuntu, Java, Gnuplot, vim, Firefox and MCTDHB-Lab):
+```
+$ docker build --no-cache -f Dockerfile.MCTDHB-Laboratory.ubuntu -t mctdhb-lab  .
+```
+It takes few minutes and 1.6GB of your disk storage:
+```
+$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+mctdhb-lab          latest              12fbb27c096d        About an hour ago   1.63GB
+```
+4) Run it in graphic mode:
+```
+docker run -ti --rm  -v $(pwd):/work  -e DISPLAY=$DISPLAY    -v /tmp/.X11-unix:/tmp/.X11-unix  mctdhb-lab
+```
+
+5) In the docker Ubintu all your projects are located in /work directory. On your base machine it is in the Labs directory. Enjoy the Lab.
+</details>
+
 ### II. MCTDHB with Docker technology
 #### [How2 install docker] (https://www.docker.com/community-edition)
 <details>
