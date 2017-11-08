@@ -50,11 +50,11 @@ cd Labs
 ```
 2) Download __Dockerfile.MCTDHB-Laboratory.ubuntu__ file:
 ```
-wget https://github.com/u128str/MCTDHB/blob/master/Dockerfile.MCTDHB-Laboratory.ubuntu
+wget https://raw.githubusercontent.com/u128str/MCTDHB/master/Dockerfile.MCTDHB-Laboratory.ubuntu
 ```
 or 
 ```
-curl -LJO  https://github.com/u128str/MCTDHB/blob/master/Dockerfile.MCTDHB-Laboratory.ubuntu
+curl -LJO  https://raw.githubusercontent.com/u128str/MCTDHB/master/Dockerfile.MCTDHB-Laboratory.ubuntu
 ```
 3) Build the mctdhb-lab Docker image (it has Ubuntu, Java, Gnuplot, vim, Firefox and MCTDHB-Lab):
 ```
