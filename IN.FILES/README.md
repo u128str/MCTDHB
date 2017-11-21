@@ -6,7 +6,8 @@ MCTDHB and/or Arnoldi LR MCTDHB packages installed localy or with Docker:
 #### [Arnoldi LR MCTDHB how2 get/install/test etc](https://github.com/u128str/MCTDHB/blob/master/LR-ARNOLDI.md)
 
 You can use these files to start with...  __BUT it is better__ to download a specific directory with the corresponding template
-[for full set of the available templtes see|(https://github.com/u128str/MCTDHB/edit/master/Templates/README.md)
+[for full set of the available templtes see|(https://github.com/u128str/MCTDHB/edit/master/Templates)
+
 ### To download, say, template _LR-arnoldi-1D-contact_:
 
 ```
@@ -60,4 +61,4 @@ vimdiff basic_info.out basic_info.out_Reference
  ```
 5) To get other numbers please change M, Npar in input.in  and restart the job
 
-#### Each directory contains individual README(.md) files with more instructions and output details...
+#### Each template directory contains individual README(.md) files with more instructions and output details...
